@@ -1,14 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <GL/glut.h>
+#include "3Dobjects.h"
 
 int o;
 GLfloat viewangle;
 
 void initRendering(void);
-void drawScene(void);	// add options for AND, OR, 1 MINUS 2, 2 MINUS 1, SHOW 1, SHOW 2.
-void keyboardToggler(unsigned char, int, int);	// add movement using wasd and rotation using qe.
+void drawScene(void);	//TODO: add options for AND, OR, 1 MINUS 2, 2 MINUS 1, SHOW 1, SHOW 2.
+void keyboardToggler(unsigned char, int, int);	//TODO: add movement using wasd and rotation using qe.
 
 int main(int argc, char* argv[])
 {
@@ -66,6 +63,7 @@ void initRendering(void)
 	glEnable(GL_LIGHT0);
 }
 
+//TODO
 void drawScene(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -130,7 +128,7 @@ void drawScene(void)
 	glFlush();
 }
 
-
+//TODO
 void keyboardToggler(unsigned char c, int x, int y)
 {
 	switch(c)
