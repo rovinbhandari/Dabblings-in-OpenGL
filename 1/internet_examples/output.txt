@@ -1,0 +1,9 @@
+Reading No.: 0
+Intensity at vertex(-5.000000,-5.000000,5.000000) : 0.200000
+Intensity at vertex(5.000000,-5.000000,5.000000) : 0.200000
+Intensity at vertex(5.000000,-5.000000,-5.000000) : 0.200000
+Intensity at vertex(-5.000000,-5.000000,-5.000000) : 0.200000
+Intensity at vertex(-5.000000,5.000000,5.000000) : 0.200000
+Intensity at vertex(5.000000,5.000000,5.000000) : 2.199999
+Intensity at vertex(5.000000,5.000000,-5.000000) : 0.200000
+Intensity at vertex(-5.000000,5.000000,-5.000000) : 0.200000
