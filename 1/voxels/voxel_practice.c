@@ -10,9 +10,8 @@
 #include <math.h>
 
 #define LENedge      0.2d
-#define MAXradius    14.0d
-#define MAXedge      ((MAXradius + 2.0d))
-#define PI           3.141d
+#define RADIUS       14.0d
+#define MAXedge      (RADIUS + 2.0d)
 
 GLdouble eyex = 6.0;
 GLdouble eyey = 6.0;
@@ -55,14 +54,17 @@ void display (void)
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
 
    GLdouble i, j, k;
+   double dist, maxradius, minradius;
    for(i = -1 * MAXedge * LENedge; i <= MAXedge * LENedge; i += LENedge)
    {
       for(j = -1 * MAXedge * LENedge; j <= MAXedge * LENedge; j += LENedge)
       {
          for(k = -1 * MAXedge * LENedge; k <= MAXedge * LENedge; k += LENedge)
          {
-            //if(i == (MAXradius - 1) * LENedge || j == (MAXradius - 1) * LENedge || k == (MAXradius - 1) * LENedge || i == 0.0d || j == 0.0d || k == 0.0d)   // rendering only the visible layer of the cube.
-            if(sqrt((double) i * (double) i + (double) j * (double) j + (double) k * (double) k) <= MAXradius * LENedge + LENedge / 2)
+            dist = sqrt(i * i + j * j + k * k);
+            maxradius = RADIUS * LENedge + LENedge / 2;
+            minradius = (RADIUS - 2.0d) * LENedge - LENedge / 2;
+            if(dist > minradius && dist <= maxradius)
             {
                glPushMatrix();
                glTranslated(i, j, k);
