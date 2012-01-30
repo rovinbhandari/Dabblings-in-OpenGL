@@ -1,0 +1,6 @@
+
+1. void glClear( GLbitfield mask )   :- Clears buffers with viewports
+   Available masks :- GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_ACCUM_BUFFER_BIT, GL_STENCIL_BUFFER_BIT.
+
+2. 
+                                     
