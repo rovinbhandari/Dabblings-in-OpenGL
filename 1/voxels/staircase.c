@@ -5,24 +5,18 @@
 
 #include <GL/glut.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
+#define LENedge   1.0d
+#define MAXedge   4
+
 GLdouble eyex = 6.0;
-GLdouble eyey = 0.0;
+GLdouble eyey = 6.0;
 GLdouble eyez = 6.0;
 
 static GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
-static GLfloat sphere_mat[] =
-{0.2f, .1f, 0.2f, 1.f};
-static GLfloat cube_mat[] = 
-{0, 1, 0, 1};
-static GLfloat cube2_mat[] = 
-{0.4, 0.3, 0, 1};
-static GLfloat octa_mat[] =
-{0.4,0.4,0.8,0};
-static GLfloat cone_mat[] =
-{0.8,0.4,0.0,0};
 static GLfloat lightcol[] =
 {1.0,1.0,1,0};
 
@@ -43,35 +37,44 @@ void init (void)
    glShadeModel (GL_FLAT);
 }
 
-
-/* Draw a sphere */
-GLfloat sphereX = 0.f, sphereY = 0.f, sphereZ = 0.f;
-
-/* Function to draw sphere */
-void make_sphere(void)
-{
-  glPushMatrix();
-  glTranslatef(sphereX, sphereY, sphereZ);
-  glCallList(1);
-  glPopMatrix();
-
-}
-
-
 void display (void)
 {
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-   
    glLoadIdentity ();
    
    /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, octa_mat);
-   glutSolidCube (1.0);
-   glPopMatrix ();
+   GLfloat cube_mat[] = 
+   {0.1, 0.1, 0.1, 1};
+
+   GLdouble i, j, k;
+   int l;
+   for(i = 0.0d; i < MAXedge * LENedge; i += LENedge)
+   {
+      for(j = 0.0d; j < MAXedge * LENedge; j += LENedge)
+      {
+         cube_mat[0] += 0.03;
+         cube_mat[1] += 0.03;
+         cube_mat[2] += 0.03;
+         /*
+         for(l = 0; l < 4; l++)
+            printf("%f\n", (float) cube_mat[l]);
+         */
+         for(k = 0.0d; k < MAXedge * LENedge; k += LENedge)
+         {
+            if(i == (MAXedge - 1) * LENedge || j == (MAXedge - 1) * LENedge || k == (MAXedge - 1) * LENedge || i == 0.0d || j == 0.0d || k == 0.0d)   // rendering only the visible layer of the cube.
+            {
+               glPushMatrix ();
+               glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+               glTranslated(i, j, k);
+               glutSolidCube(LENedge);
+               glPopMatrix ();
+            }
+         }
+      }
+   }
 
    glutSwapBuffers();
 }
