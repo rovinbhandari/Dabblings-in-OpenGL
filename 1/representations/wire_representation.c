@@ -19,6 +19,8 @@ static GLfloat torus_mat[] =
 {0.5, 0.5, 0, 1};
 static GLfloat cube_mat[] = 
 {0, 1, 0, 1};
+static GLfloat cube2_mat[] = 
+{0, 0, 1, 1};
 static GLfloat lightcol[] =
 {1.0,1.0,1,0};
 
@@ -109,6 +111,41 @@ void displayWireTorus (void)
    }
    glEnd ();
 
+   y_min = -3;
+   x_min = -8;
+   z_min = 0;
+   y_max = y_min + edge_size;
+   x_max = x_min + edge_size;
+   z_max = z_min + edge_size;
+   
+   memcpy (torus_mat, cube2_mat, sizeof(GLfloat) * 4) ;
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, torus_mat);
+   /* 
+    XXX XXX :- BUG : doesn't work with 
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube2_mat);
+     It changes the color of the Torus as well. 
+    */
+//   glDisable (GL_POINT_SMOOTH);
+   glPointSize (point_size);
+   glBegin (GL_POINTS);
+//   glColor3f (1.0,0, 1.0);
+   for ( i = x_min; i <= x_max; i += distance)
+   {
+      for ( j = y_min; j <= y_max; j += distance )
+      {
+         for ( k = z_min; k <= z_max; k += distance)
+         {
+            if ( ( i == x_min 
+                || j == y_min
+                || k == z_min))
+            {
+              glVertex3f (i, j, k);
+            }
+
+         }
+      }
+   }
+   glEnd ();
 
    glPushMatrix();
    glRotatef(viewangle, 0.f, 1.f, 0.f);
@@ -152,7 +189,7 @@ int main (int argc, char **argv)
 {
    glutInit (&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (500, 500);               // TODO : Reference
+   glutInitWindowSize (750, 750);               // TODO : Reference
    glutCreateWindow (argv[0]);                  // TODO : Reference
    init ();
 
