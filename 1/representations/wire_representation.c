@@ -17,6 +17,8 @@ static GLfloat sphere_mat[] =
 {0.2f, .1f, 0.2f, 1.f};
 static GLfloat torus_mat[] =
 {0.5, 0.5, 0, 1};
+static GLfloat cube_mat[] = 
+{0, 1, 0, 1};
 static GLfloat lightcol[] =
 {1.0,1.0,1,0};
 
@@ -68,6 +70,37 @@ void displayWireTorus (void)
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
    glutWireTorus (0.5, 2.0, 30, 50);
    
+
+   GLfloat i, j, k;
+ 
+   GLfloat x_min, x_max;
+   GLfloat y_min, y_max;
+   GLfloat z_min, z_max;
+   GLfloat size = 2.0;
+   GLfloat distance = 0.05;
+
+   y_min = x_min = -5;
+   z_min = -2;
+   y_max = y_min + size;
+   x_max = x_min + size;
+   z_max = z_min + size;
+   
+
+   glBegin (GL_POINTS);
+   glColor3f (1.0,0, 1.0);
+//   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+   for ( i = x_min; i <= x_max; i += distance)
+   {
+      for ( j = y_min; j <= y_max; j += distance )
+      {
+         for ( k = z_min; k <= z_max; k += distance)
+         {
+            glVertex3f (i, j, k);
+         }
+      }
+   }
+   glEnd ();
+
 
    glPushMatrix();
    glRotatef(viewangle, 0.f, 1.f, 0.f);
