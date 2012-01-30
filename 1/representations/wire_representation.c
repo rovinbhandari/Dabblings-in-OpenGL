@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-GLdouble eyex = 7.0;
+GLdouble eyex = 6.0;
 GLdouble eyey = 0.0;
-GLdouble eyez = 7.0;
+GLdouble eyez = 6.0;
 
 static GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
@@ -18,7 +18,7 @@ static GLfloat sphere_mat[] =
 static GLfloat cube_mat[] = 
 {0, 1, 0, 1};
 static GLfloat cube2_mat[] = 
-{0, 0, 1, 1};
+{0.4, 0.3, 0, 1};
 static GLfloat octa_mat[] =
 {0.4,0.4,0.8,0};
 static GLfloat cone_mat[] =

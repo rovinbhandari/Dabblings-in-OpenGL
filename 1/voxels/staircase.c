@@ -1,75 +1,107 @@
-#include <GL/gl.h>
+/* Program to create a wireframe cube and torus
+ * Author : Rajat Khanduja
+ * Date : 30/1/12
+ */
+
 #include <GL/glut.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include <string.h>
 
-#define EDGESIZE  1.00
+GLdouble eyex = 6.0;
+GLdouble eyey = 0.0;
+GLdouble eyez = 6.0;
 
-GLdouble eyex = 8.4;
-GLdouble eyey = 8.4;
-GLdouble eyez = 8.4;
+static GLfloat lightpos[] =
+{10.f, 10.f, 10.f, 1.f};
+static GLfloat sphere_mat[] =
+{0.2f, .1f, 0.2f, 1.f};
+static GLfloat cube_mat[] = 
+{0, 1, 0, 1};
+static GLfloat cube2_mat[] = 
+{0.4, 0.3, 0, 1};
+static GLfloat octa_mat[] =
+{0.4,0.4,0.8,0};
+static GLfloat cone_mat[] =
+{0.8,0.4,0.0,0};
+static GLfloat lightcol[] =
+{1.0,1.0,1,0};
 
-GLfloat viewangle;
-
-static GLfloat lightgray[] =
-{0.2, 0.2, 0.2, 1};
-static GLfloat gray[] =
-{0.5, 0.5, 0.5, 1};
-static GLfloat darkgray[] =
-{0.8, 0.8, 0.8, 1};
-
-void keyboard(unsigned char key, int x, int y)
+void keyboard (unsigned char key, int x, int y)
 {
-   switch(key)
+   switch (key)
    {
-      case 27: exit(0);
+      case 27 :
+         exit (0);
    }
 }
 
-void init(void)
+GLfloat viewangle;
+
+void init (void)
 {
-   glClearColor(0.0, 0.0, 0.0, 0.0);
-   glShadeModel(GL_FLAT);
+   glClearColor (0.0, 0.0, 0.0, 0.0);
+   glShadeModel (GL_FLAT);
 }
 
-void display(void)
-{
-   /* clear stencil each time */
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-   glLoadIdentity();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, lightgray);
 
+/* Draw a sphere */
+GLfloat sphereX = 0.f, sphereY = 0.f, sphereZ = 0.f;
+
+/* Function to draw sphere */
+void make_sphere(void)
+{
+  glPushMatrix();
+  glTranslatef(sphereX, sphereY, sphereZ);
+  glCallList(1);
+  glPopMatrix();
+
+}
+
+
+void display (void)
+{
+   /* Clear stencile each time */
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+   
+   glLoadIdentity ();
+   
+   /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   glPushMatrix();
-   //glRotatef(viewangle, 0.f, 1.f, 0.f);
- 
-   //glEnable(GL_DEPTH_TEST);
-   glutSolidCube(EDGESIZE);
-   //glDisable(GL_DEPTH_TEST);
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, octa_mat);
+   glutSolidCube (1.0);
+   glPopMatrix ();
 
-   glPopMatrix();
    glutSwapBuffers();
-   
-   glFlush();
 }
 
-int main(int argc, char **argv)
+void reshape (int w, int h)
 {
-   glutInit(&argc, argv);
-   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize(500, 500);               // TODO : Reference
-   glutCreateWindow(argv[0]);                  // TODO : Reference
-   init();
+   glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+   glMatrixMode (GL_PROJECTION);
+   glLoadIdentity ();
+   glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+   glMatrixMode (GL_MODELVIEW);
+}
+
+int main (int argc, char **argv)
+{
+   glutInit (&argc, argv);
+   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+   glutInitWindowSize (750, 750);               // TODO : Reference
+   glutCreateWindow (argv[0]);                  // TODO : Reference
+   init ();
 
    /* Set the display function */
-   glutDisplayFunc(&display);
+   glutDisplayFunc (&display);
+
+   /* Set the reshape function */
+   glutReshapeFunc (&reshape);
 
    /* Set the keyboard function */
-   glutKeyboardFunc(&keyboard);
-
-/*
-   GLUquadricObj *sphere;
+   glutKeyboardFunc (&keyboard);
+   
    glEnable(GL_CULL_FACE);
    glEnable(GL_LIGHTING);
    glEnable(GL_LIGHT0);
@@ -78,16 +110,6 @@ int main(int argc, char **argv)
    glLightfv (GL_LIGHT0, GL_AMBIENT, lightcol);
    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
-   // make display lists for sphere and cone; for efficiency
-
-   glNewList(1, GL_COMPILE);
-   sphere = gluNewQuadric();
-   //glMaterialf (GL_FRONT_AND_BACK, GL_SHININESS, 100);
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
-   gluSphere(sphere, 1.f, 100, 100);
-   gluDeleteQuadric(sphere);
-   glEndList();
-*/
    
    glMatrixMode(GL_PROJECTION);
    glOrtho(-50., 50., -50., 50., -50., 50.);
