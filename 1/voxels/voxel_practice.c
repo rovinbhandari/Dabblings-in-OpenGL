@@ -10,8 +10,9 @@
 #include <math.h>
 
 #define LENedge      0.2d
-#define RADIUS       14.0d
+#define RADIUS       10.0d
 #define MAXedge      (RADIUS + 2.0d)
+#define MAXlen       20.0d
 
 GLdouble eyex = 6.0;
 GLdouble eyey = 6.0;
@@ -48,23 +49,22 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   GLfloat sphere_mat[] = 
+   GLfloat cylinder_mat[] = 
    {0.2, 0.2, 0.2, 1};
 
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cylinder_mat);
 
    GLdouble i, j, k;
-   double dist, maxradius, minradius;
+   double dist, maxradius;
    for(i = -1 * MAXedge * LENedge; i <= MAXedge * LENedge; i += LENedge)
    {
       for(j = -1 * MAXedge * LENedge; j <= MAXedge * LENedge; j += LENedge)
       {
-         for(k = -1 * MAXedge * LENedge; k <= MAXedge * LENedge; k += LENedge)
+         for(k = 0.0d; k <= MAXlen * LENedge; k += LENedge)
          {
-            dist = sqrt(i * i + j * j + k * k);
+            dist = sqrt(i * i + j * j);
             maxradius = RADIUS * LENedge + LENedge / 2;
-            minradius = (RADIUS - 2.0d) * LENedge - LENedge / 2;
-            if(dist > minradius && dist <= maxradius)
+            if(dist <= maxradius)
             {
                glPushMatrix();
                glTranslated(i, j, k);
