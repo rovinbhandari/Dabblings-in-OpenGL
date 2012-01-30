@@ -2,5 +2,15 @@
 1. void glClear( GLbitfield mask )   :- Clears buffers with viewports
    Available masks :- GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_ACCUM_BUFFER_BIT, GL_STENCIL_BUFFER_BIT.
 
-2. 
+2. void glutSolidTorus (GLdouble innerRadius, GLdouble outerRadius, GLint nsides, GLint rings);
+   void glutWireTorus  (GLdouble innerRadius, GLdouble outerRadius, GLint nsides, GLint rings);
+
+3. void glutSolidSphere(GLdouble radius, GLint slices, GLint stacks)
+   void glutWireSphere (GLdouble radius, GLint slices, GLint stacks);
+
+4. void glutSolidCone(GLdouble base, GLdouble height, GLint slices, GLint stacks);
+   void glutSolidCone(GLdouble base, GLdouble height, GLint slices, GLint stacks);
+
+5. void glutSolidCube(GLdouble size);
+   void glutWireCube(GLdouble size);
                                      
