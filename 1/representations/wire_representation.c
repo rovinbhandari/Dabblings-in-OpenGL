@@ -7,22 +7,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-GLdouble eyex = 5.0;
+GLdouble eyex = 7.0;
 GLdouble eyey = 0.0;
-GLdouble eyez = 5.0;
+GLdouble eyez = 7.0;
 
 static GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
 static GLfloat sphere_mat[] =
 {0.2f, .1f, 0.2f, 1.f};
-static GLfloat torus_mat[] =
-{0.5, 0.5, 0, 1};
 static GLfloat cube_mat[] = 
 {0, 1, 0, 1};
 static GLfloat cube2_mat[] = 
 {0, 0, 1, 1};
-static GLfloat tetra_mat[] =
+static GLfloat octa_mat[] =
 {0.4,0.4,0.8,0};
+static GLfloat cone_mat[] =
+{0.8,0.4,0.0,0};
 static GLfloat lightcol[] =
 {1.0,1.0,1,0};
 
@@ -70,16 +70,25 @@ void displayWireTorus (void)
    glLoadIdentity ();
 //   glRotatef ( 90, 0, 0, 1);
 
+   gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
    glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, tetra_mat);
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, octa_mat);
    glTranslated (2, 0, -5);
-   glutSolidTetrahedron();
+   glutSolidOctahedron();
    glPopMatrix ();
 
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cone_mat);
+   glTranslated (1, 3, 2);
+//   glRotated (-60, 0, 1, 0);
+   glutWireCone (0.8, 2.0, 30, 30);
+   glPopMatrix ();
+
+   GLfloat torus_mat[] = {0.5, 0.5, 0, 1};
+   
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, torus_mat);
 
 
-   gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
    glutWireTorus (0.5, 2.0, 30, 50);
    
 
