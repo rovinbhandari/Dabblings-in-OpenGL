@@ -5,7 +5,7 @@
 
 #include <GL/glut.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 GLdouble eyex = 5.0;
 GLdouble eyey = 0.0;
@@ -76,19 +76,27 @@ void displayWireTorus (void)
    GLfloat x_min, x_max;
    GLfloat y_min, y_max;
    GLfloat z_min, z_max;
-   GLfloat size = 2.0;
+   GLfloat edge_size = 2.0;
+   GLfloat point_size = .5;
    GLfloat distance = 0.05;
 
    y_min = x_min = -5;
    z_min = -2;
-   y_max = y_min + size;
-   x_max = x_min + size;
-   z_max = z_min + size;
+   y_max = y_min + edge_size;
+   x_max = x_min + edge_size;
+   z_max = z_min + edge_size;
    
-
+   memcpy (torus_mat, cube_mat, sizeof(GLfloat) * 4) ;
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, torus_mat);
+   /* 
+    XXX XXX :- BUG : doesn't work with 
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+     It changes the color of the Torus as well. 
+    */
+//   glDisable (GL_POINT_SMOOTH);
+   glPointSize (point_size);
    glBegin (GL_POINTS);
-   glColor3f (1.0,0, 1.0);
-//   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+//   glColor3f (1.0,0, 1.0);
    for ( i = x_min; i <= x_max; i += distance)
    {
       for ( j = y_min; j <= y_max; j += distance )
