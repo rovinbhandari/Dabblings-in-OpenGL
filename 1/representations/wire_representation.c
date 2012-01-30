@@ -43,18 +43,12 @@ void init (void)
    glShadeModel (GL_FLAT);
 }
 
-void displayWireInit (void)
-{
-   /* clear stencil each time */
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-      
-   
-}
 
 /* Draw a sphere */
 GLfloat sphereX = 0.f, sphereY = 0.f, sphereZ = 0.f;
-void
-make_sphere(void)
+
+/* Function to draw sphere */
+void make_sphere(void)
 {
   glPushMatrix();
   glTranslatef(sphereX, sphereY, sphereZ);
@@ -64,36 +58,38 @@ make_sphere(void)
 }
 
 
-void displayWireTorus (void)
+void display (void)
 {
-   displayWireInit ();
+   /* Clear stencile each time */
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+   
    glLoadIdentity ();
-//   glRotatef ( 90, 0, 0, 1);
-
+   
+   /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+   
+   /* Create octahedron */
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, octa_mat);
    glTranslated (2, 0, -5);
    glutSolidOctahedron();
    glPopMatrix ();
 
+   /* Create Wire Cone */
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cone_mat);
    glTranslated (1, 3, 2);
-//   glRotated (-60, 0, 1, 0);
    glutWireCone (0.8, 2.0, 30, 30);
    glPopMatrix ();
 
+   /* Create wire Torus */
    GLfloat torus_mat[] = {0.5, 0.5, 0, 1};
-   
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, torus_mat);
-
-
    glutWireTorus (0.5, 2.0, 30, 50);
    
 
-   GLfloat i, j, k;
- 
+   /* Create point-based Cube */
+   GLfloat i, j, k; 
    GLfloat x_min, x_max;
    GLfloat y_min, y_max;
    GLfloat z_min, z_max;
@@ -130,6 +126,7 @@ void displayWireTorus (void)
    }
    glEnd ();
 
+   /* Create point based cube-interior surface */
    y_min = -3;
    x_min = -8;
    z_min = 0;
@@ -166,22 +163,21 @@ void displayWireTorus (void)
    }
    glEnd ();
 
+   /* Create a sphere */
    glPushMatrix();
    glRotatef(viewangle, 0.f, 1.f, 0.f);
- 
    glEnable(GL_DEPTH_TEST);
    make_sphere ();  
    glDisable(GL_DEPTH_TEST);
-
    glPopMatrix();
+
    glutSwapBuffers();
-   
-   glFlush ();
 }
 
+/* Not used now */
 void displayWireCube (void)
 {
-   displayWireInit ();
+//   displayWireInit ();
    glLoadIdentity ();      /* No matrix loaded, hence cleared*/
 
    /* gluLookAt (GLdouble eyex, GLdouble eyey, GLdouble eyez,
@@ -213,7 +209,7 @@ int main (int argc, char **argv)
    init ();
 
    /* Set the display function */
-   glutDisplayFunc (&displayWireTorus);
+   glutDisplayFunc (&display);
 
    /* Set the reshape function */
    glutReshapeFunc (&reshape);
