@@ -21,6 +21,8 @@ static GLfloat cube_mat[] =
 {0, 1, 0, 1};
 static GLfloat cube2_mat[] = 
 {0, 0, 1, 1};
+static GLfloat tetra_mat[] =
+{0.4,0.4,0.8,0};
 static GLfloat lightcol[] =
 {1.0,1.0,1,0};
 
@@ -67,7 +69,15 @@ void displayWireTorus (void)
    displayWireInit ();
    glLoadIdentity ();
 //   glRotatef ( 90, 0, 0, 1);
+
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, tetra_mat);
+   glTranslated (2, 0, -5);
+   glutSolidTetrahedron();
+   glPopMatrix ();
+
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, torus_mat);
+
 
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
    glutWireTorus (0.5, 2.0, 30, 50);
