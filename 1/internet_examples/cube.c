@@ -56,7 +56,7 @@ void display(void)
    glColor3f (1.0, 1.0, 1.0);
    glLoadIdentity ();             /* clear the matrix */
            /* viewing transformation  */
-   gluLookAt (0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+     gluLookAt (7.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
    glScalef (1.0, 2.0, 1.0);      /* modeling transformation */ 
    glutWireCube (1.0);
    glFlush ();
