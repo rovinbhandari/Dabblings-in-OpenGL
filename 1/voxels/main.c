@@ -8,6 +8,49 @@ GLfloat lightpos[] =
 GLfloat lightcol[] =
 {1.0,1.0,1,0};
 
+void init (void)
+{
+   glClearColor (0.0, 0.0, 0.0, 0.0);
+   glShadeModel (GL_FLAT);
+}
+
+void display (void)
+{
+	GLdouble eyex = 6.0;
+	GLdouble eyey = 6.0;
+	GLdouble eyez = 6.0;
+
+   /* Clear stencile each time */
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+   glLoadIdentity ();
+   
+   /* Set eye and viewing direction */
+   gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+
+   GLfloat voxel_mat[] = 
+   {0.f, 0.f, 1, 1};
+   
+	vlInit (1.0);
+	
+	/* Create a voxel */
+	glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
+	glTranslated (0,0,5);
+   vlVoxel ();
+   glPopMatrix ();
+
+	/* Create a cube using voxelib */
+   GLfloat cube_mat[] = 
+   {0.1, 0.1, 0.1, 1};
+	glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+   vlCube (4.0);
+   glPopMatrix ();
+
+   
+	glutSwapBuffers ();
+}
+
 void keyboard (unsigned char key, int x, int y)
 {
    switch (key)
@@ -35,7 +78,7 @@ int main (int argc, char **argv)
    init ();
 
    /* Set the display function */
-   glutDisplayFunc (&display_cube);
+   glutDisplayFunc (&display);
 
    /* Set the reshape function */
    glutReshapeFunc (&reshape);

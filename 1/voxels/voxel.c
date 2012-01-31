@@ -1,6 +1,7 @@
 #include <voxel.h>
 
 #define LENedge   1.0d
+#define MAXedge 2  
 
 GLdouble eyex = 6.0;
 GLdouble eyey = 6.0;
@@ -8,10 +9,11 @@ GLdouble eyez = 6.0;
 
 GLfloat viewangle;
 
-void init (void)
+GLdouble edge = 1.0;
+
+void vlInit (GLdouble voxel_size)
 {
-   glClearColor (0.0, 0.0, 0.0, 0.0);
-   glShadeModel (GL_FLAT);
+   edge = voxel_size;
 }
 
 void display_init (void)
@@ -25,31 +27,45 @@ void display_init (void)
 
 }
 
-void display_voxel (void)
+void vlVoxel ()
 {
-   display_init ();
+//   display_init ();
    
-   GLfloat cube_mat[] = 
+/*   GLfloat cube_mat[] = 
    {0.1, 0.1, 0.1, 1};
    
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-   glutSolidCube(LENedge);
-   glPopMatrix ();
+*/
+//   edge = LENedge ;
+   glutSolidCube(edge);
+/*   glPopMatrix ();
+
+   glutSwapBuffers (); */
 
 }
 
-void display_cube (void)
+/*void display_voxel_translated (GLdouble x, GLdouble y, GLdouble z)
 {
-   display_init ();
+   glPushMatrix ();
+   glTranslate (x, y, z);
+   display_voxel ();
+   glPopMatrix ();
+}*/
+
+
+void vlCube (GLdouble units)
+{
+//   display_init ();
    GLfloat cube_mat[] = 
    {0.1, 0.1, 0.1, 1};
 
+//   units = MAXedge;  
+
    GLdouble i, j, k;
-   int l;
-   for(i = 0.0d; i < MAXedge * LENedge; i += LENedge)
+   for(i = 0.0d; i < units * edge; i += edge)
    {
-      for(j = 0.0d; j < MAXedge * LENedge; j += LENedge)
+      for(j = 0.0d; j < units * edge; j += edge)
       {
          cube_mat[0] += 0.03;
          cube_mat[1] += 0.03;
@@ -58,21 +74,20 @@ void display_cube (void)
          for(l = 0; l < 4; l++)
             printf("%f\n", (float) cube_mat[l]);
          */
-         for(k = 0.0d; k < MAXedge * LENedge; k += LENedge)
+         for(k = 0.0d; k < units * edge; k += edge)
          {
-            if(i == (MAXedge - 1) * LENedge || j == (MAXedge - 1) * LENedge || k == (MAXedge - 1) * LENedge || i == 0.0d || j == 0.0d || k == 0.0d)   // rendering only the visible layer of the cube.
+            if(i == (units - 1) * edge || j == (units - 1) * edge || k == (units - 1) * edge || i == 0.0d || j == 0.0d || k == 0.0d)   // rendering only the visible layer of the cube.
             {
                glPushMatrix ();
-               glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+//              glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
                glTranslated(i, j, k);
-               glutSolidCube(LENedge);
+     //          glutSolidCube(LENedge);     // Replacing with voxelib function
+               vlVoxel ();
                glPopMatrix ();
             }
          }
       }
    }
 
-   glutSwapBuffers();
+//   glutSwapBuffers();
 }
-
-

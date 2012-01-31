@@ -6,9 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAXedge 2  
 
-void init (void);
-void display_cube (void);
+void vlInit (GLdouble voxel_size);
+void vlVoxel ();
+
+void vlCube  (GLdouble units);
 
 #endif   // End of file
