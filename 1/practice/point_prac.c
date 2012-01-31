@@ -12,7 +12,7 @@ void display (void)
    // Set drawing color
    glColor3f (1.0, 1.0, 1.0);
 
-   float i, j, k;
+/*   float i, j, k;
  
    gluLookAt (-1, 0.5 , -0.3, 0, 0, 0, 0, 1, 0);
 
@@ -28,6 +28,10 @@ void display (void)
       }
    }
    glEnd ();
+   */
+
+   gluLookAt (0.3, 0.3, 0.3, 0, 0, 0, 0, 0, 1);
+   glutSolidCone (.5, 1.0, 30, 30);
 
    glFlush ();
 }
