@@ -1,13 +1,17 @@
 /* Program to test the voxel library functions */
 
 
-#include <voxel.h>
+#include <octree.h>
 #include <common.h>
+#include <voxel.h>
+
 
 GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
 GLfloat lightcol[] =
 {1.0,1.0,1,0};
+
+
 
 void init (void)
 {
@@ -31,14 +35,17 @@ void display (void)
    GLfloat voxel_mat[] = 
    {0.f, 0.f, 1, 1};
    
-	vlInit (0.1);
+	set_voxel_edge (0.05);
 	
-   vlSetFunction (&cube_function);
+   set_function_ptr (&sphere_function);
+
+   point_t ref_point = { -1, -1, -1 };
+   octree_t *octree = construct_octree ( &ref_point, 2);
 
 	/* Create a sphere */
 	glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-   vlVoxel (-2, -2, -2, 4);
+   putVoxels (octree);
    glPopMatrix ();
 
 
