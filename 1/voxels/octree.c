@@ -2,77 +2,43 @@
 #include <stdio.h>
 #include <math.h>
 
-FILE * debug_file;
-
-#define N_CHILDREN 8
-
 // Function pointer
 int (*func) (double, double, double);
 
 // Voxel edge length
 double voxel_edge;
 
-
-/* Function to test if a cube (voxel) should exist (be placed) in a volume. 
- * The ref_point is the reference point, it is the point with the minimum x, 
- * minimum y and minimum z of the cubical volume. 
- */
-int test_function (point_t *ref_point, double length)
-{
-   /* This function tests if 'any' of the vertices lie in volume specified by
-    * the function 
-    */
-
-   int i;
-   double x, y, z;
-
-   for (i = 0; i < N_CHILDREN; i++)
-   {
-      x = ref_point->x + ((i / 4) % 2) * length;
-      y = ref_point->y + ((i / 2) % 2) * length;
-      z = ref_point->z + (      i % 2) * length;
-
-      if ( func (x, y, z) )
-         return 1;
-   }
-	
-   return 0;
-}
-
 void set_voxel_edge (double edge)
 {
    voxel_edge = edge;  
 }
 
-unsigned int closest_power_of_2 (unsigned int n)
-{
-	/* returns the closest power of 2 to that number.
-	 * Function is similar to the ceil function on integers. 
-	 * If the given number is itself a power of 2, the number is returned
-	 * otherwise the next power of 2 is returned.
-	 */
-
-	if ( 1 == n)
-	{
-		return 2;
-	}
-	
-	 double log_val = log2 (n);
-	 
-	 // if it is a whole number, then it is a power of 2
-	 if ( (unsigned int) log_val == log_val )
-	 {
-	 	return n;
-	 }
-	 else
-	 {
-	 	return (1 << ( (unsigned int)log_val + 1));
-	 }
-
-}
 void set_function_ptr (int (*func_ptr) (double, double, double))
 {
    func = func_ptr;
+}
+
+
+/* Function to test if a node is a leaf-node */
+unsigned char is_leaf ( octree_t * node)
+{
+	return ((node->type == LEAF) ? 1 : 0);
+}
+
+/* Function to test if a list of nodes are ALL leaf nodes */
+unsigned char all_leaves (octree_t *nodes[], unsigned int size)
+{
+	unsigned int i;
+
+	for ( i = 0; i < size; i++)
+	{
+		if ( ! is_leaf (nodes[i]))
+		{
+			return 0;
+		}
+	}
+
+	return 1;
 }
 
 octree_t * create_octree (point_t *ref_point, double length)
@@ -112,7 +78,7 @@ octree_t * create_octree (point_t *ref_point, double length)
 			}
       }
 
-      if (all_filled)
+      if (all_filled && all_leaves (children, N_CHILDREN))
       {
          // All the children are filled, remove them and set the type to LEAF
          for ( i = 0; i < N_CHILDREN; i++)
@@ -158,11 +124,11 @@ octree_t * create_octree (point_t *ref_point, double length)
       tree->children[i] = children[i];
    }
 
-/*	if ( LEAF == type )
+	if ( LEAF == type )
 	{
 		printf ("Voxel exists at %f %f %f of size %f\n", tree->point.x, tree->point.y, tree->point.z, tree->length);
 	}
-*/
+
    return tree;
 }
 
@@ -178,5 +144,3 @@ octree_t * construct_octree (point_t *ref_point, double length)
 	return (create_octree (ref_point, k * voxel_edge));
 	
 }
-
-

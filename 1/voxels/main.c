@@ -3,6 +3,8 @@
 
 #include <voxel.h>
 
+#define SQR(x) (x)*(x)
+
 GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
 GLfloat lightcol[] =
@@ -12,6 +14,31 @@ void init (void)
 {
    glClearColor (0.0, 0.0, 0.0, 0.0);
    glShadeModel (GL_FLAT);
+}
+
+int cone_function (double x, double y, double z)
+{
+   double base_radius = 3;
+   double height = 6;
+
+   if ( z <= height && SQR(x) + SQR(y) <= SQR(base_radius * ( (height - z) /height)) )
+      return 1;
+   else
+      return 0;
+}
+
+int sphere_function (double x, double y, double z)
+{
+   double radius = 3;
+
+   if ( SQR (x) + SQR (y) + SQR(z) <= SQR (radius))
+   {
+      return 1;
+   }
+   else
+   {
+      return 0;
+   }
 }
 
 void display (void)
@@ -30,43 +57,15 @@ void display (void)
    GLfloat voxel_mat[] = 
    {0.f, 0.f, 1, 1};
    
-	vlInit (0.1);
+	vlInit (0.05);
 	
-	/* Create a voxel */
+   vlSetFunction (&cone_function);
+
+	/* Create a sphere */
 	glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-	glTranslated (0,0,5);
-   vlVoxel ();
+   vlVoxel (-3, -3, 0, 10);
    glPopMatrix ();
-
-	/* Create a cube using voxelib */
-   GLfloat cube_mat[] = 
-   {0.5, 0.f, 0.f, 1};
-	glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-	glTranslated (0,3,0);
-   vlCube (4.0);
-   glPopMatrix (); 
-
-	/* Create a cylinder using voxelib */
-	GLfloat cylinder_mat[] = 
-   {0.5, 0.5, 0.f, 1};
-	glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cylinder_mat);
-	glTranslated (3.5,0,0);
-	vlInit (0.01);
-   vlCylinder (70.0, 150.0);
-   glPopMatrix ();
-
-	/* Create a sphere using voxelib */
-	GLfloat sphere_mat[] = 
-   {0.2, 0.5, 0.5f, 1};
-	glPushMatrix ();
-//	vlInit (0.01);
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
-   vlSphere (20.0);
-   glPopMatrix ();
-
 
 
 	glutSwapBuffers ();
@@ -112,7 +111,7 @@ int main (int argc, char **argv)
    glEnable(GL_LIGHT0);
 
    glLightfv (GL_LIGHT0, GL_POSITION, lightpos);
-   glLightfv (GL_LIGHT0, GL_AMBIENT, lightcol);
+   glLightfv (GL_LIGHT0, GL_DIFFUSE, lightcol);
    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
    

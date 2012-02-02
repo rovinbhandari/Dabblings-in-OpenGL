@@ -1,7 +1,7 @@
 /* Main program for testing octree implementation */
 
 #include <octree.h>
-#include <math.h>
+#include <common.h>
 
 int test_function_sphere (double x, double y, double z)
 {

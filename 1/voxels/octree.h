@@ -7,13 +7,7 @@
 #define OCTREE_H_INCLUDED
 
 #include <stdlib.h>
-
-typedef struct
-{
-   double x;
-   double y;
-   double z;
-} point_t;
+#include <common.h>
  
 enum { NODE, LEAF };
  
