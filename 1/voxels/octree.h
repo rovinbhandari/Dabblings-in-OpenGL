@@ -28,6 +28,9 @@ typedef struct octree_t
 // Function to set voxel's edge
 void set_voxel_edge (double edge);
 
+// Function to get voxel's edge
+double get_voxel_edge ();
+
 /* Function to set function pointer
  * This function pointer should return zero if the point (x,y,z) doesn't lie
  * inside the required volume and non-zero integer, if it does */
@@ -42,5 +45,7 @@ void set_function_ptr (int (*func_ptr) (double, double, double));
  * be placed. 
  */
 octree_t * construct_octree (point_t *ref_point, double length);
+
+void putVoxels (octree_t *tree);
 
 #endif   // end of file

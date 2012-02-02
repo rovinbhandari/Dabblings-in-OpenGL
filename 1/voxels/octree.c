@@ -1,6 +1,8 @@
 #include <octree.h>
 #include <stdio.h>
 #include <math.h>
+#include <voxel.h>
+#include <assert.h>
 
 // Function pointer
 int (*func) (double, double, double);
@@ -11,6 +13,11 @@ double voxel_edge;
 void set_voxel_edge (double edge)
 {
    voxel_edge = edge;  
+}
+
+double get_voxel_edge ()
+{
+   return voxel_edge;
 }
 
 void set_function_ptr (int (*func_ptr) (double, double, double))
@@ -44,8 +51,8 @@ unsigned char all_leaves (octree_t *nodes[], unsigned int size)
 octree_t * create_octree (point_t *ref_point, double length)
 {
 //	debug_file = fopen ("debug", "a");
-//	printf ("Creating octree with length = %f\n", length);
-	
+	printf ("Creating octree with length = %f\n", length);
+
    octree_t *children[N_CHILDREN] = { (octree_t *) NULL };
 
    int i;
@@ -83,6 +90,7 @@ octree_t * create_octree (point_t *ref_point, double length)
          // All the children are filled, remove them and set the type to LEAF
          for ( i = 0; i < N_CHILDREN; i++)
          {
+            assert (children[i]);      // Redundant
             free (children[i]);
             children[i] = NULL;
          }
@@ -111,6 +119,13 @@ octree_t * create_octree (point_t *ref_point, double length)
 
    octree_t *tree;
    ALLOC_TREE (tree);
+   
+   if ( !tree)
+   {
+      exit(2);
+   }
+   assert (tree);
+   
 
    tree->point.x = ref_point->x;
    tree->point.y = ref_point->y;
@@ -143,4 +158,32 @@ octree_t * construct_octree (point_t *ref_point, double length)
 
 	return (create_octree (ref_point, k * voxel_edge));
 	
+}
+
+void put_voxels_implementation (octree_t *tree)
+{
+   if ( !tree)
+   {
+      return;
+   }
+   if (LEAF == tree->type)
+   {
+      vlPutVoxelAt (tree->point.x, tree->point.y, tree->point.z, tree->length);
+   }
+   else
+   {
+      int i;
+      for ( i = 0; i < N_CHILDREN; i++)
+      {
+         put_voxels_implementation (tree->children[i]);
+      }
+      
+   }
+}
+
+void putVoxels (octree_t *tree)
+{
+   vlInit (voxel_edge);
+
+   put_voxels_implementation (tree);
 }

@@ -2,8 +2,7 @@
 
 
 #include <voxel.h>
-
-#define SQR(x) (x)*(x)
+#include <common.h>
 
 GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
@@ -14,31 +13,6 @@ void init (void)
 {
    glClearColor (0.0, 0.0, 0.0, 0.0);
    glShadeModel (GL_FLAT);
-}
-
-int cone_function (double x, double y, double z)
-{
-   double base_radius = 3;
-   double height = 6;
-
-   if ( z <= height && SQR(x) + SQR(y) <= SQR(base_radius * ( (height - z) /height)) )
-      return 1;
-   else
-      return 0;
-}
-
-int sphere_function (double x, double y, double z)
-{
-   double radius = 3;
-
-   if ( SQR (x) + SQR (y) + SQR(z) <= SQR (radius))
-   {
-      return 1;
-   }
-   else
-   {
-      return 0;
-   }
 }
 
 void display (void)
@@ -57,14 +31,14 @@ void display (void)
    GLfloat voxel_mat[] = 
    {0.f, 0.f, 1, 1};
    
-	vlInit (0.05);
+	vlInit (0.1);
 	
-   vlSetFunction (&cone_function);
+   vlSetFunction (&cube_function);
 
 	/* Create a sphere */
 	glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-   vlVoxel (-3, -3, 0, 10);
+   vlVoxel (-2, -2, -2, 4);
    glPopMatrix ();
 
 

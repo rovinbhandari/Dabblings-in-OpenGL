@@ -39,11 +39,11 @@ void display_init (void)
 
 }
 
-void vlPutVoxelAt (double x, double y, double z)
+void vlPutVoxelAt (double x, double y, double z, double length)
 {
    glPushMatrix ();
    glTranslated (x,y,z);
-   glutSolidCube(edge);
+   glutSolidCube(length);
    glPopMatrix ();
 }
 
@@ -78,7 +78,7 @@ void create_voxels (double x, double y, double z, double length)
 
       if ( test_function (&ref_point, length) )
       {
-         vlPutVoxelAt (x, y, z);
+         vlPutVoxelAt (x, y, z, length);
       }
    }
 }

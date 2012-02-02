@@ -16,8 +16,8 @@ all: lib_voxel $(OBJECTS)
 
 lib_voxel: $(LIB_VOXEL)
 
-octree_test: $(OCTREE_TEST_OBJ)
-	$(CC) $(CFLAGS) $(OCTREE_TEST_OBJ) -lm -o $(OCTREE_TEST_BIN)
+octree_test: $(LIB_VOXEL) $(OCTREE_TEST_OBJ)
+	$(CC) $(CFLAGS) $^ -o $(OCTREE_TEST_BIN) -lGL -lglut -lGLU -lm -I/usr/X11R6/include -L/usr/X11R6/lib
 
 $(OBJ)/%.o: $(SRC)/%.c
 	$(CC) $(DEFINES) $(CFLAGS) $(INCLUDE) $< -o $@
