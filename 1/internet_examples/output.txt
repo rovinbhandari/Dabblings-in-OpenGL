@@ -7,3 +7,1047 @@ Intensity at vertex(-5.000000,5.000000,5.000000) : 0.200000
 Intensity at vertex(5.000000,5.000000,5.000000) : 2.199999
 Intensity at vertex(5.000000,5.000000,-5.000000) : 0.200000
 Intensity at vertex(-5.000000,5.000000,-5.000000) : 0.200000
+Reading No.: 0
+Intensity at vertex(-5.000000,-5.000000,5.000000) : 0.200000
+Intensity at vertex(5.000000,-5.000000,5.000000) : 0.200000
+Intensity at vertex(5.000000,-5.000000,-5.000000) : 0.200000
+Intensity at vertex(-5.000000,-5.000000,-5.000000) : 0.200000
+Intensity at vertex(-5.000000,5.000000,5.000000) : 0.200000
+Intensity at vertex(5.000000,5.000000,5.000000) : 2.199999
+Intensity at vertex(5.000000,5.000000,-5.000000) : 0.200000
+Intensity at vertex(-5.000000,5.000000,-5.000000) : 0.200000
+Reading No.: 1
+Intensity at vertex(-5.032813,-5.032813,5.032813) : 0.200000
+Intensity at vertex(5.032813,-5.032813,5.032813) : 0.200000
+Intensity at vertex(5.032813,-5.032813,-5.032813) : 0.200000
+Intensity at vertex(-5.032813,-5.032813,-5.032813) : 0.200000
+Intensity at vertex(-5.032813,5.032813,5.032813) : 0.200000
+Intensity at vertex(5.032813,5.032813,5.032813) : 2.199999
+Intensity at vertex(5.032813,5.032813,-5.032813) : 0.200000
+Intensity at vertex(-5.032813,5.032813,-5.032813) : 0.200000
+Reading No.: 2
+Intensity at vertex(-5.067266,-5.067266,5.067266) : 0.200000
+Intensity at vertex(5.067266,-5.067266,5.067266) : 0.200000
+Intensity at vertex(5.067266,-5.067266,-5.067266) : 0.200000
+Intensity at vertex(-5.067266,-5.067266,-5.067266) : 0.200000
+Intensity at vertex(-5.067266,5.067266,5.067266) : 0.200000
+Intensity at vertex(5.067266,5.067266,5.067266) : 2.199999
+Intensity at vertex(5.067266,5.067266,-5.067266) : 0.200000
+Intensity at vertex(-5.067266,5.067266,-5.067266) : 0.200000
+Reading No.: 3
+Intensity at vertex(-5.103441,-5.103441,5.103441) : 0.200000
+Intensity at vertex(5.103441,-5.103441,5.103441) : 0.200000
+Intensity at vertex(5.103441,-5.103441,-5.103441) : 0.200000
+Intensity at vertex(-5.103441,-5.103441,-5.103441) : 0.200000
+Intensity at vertex(-5.103441,5.103441,5.103441) : 0.200000
+Intensity at vertex(5.103441,5.103441,5.103441) : 2.199999
+Intensity at vertex(5.103441,5.103441,-5.103441) : 0.200000
+Intensity at vertex(-5.103441,5.103441,-5.103441) : 0.200000
+Reading No.: 4
+Intensity at vertex(-5.141426,-5.141426,5.141426) : 0.200000
+Intensity at vertex(5.141426,-5.141426,5.141426) : 0.200000
+Intensity at vertex(5.141426,-5.141426,-5.141426) : 0.200000
+Intensity at vertex(-5.141426,-5.141426,-5.141426) : 0.200000
+Intensity at vertex(-5.141426,5.141426,5.141426) : 0.200000
+Intensity at vertex(5.141426,5.141426,5.141426) : 2.199999
+Intensity at vertex(5.141426,5.141426,-5.141426) : 0.200000
+Intensity at vertex(-5.141426,5.141426,-5.141426) : 0.200000
+Reading No.: 5
+Intensity at vertex(-5.181309,-5.181309,5.181309) : 0.200000
+Intensity at vertex(5.181309,-5.181309,5.181309) : 0.200000
+Intensity at vertex(5.181309,-5.181309,-5.181309) : 0.200000
+Intensity at vertex(-5.181309,-5.181309,-5.181309) : 0.200000
+Intensity at vertex(-5.181309,5.181309,5.181309) : 0.200000
+Intensity at vertex(5.181309,5.181309,5.181309) : 2.199999
+Intensity at vertex(5.181309,5.181309,-5.181309) : 0.200000
+Intensity at vertex(-5.181309,5.181309,-5.181309) : 0.200000
+Reading No.: 6
+Intensity at vertex(-5.223187,-5.223187,5.223187) : 0.200000
+Intensity at vertex(5.223187,-5.223187,5.223187) : 0.200000
+Intensity at vertex(5.223187,-5.223187,-5.223187) : 0.200000
+Intensity at vertex(-5.223187,-5.223187,-5.223187) : 0.200000
+Intensity at vertex(-5.223187,5.223187,5.223187) : 0.200000
+Intensity at vertex(5.223187,5.223187,5.223187) : 2.199999
+Intensity at vertex(5.223187,5.223187,-5.223187) : 0.200000
+Intensity at vertex(-5.223187,5.223187,-5.223187) : 0.200000
+Reading No.: 7
+Intensity at vertex(-5.267159,-5.267159,5.267159) : 0.200000
+Intensity at vertex(5.267159,-5.267159,5.267159) : 0.200000
+Intensity at vertex(5.267159,-5.267159,-5.267159) : 0.200000
+Intensity at vertex(-5.267159,-5.267159,-5.267159) : 0.200000
+Intensity at vertex(-5.267159,5.267159,5.267159) : 0.200000
+Intensity at vertex(5.267159,5.267159,5.267159) : 2.199999
+Intensity at vertex(5.267159,5.267159,-5.267159) : 0.200000
+Intensity at vertex(-5.267159,5.267159,-5.267159) : 0.200000
+Reading No.: 8
+Intensity at vertex(-5.313329,-5.313329,5.313329) : 0.200000
+Intensity at vertex(5.313329,-5.313329,5.313329) : 0.200000
+Intensity at vertex(5.313329,-5.313329,-5.313329) : 0.200000
+Intensity at vertex(-5.313329,-5.313329,-5.313329) : 0.200000
+Intensity at vertex(-5.313329,5.313329,5.313329) : 0.200000
+Intensity at vertex(5.313329,5.313329,5.313329) : 2.199999
+Intensity at vertex(5.313329,5.313329,-5.313329) : 0.200000
+Intensity at vertex(-5.313329,5.313329,-5.313329) : 0.200000
+Reading No.: 9
+Intensity at vertex(-5.361808,-5.361808,5.361808) : 0.200000
+Intensity at vertex(5.361808,-5.361808,5.361808) : 0.200000
+Intensity at vertex(5.361808,-5.361808,-5.361808) : 0.200000
+Intensity at vertex(-5.361808,-5.361808,-5.361808) : 0.200000
+Intensity at vertex(-5.361808,5.361808,5.361808) : 0.200000
+Intensity at vertex(5.361808,5.361808,5.361808) : 2.199999
+Intensity at vertex(5.361808,5.361808,-5.361808) : 0.200000
+Intensity at vertex(-5.361808,5.361808,-5.361808) : 0.200000
+Reading No.: 10
+Intensity at vertex(-5.412711,-5.412711,5.412711) : 0.200000
+Intensity at vertex(5.412711,-5.412711,5.412711) : 0.200000
+Intensity at vertex(5.412711,-5.412711,-5.412711) : 0.200000
+Intensity at vertex(-5.412711,-5.412711,-5.412711) : 0.200000
+Intensity at vertex(-5.412711,5.412711,5.412711) : 0.200000
+Intensity at vertex(5.412711,5.412711,5.412711) : 2.199999
+Intensity at vertex(5.412711,5.412711,-5.412711) : 0.200000
+Intensity at vertex(-5.412711,5.412711,-5.412711) : 0.200000
+Reading No.: 11
+Intensity at vertex(-5.466159,-5.466159,5.466159) : 0.200000
+Intensity at vertex(5.466159,-5.466159,5.466159) : 0.200000
+Intensity at vertex(5.466159,-5.466159,-5.466159) : 0.200000
+Intensity at vertex(-5.466159,-5.466159,-5.466159) : 0.200000
+Intensity at vertex(-5.466159,5.466159,5.466159) : 0.200000
+Intensity at vertex(5.466159,5.466159,5.466159) : 2.199999
+Intensity at vertex(5.466159,5.466159,-5.466159) : 0.200000
+Intensity at vertex(-5.466159,5.466159,-5.466159) : 0.200000
+Reading No.: 12
+Intensity at vertex(-5.522280,-5.522280,5.522280) : 0.200000
+Intensity at vertex(5.522280,-5.522280,5.522280) : 0.200000
+Intensity at vertex(5.522280,-5.522280,-5.522280) : 0.200000
+Intensity at vertex(-5.522280,-5.522280,-5.522280) : 0.200000
+Intensity at vertex(-5.522280,5.522280,5.522280) : 0.200000
+Intensity at vertex(5.522280,5.522280,5.522280) : 2.199999
+Intensity at vertex(5.522280,5.522280,-5.522280) : 0.200000
+Intensity at vertex(-5.522280,5.522280,-5.522280) : 0.200000
+Reading No.: 13
+Intensity at vertex(-5.581206,-5.581206,5.581206) : 0.200000
+Intensity at vertex(5.581206,-5.581206,5.581206) : 0.200000
+Intensity at vertex(5.581206,-5.581206,-5.581206) : 0.200000
+Intensity at vertex(-5.581206,-5.581206,-5.581206) : 0.200000
+Intensity at vertex(-5.581206,5.581206,5.581206) : 0.200000
+Intensity at vertex(5.581206,5.581206,5.581206) : 2.199999
+Intensity at vertex(5.581206,5.581206,-5.581206) : 0.200000
+Intensity at vertex(-5.581206,5.581206,-5.581206) : 0.200000
+Reading No.: 14
+Intensity at vertex(-5.643079,-5.643079,5.643079) : 0.200000
+Intensity at vertex(5.643079,-5.643079,5.643079) : 0.200000
+Intensity at vertex(5.643079,-5.643079,-5.643079) : 0.200000
+Intensity at vertex(-5.643079,-5.643079,-5.643079) : 0.200000
+Intensity at vertex(-5.643079,5.643079,5.643079) : 0.200000
+Intensity at vertex(5.643079,5.643079,5.643079) : 2.199999
+Intensity at vertex(5.643079,5.643079,-5.643079) : 0.200000
+Intensity at vertex(-5.643079,5.643079,-5.643079) : 0.200000
+Reading No.: 15
+Intensity at vertex(-5.708046,-5.708046,5.708046) : 0.200000
+Intensity at vertex(5.708046,-5.708046,5.708046) : 0.200000
+Intensity at vertex(5.708046,-5.708046,-5.708046) : 0.200000
+Intensity at vertex(-5.708046,-5.708046,-5.708046) : 0.200000
+Intensity at vertex(-5.708046,5.708046,5.708046) : 0.200000
+Intensity at vertex(5.708046,5.708046,5.708046) : 2.199999
+Intensity at vertex(5.708046,5.708046,-5.708046) : 0.200000
+Intensity at vertex(-5.708046,5.708046,-5.708046) : 0.200000
+Reading No.: 16
+Intensity at vertex(-5.740859,-5.740859,5.740859) : 0.200000
+Intensity at vertex(5.740859,-5.740859,5.740859) : 0.200000
+Intensity at vertex(5.740859,-5.740859,-5.740859) : 0.200000
+Intensity at vertex(-5.740859,-5.740859,-5.740859) : 0.200000
+Intensity at vertex(-5.740859,5.740859,5.740859) : 0.200000
+Intensity at vertex(5.740859,5.740859,5.740859) : 2.199999
+Intensity at vertex(5.740859,5.740859,-5.740859) : 0.200000
+Intensity at vertex(-5.740859,5.740859,-5.740859) : 0.200000
+Reading No.: 17
+Intensity at vertex(-5.775311,-5.775311,5.775311) : 0.200000
+Intensity at vertex(5.775311,-5.775311,5.775311) : 0.200000
+Intensity at vertex(5.775311,-5.775311,-5.775311) : 0.200000
+Intensity at vertex(-5.775311,-5.775311,-5.775311) : 0.200000
+Intensity at vertex(-5.775311,5.775311,5.775311) : 0.200000
+Intensity at vertex(5.775311,5.775311,5.775311) : 2.199999
+Intensity at vertex(5.775311,5.775311,-5.775311) : 0.200000
+Intensity at vertex(-5.775311,5.775311,-5.775311) : 0.200000
+Reading No.: 18
+Intensity at vertex(-5.811487,-5.811487,5.811487) : 0.200000
+Intensity at vertex(5.811487,-5.811487,5.811487) : 0.200000
+Intensity at vertex(5.811487,-5.811487,-5.811487) : 0.200000
+Intensity at vertex(-5.811487,-5.811487,-5.811487) : 0.200000
+Intensity at vertex(-5.811487,5.811487,5.811487) : 0.200000
+Intensity at vertex(5.811487,5.811487,5.811487) : 2.199999
+Intensity at vertex(5.811487,5.811487,-5.811487) : 0.200000
+Intensity at vertex(-5.811487,5.811487,-5.811487) : 0.200000
+Reading No.: 19
+Intensity at vertex(-5.849472,-5.849472,5.849472) : 0.200000
+Intensity at vertex(5.849472,-5.849472,5.849472) : 0.200000
+Intensity at vertex(5.849472,-5.849472,-5.849472) : 0.200000
+Intensity at vertex(-5.849472,-5.849472,-5.849472) : 0.200000
+Intensity at vertex(-5.849472,5.849472,5.849472) : 0.200000
+Intensity at vertex(5.849472,5.849472,5.849472) : 2.199999
+Intensity at vertex(5.849472,5.849472,-5.849472) : 0.200000
+Intensity at vertex(-5.849472,5.849472,-5.849472) : 0.200000
+Reading No.: 20
+Intensity at vertex(-5.889355,-5.889355,5.889355) : 0.200000
+Intensity at vertex(5.889355,-5.889355,5.889355) : 0.200000
+Intensity at vertex(5.889355,-5.889355,-5.889355) : 0.200000
+Intensity at vertex(-5.889355,-5.889355,-5.889355) : 0.200000
+Intensity at vertex(-5.889355,5.889355,5.889355) : 0.200000
+Intensity at vertex(5.889355,5.889355,5.889355) : 2.199999
+Intensity at vertex(5.889355,5.889355,-5.889355) : 0.200000
+Intensity at vertex(-5.889355,5.889355,-5.889355) : 0.200000
+Reading No.: 21
+Intensity at vertex(-5.931233,-5.931233,5.931233) : 0.200000
+Intensity at vertex(5.931233,-5.931233,5.931233) : 0.200000
+Intensity at vertex(5.931233,-5.931233,-5.931233) : 0.200000
+Intensity at vertex(-5.931233,-5.931233,-5.931233) : 0.200000
+Intensity at vertex(-5.931233,5.931233,5.931233) : 0.200000
+Intensity at vertex(5.931233,5.931233,5.931233) : 2.199999
+Intensity at vertex(5.931233,5.931233,-5.931233) : 0.200000
+Intensity at vertex(-5.931233,5.931233,-5.931233) : 0.200000
+Reading No.: 22
+Intensity at vertex(-5.975205,-5.975205,5.975205) : 0.200000
+Intensity at vertex(5.975205,-5.975205,5.975205) : 0.200000
+Intensity at vertex(5.975205,-5.975205,-5.975205) : 0.200000
+Intensity at vertex(-5.975205,-5.975205,-5.975205) : 0.200000
+Intensity at vertex(-5.975205,5.975205,5.975205) : 0.200000
+Intensity at vertex(5.975205,5.975205,5.975205) : 2.199999
+Intensity at vertex(5.975205,5.975205,-5.975205) : 0.200000
+Intensity at vertex(-5.975205,5.975205,-5.975205) : 0.200000
+Reading No.: 23
+Intensity at vertex(-6.021375,-6.021375,6.021375) : 0.200000
+Intensity at vertex(6.021375,-6.021375,6.021375) : 0.200000
+Intensity at vertex(6.021375,-6.021375,-6.021375) : 0.200000
+Intensity at vertex(-6.021375,-6.021375,-6.021375) : 0.200000
+Intensity at vertex(-6.021375,6.021375,6.021375) : 0.200000
+Intensity at vertex(6.021375,6.021375,6.021375) : 2.199999
+Intensity at vertex(6.021375,6.021375,-6.021375) : 0.200000
+Intensity at vertex(-6.021375,6.021375,-6.021375) : 0.200000
+Reading No.: 24
+Intensity at vertex(-6.069854,-6.069854,6.069854) : 0.200000
+Intensity at vertex(6.069854,-6.069854,6.069854) : 0.200000
+Intensity at vertex(6.069854,-6.069854,-6.069854) : 0.200000
+Intensity at vertex(-6.069854,-6.069854,-6.069854) : 0.200000
+Intensity at vertex(-6.069854,6.069854,6.069854) : 0.200000
+Intensity at vertex(6.069854,6.069854,6.069854) : 2.199999
+Intensity at vertex(6.069854,6.069854,-6.069854) : 0.200000
+Intensity at vertex(-6.069854,6.069854,-6.069854) : 0.200000
+Reading No.: 25
+Intensity at vertex(-6.120757,-6.120757,6.120757) : 0.200000
+Intensity at vertex(6.120757,-6.120757,6.120757) : 0.200000
+Intensity at vertex(6.120757,-6.120757,-6.120757) : 0.200000
+Intensity at vertex(-6.120757,-6.120757,-6.120757) : 0.200000
+Intensity at vertex(-6.120757,6.120757,6.120757) : 0.200000
+Intensity at vertex(6.120757,6.120757,6.120757) : 2.199999
+Intensity at vertex(6.120757,6.120757,-6.120757) : 0.200000
+Intensity at vertex(-6.120757,6.120757,-6.120757) : 0.200000
+Reading No.: 26
+Intensity at vertex(-6.174205,-6.174205,6.174205) : 0.200000
+Intensity at vertex(6.174205,-6.174205,6.174205) : 0.200000
+Intensity at vertex(6.174205,-6.174205,-6.174205) : 0.200000
+Intensity at vertex(-6.174205,-6.174205,-6.174205) : 0.200000
+Intensity at vertex(-6.174205,6.174205,6.174205) : 0.200000
+Intensity at vertex(6.174205,6.174205,6.174205) : 2.200000
+Intensity at vertex(6.174205,6.174205,-6.174205) : 0.200000
+Intensity at vertex(-6.174205,6.174205,-6.174205) : 0.200000
+Reading No.: 27
+Intensity at vertex(-6.230326,-6.230326,6.230326) : 0.200000
+Intensity at vertex(6.230326,-6.230326,6.230326) : 0.200000
+Intensity at vertex(6.230326,-6.230326,-6.230326) : 0.200000
+Intensity at vertex(-6.230326,-6.230326,-6.230326) : 0.200000
+Intensity at vertex(-6.230326,6.230326,6.230326) : 0.200000
+Intensity at vertex(6.230326,6.230326,6.230326) : 2.199999
+Intensity at vertex(6.230326,6.230326,-6.230326) : 0.200000
+Intensity at vertex(-6.230326,6.230326,-6.230326) : 0.200000
+Reading No.: 28
+Intensity at vertex(-6.289252,-6.289252,6.289252) : 0.200000
+Intensity at vertex(6.289252,-6.289252,6.289252) : 0.200000
+Intensity at vertex(6.289252,-6.289252,-6.289252) : 0.200000
+Intensity at vertex(-6.289252,-6.289252,-6.289252) : 0.200000
+Intensity at vertex(-6.289252,6.289252,6.289252) : 0.200000
+Intensity at vertex(6.289252,6.289252,6.289252) : 2.199999
+Intensity at vertex(6.289252,6.289252,-6.289252) : 0.200000
+Intensity at vertex(-6.289252,6.289252,-6.289252) : 0.200000
+Reading No.: 29
+Intensity at vertex(-6.351125,-6.351125,6.351125) : 0.200000
+Intensity at vertex(6.351125,-6.351125,6.351125) : 0.200000
+Intensity at vertex(6.351125,-6.351125,-6.351125) : 0.200000
+Intensity at vertex(-6.351125,-6.351125,-6.351125) : 0.200000
+Intensity at vertex(-6.351125,6.351125,6.351125) : 0.200000
+Intensity at vertex(6.351125,6.351125,6.351125) : 2.199999
+Intensity at vertex(6.351125,6.351125,-6.351125) : 0.200000
+Intensity at vertex(-6.351125,6.351125,-6.351125) : 0.200000
+Reading No.: 30
+Intensity at vertex(-6.416092,-6.416092,6.416092) : 0.200000
+Intensity at vertex(6.416092,-6.416092,6.416092) : 0.200000
+Intensity at vertex(6.416092,-6.416092,-6.416092) : 0.200000
+Intensity at vertex(-6.416092,-6.416092,-6.416092) : 0.200000
+Intensity at vertex(-6.416092,6.416092,6.416092) : 0.200000
+Intensity at vertex(6.416092,6.416092,6.416092) : 2.199999
+Intensity at vertex(6.416092,6.416092,-6.416092) : 0.200000
+Intensity at vertex(-6.416092,6.416092,-6.416092) : 0.200000
+Reading No.: 31
+Intensity at vertex(-6.484307,-6.484307,6.484307) : 0.200000
+Intensity at vertex(6.484307,-6.484307,6.484307) : 0.200000
+Intensity at vertex(6.484307,-6.484307,-6.484307) : 0.200000
+Intensity at vertex(-6.484307,-6.484307,-6.484307) : 0.200000
+Intensity at vertex(-6.484307,6.484307,6.484307) : 0.200000
+Intensity at vertex(6.484307,6.484307,6.484307) : 2.199999
+Intensity at vertex(6.484307,6.484307,-6.484307) : 0.200000
+Intensity at vertex(-6.484307,6.484307,-6.484307) : 0.200000
+Reading No.: 32
+Intensity at vertex(-6.555933,-6.555933,6.555933) : 0.200000
+Intensity at vertex(6.555933,-6.555933,6.555933) : 0.200000
+Intensity at vertex(6.555933,-6.555933,-6.555933) : 0.200000
+Intensity at vertex(-6.555933,-6.555933,-6.555933) : 0.200000
+Intensity at vertex(-6.555933,6.555933,6.555933) : 0.200000
+Intensity at vertex(6.555933,6.555933,6.555933) : 2.199999
+Intensity at vertex(6.555933,6.555933,-6.555933) : 0.200000
+Intensity at vertex(-6.555933,6.555933,-6.555933) : 0.200000
+Reading No.: 33
+Intensity at vertex(-6.631139,-6.631139,6.631139) : 0.200000
+Intensity at vertex(6.631139,-6.631139,6.631139) : 0.200000
+Intensity at vertex(6.631139,-6.631139,-6.631139) : 0.200000
+Intensity at vertex(-6.631139,-6.631139,-6.631139) : 0.200000
+Intensity at vertex(-6.631139,6.631139,6.631139) : 0.200000
+Intensity at vertex(6.631139,6.631139,6.631139) : 2.200000
+Intensity at vertex(6.631139,6.631139,-6.631139) : 0.200000
+Intensity at vertex(-6.631139,6.631139,-6.631139) : 0.200000
+Reading No.: 34
+Intensity at vertex(-6.710106,-6.710106,6.710106) : 0.200000
+Intensity at vertex(6.710106,-6.710106,6.710106) : 0.200000
+Intensity at vertex(6.710106,-6.710106,-6.710106) : 0.200000
+Intensity at vertex(-6.710106,-6.710106,-6.710106) : 0.200000
+Intensity at vertex(-6.710106,6.710106,6.710106) : 0.200000
+Intensity at vertex(6.710106,6.710106,6.710106) : 2.200000
+Intensity at vertex(6.710106,6.710106,-6.710106) : 0.200000
+Intensity at vertex(-6.710106,6.710106,-6.710106) : 0.200000
+Reading No.: 35
+Intensity at vertex(-6.793022,-6.793022,6.793022) : 0.200000
+Intensity at vertex(6.793022,-6.793022,6.793022) : 0.200000
+Intensity at vertex(6.793022,-6.793022,-6.793022) : 0.200000
+Intensity at vertex(-6.793022,-6.793022,-6.793022) : 0.200000
+Intensity at vertex(-6.793022,6.793022,6.793022) : 0.200000
+Intensity at vertex(6.793022,6.793022,6.793022) : 2.199999
+Intensity at vertex(6.793022,6.793022,-6.793022) : 0.200000
+Intensity at vertex(-6.793022,6.793022,-6.793022) : 0.200000
+Reading No.: 36
+Intensity at vertex(-6.825813,-6.825813,6.825813) : 0.200000
+Intensity at vertex(6.825813,-6.825813,6.825813) : 0.200000
+Intensity at vertex(6.825813,-6.825813,-6.825813) : 0.200000
+Intensity at vertex(-6.825813,-6.825813,-6.825813) : 0.200000
+Intensity at vertex(-6.825813,6.825813,6.825813) : 0.200000
+Intensity at vertex(6.825813,6.825813,6.825813) : 2.200001
+Intensity at vertex(6.825813,6.825813,-6.825813) : 0.200000
+Intensity at vertex(-6.825813,6.825813,-6.825813) : 0.200000
+Reading No.: 37
+Intensity at vertex(-6.860266,-6.860266,6.860266) : 0.200000
+Intensity at vertex(6.860266,-6.860266,6.860266) : 0.200000
+Intensity at vertex(6.860266,-6.860266,-6.860266) : 0.200000
+Intensity at vertex(-6.860266,-6.860266,-6.860266) : 0.200000
+Intensity at vertex(-6.860266,6.860266,6.860266) : 0.200000
+Intensity at vertex(6.860266,6.860266,6.860266) : 2.199999
+Intensity at vertex(6.860266,6.860266,-6.860266) : 0.200000
+Intensity at vertex(-6.860266,6.860266,-6.860266) : 0.200000
+Reading No.: 38
+Intensity at vertex(-6.896441,-6.896441,6.896441) : 0.200000
+Intensity at vertex(6.896441,-6.896441,6.896441) : 0.200000
+Intensity at vertex(6.896441,-6.896441,-6.896441) : 0.200000
+Intensity at vertex(-6.896441,-6.896441,-6.896441) : 0.200000
+Intensity at vertex(-6.896441,6.896441,6.896441) : 0.200000
+Intensity at vertex(6.896441,6.896441,6.896441) : 2.199999
+Intensity at vertex(6.896441,6.896441,-6.896441) : 0.200000
+Intensity at vertex(-6.896441,6.896441,-6.896441) : 0.200000
+Reading No.: 39
+Intensity at vertex(-6.934426,-6.934426,6.934426) : 0.200000
+Intensity at vertex(6.934426,-6.934426,6.934426) : 0.200000
+Intensity at vertex(6.934426,-6.934426,-6.934426) : 0.200000
+Intensity at vertex(-6.934426,-6.934426,-6.934426) : 0.200000
+Intensity at vertex(-6.934426,6.934426,6.934426) : 0.200000
+Intensity at vertex(6.934426,6.934426,6.934426) : 2.199999
+Intensity at vertex(6.934426,6.934426,-6.934426) : 0.200000
+Intensity at vertex(-6.934426,6.934426,-6.934426) : 0.200000
+Reading No.: 40
+Intensity at vertex(-6.974309,-6.974309,6.974309) : 0.200000
+Intensity at vertex(6.974309,-6.974309,6.974309) : 0.200000
+Intensity at vertex(6.974309,-6.974309,-6.974309) : 0.200000
+Intensity at vertex(-6.974309,-6.974309,-6.974309) : 0.200000
+Intensity at vertex(-6.974309,6.974309,6.974309) : 0.200000
+Intensity at vertex(6.974309,6.974309,6.974309) : 2.199999
+Intensity at vertex(6.974309,6.974309,-6.974309) : 0.200000
+Intensity at vertex(-6.974309,6.974309,-6.974309) : 0.200000
+Reading No.: 41
+Intensity at vertex(-7.016187,-7.016187,7.016187) : 0.200000
+Intensity at vertex(7.016187,-7.016187,7.016187) : 0.200000
+Intensity at vertex(7.016187,-7.016187,-7.016187) : 0.200000
+Intensity at vertex(-7.016187,-7.016187,-7.016187) : 0.200000
+Intensity at vertex(-7.016187,7.016187,7.016187) : 0.200000
+Intensity at vertex(7.016187,7.016187,7.016187) : 1.200000
+Intensity at vertex(7.016187,7.016187,-7.016187) : 0.200000
+Intensity at vertex(-7.016187,7.016187,-7.016187) : 0.200000
+Reading No.: 42
+Intensity at vertex(-7.060159,-7.060159,7.060159) : 0.200000
+Intensity at vertex(7.060159,-7.060159,7.060159) : 0.200000
+Intensity at vertex(7.060159,-7.060159,-7.060159) : 0.200000
+Intensity at vertex(-7.060159,-7.060159,-7.060159) : 0.200000
+Intensity at vertex(-7.060159,7.060159,7.060159) : 0.200000
+Intensity at vertex(7.060159,7.060159,7.060159) : 1.200000
+Intensity at vertex(7.060159,7.060159,-7.060159) : 0.200000
+Intensity at vertex(-7.060159,7.060159,-7.060159) : 0.200000
+Reading No.: 43
+Intensity at vertex(-7.106329,-7.106329,7.106329) : 0.200000
+Intensity at vertex(7.106329,-7.106329,7.106329) : 0.200000
+Intensity at vertex(7.106329,-7.106329,-7.106329) : 0.200000
+Intensity at vertex(-7.106329,-7.106329,-7.106329) : 0.200000
+Intensity at vertex(-7.106329,7.106329,7.106329) : 0.200000
+Intensity at vertex(7.106329,7.106329,7.106329) : 1.200000
+Intensity at vertex(7.106329,7.106329,-7.106329) : 0.200000
+Intensity at vertex(-7.106329,7.106329,-7.106329) : 0.200000
+Reading No.: 44
+Intensity at vertex(-7.154809,-7.154809,7.154809) : 0.200000
+Intensity at vertex(7.154809,-7.154809,7.154809) : 0.200000
+Intensity at vertex(7.154809,-7.154809,-7.154809) : 0.200000
+Intensity at vertex(-7.154809,-7.154809,-7.154809) : 0.200000
+Intensity at vertex(-7.154809,7.154809,7.154809) : 0.200000
+Intensity at vertex(7.154809,7.154809,7.154809) : 1.200000
+Intensity at vertex(7.154809,7.154809,-7.154809) : 0.200000
+Intensity at vertex(-7.154809,7.154809,-7.154809) : 0.200000
+Reading No.: 45
+Intensity at vertex(-7.205711,-7.205711,7.205711) : 0.200000
+Intensity at vertex(7.205711,-7.205711,7.205711) : 0.200000
+Intensity at vertex(7.205711,-7.205711,-7.205711) : 0.200000
+Intensity at vertex(-7.205711,-7.205711,-7.205711) : 0.200000
+Intensity at vertex(-7.205711,7.205711,7.205711) : 0.200000
+Intensity at vertex(7.205711,7.205711,7.205711) : 1.200000
+Intensity at vertex(7.205711,7.205711,-7.205711) : 0.200000
+Intensity at vertex(-7.205711,7.205711,-7.205711) : 0.200000
+Reading No.: 46
+Intensity at vertex(-7.259160,-7.259160,7.259160) : 0.200000
+Intensity at vertex(7.259160,-7.259160,7.259160) : 0.200000
+Intensity at vertex(7.259160,-7.259160,-7.259160) : 0.200000
+Intensity at vertex(-7.259160,-7.259160,-7.259160) : 0.200000
+Intensity at vertex(-7.259160,7.259160,7.259160) : 0.200000
+Intensity at vertex(7.259160,7.259160,7.259160) : 1.200000
+Intensity at vertex(7.259160,7.259160,-7.259160) : 0.200000
+Intensity at vertex(-7.259160,7.259160,-7.259160) : 0.200000
+Reading No.: 47
+Intensity at vertex(-7.315280,-7.315280,7.315280) : 0.200000
+Intensity at vertex(7.315280,-7.315280,7.315280) : 0.200000
+Intensity at vertex(7.315280,-7.315280,-7.315280) : 0.200000
+Intensity at vertex(-7.315280,-7.315280,-7.315280) : 0.200000
+Intensity at vertex(-7.315280,7.315280,7.315280) : 0.200000
+Intensity at vertex(7.315280,7.315280,7.315280) : 1.200000
+Intensity at vertex(7.315280,7.315280,-7.315280) : 0.200000
+Intensity at vertex(-7.315280,7.315280,-7.315280) : 0.200000
+Reading No.: 48
+Intensity at vertex(-7.374207,-7.374207,7.374207) : 0.200000
+Intensity at vertex(7.374207,-7.374207,7.374207) : 0.200000
+Intensity at vertex(7.374207,-7.374207,-7.374207) : 0.200000
+Intensity at vertex(-7.374207,-7.374207,-7.374207) : 0.200000
+Intensity at vertex(-7.374207,7.374207,7.374207) : 0.200000
+Intensity at vertex(7.374207,7.374207,7.374207) : 1.200000
+Intensity at vertex(7.374207,7.374207,-7.374207) : 0.200000
+Intensity at vertex(-7.374207,7.374207,-7.374207) : 0.200000
+Reading No.: 49
+Intensity at vertex(-7.436080,-7.436080,7.436080) : 0.200000
+Intensity at vertex(7.436080,-7.436080,7.436080) : 0.200000
+Intensity at vertex(7.436080,-7.436080,-7.436080) : 0.200000
+Intensity at vertex(-7.436080,-7.436080,-7.436080) : 0.200000
+Intensity at vertex(-7.436080,7.436080,7.436080) : 0.200000
+Intensity at vertex(7.436080,7.436080,7.436080) : 1.200000
+Intensity at vertex(7.436080,7.436080,-7.436080) : 0.200000
+Intensity at vertex(-7.436080,7.436080,-7.436080) : 0.200000
+Reading No.: 50
+Intensity at vertex(-7.501046,-7.501046,7.501046) : 0.200000
+Intensity at vertex(7.501046,-7.501046,7.501046) : 0.200000
+Intensity at vertex(7.501046,-7.501046,-7.501046) : 0.200000
+Intensity at vertex(-7.501046,-7.501046,-7.501046) : 0.200000
+Intensity at vertex(-7.501046,7.501046,7.501046) : 0.200000
+Intensity at vertex(7.501046,7.501046,7.501046) : 1.200000
+Intensity at vertex(7.501046,7.501046,-7.501046) : 0.200000
+Intensity at vertex(-7.501046,7.501046,-7.501046) : 0.200000
+Reading No.: 51
+Intensity at vertex(-7.569261,-7.569261,7.569261) : 0.200000
+Intensity at vertex(7.569261,-7.569261,7.569261) : 0.200000
+Intensity at vertex(7.569261,-7.569261,-7.569261) : 0.200000
+Intensity at vertex(-7.569261,-7.569261,-7.569261) : 0.200000
+Intensity at vertex(-7.569261,7.569261,7.569261) : 0.200000
+Intensity at vertex(7.569261,7.569261,7.569261) : 1.200000
+Intensity at vertex(7.569261,7.569261,-7.569261) : 0.200000
+Intensity at vertex(-7.569261,7.569261,-7.569261) : 0.200000
+Reading No.: 52
+Intensity at vertex(-7.640887,-7.640887,7.640887) : 0.200000
+Intensity at vertex(7.640887,-7.640887,7.640887) : 0.200000
+Intensity at vertex(7.640887,-7.640887,-7.640887) : 0.200000
+Intensity at vertex(-7.640887,-7.640887,-7.640887) : 0.200000
+Intensity at vertex(-7.640887,7.640887,7.640887) : 0.200000
+Intensity at vertex(7.640887,7.640887,7.640887) : 1.200000
+Intensity at vertex(7.640887,7.640887,-7.640887) : 0.200000
+Intensity at vertex(-7.640887,7.640887,-7.640887) : 0.200000
+Reading No.: 53
+Intensity at vertex(-7.716094,-7.716094,7.716094) : 0.200000
+Intensity at vertex(7.716094,-7.716094,7.716094) : 0.200000
+Intensity at vertex(7.716094,-7.716094,-7.716094) : 0.200000
+Intensity at vertex(-7.716094,-7.716094,-7.716094) : 0.200000
+Intensity at vertex(-7.716094,7.716094,7.716094) : 0.200000
+Intensity at vertex(7.716094,7.716094,7.716094) : 1.200000
+Intensity at vertex(7.716094,7.716094,-7.716094) : 0.200000
+Intensity at vertex(-7.716094,7.716094,-7.716094) : 0.200000
+Reading No.: 54
+Intensity at vertex(-7.748906,-7.748906,7.748906) : 0.200000
+Intensity at vertex(7.748906,-7.748906,7.748906) : 0.200000
+Intensity at vertex(7.748906,-7.748906,-7.748906) : 0.200000
+Intensity at vertex(-7.748906,-7.748906,-7.748906) : 0.200000
+Intensity at vertex(-7.748906,7.748906,7.748906) : 0.200000
+Intensity at vertex(7.748906,7.748906,7.748906) : 1.200000
+Intensity at vertex(7.748906,7.748906,-7.748906) : 0.200000
+Intensity at vertex(-7.748906,7.748906,-7.748906) : 0.200000
+Reading No.: 55
+Intensity at vertex(-7.783359,-7.783359,7.783359) : 0.200000
+Intensity at vertex(7.783359,-7.783359,7.783359) : 0.200000
+Intensity at vertex(7.783359,-7.783359,-7.783359) : 0.200000
+Intensity at vertex(-7.783359,-7.783359,-7.783359) : 0.200000
+Intensity at vertex(-7.783359,7.783359,7.783359) : 0.200000
+Intensity at vertex(7.783359,7.783359,7.783359) : 1.200000
+Intensity at vertex(7.783359,7.783359,-7.783359) : 0.200000
+Intensity at vertex(-7.783359,7.783359,-7.783359) : 0.200000
+Reading No.: 56
+Intensity at vertex(-7.819535,-7.819535,7.819535) : 0.200000
+Intensity at vertex(7.819535,-7.819535,7.819535) : 0.200000
+Intensity at vertex(7.819535,-7.819535,-7.819535) : 0.200000
+Intensity at vertex(-7.819535,-7.819535,-7.819535) : 0.200000
+Intensity at vertex(-7.819535,7.819535,7.819535) : 0.200000
+Intensity at vertex(7.819535,7.819535,7.819535) : 1.200000
+Intensity at vertex(7.819535,7.819535,-7.819535) : 0.200000
+Intensity at vertex(-7.819535,7.819535,-7.819535) : 0.200000
+Reading No.: 57
+Intensity at vertex(-7.857519,-7.857519,7.857519) : 0.200000
+Intensity at vertex(7.857519,-7.857519,7.857519) : 0.200000
+Intensity at vertex(7.857519,-7.857519,-7.857519) : 0.200000
+Intensity at vertex(-7.857519,-7.857519,-7.857519) : 0.200000
+Intensity at vertex(-7.857519,7.857519,7.857519) : 0.200000
+Intensity at vertex(7.857519,7.857519,7.857519) : 1.200000
+Intensity at vertex(7.857519,7.857519,-7.857519) : 0.200000
+Intensity at vertex(-7.857519,7.857519,-7.857519) : 0.200000
+Reading No.: 58
+Intensity at vertex(-7.897403,-7.897403,7.897403) : 0.200000
+Intensity at vertex(7.897403,-7.897403,7.897403) : 0.200000
+Intensity at vertex(7.897403,-7.897403,-7.897403) : 0.200000
+Intensity at vertex(-7.897403,-7.897403,-7.897403) : 0.200000
+Intensity at vertex(-7.897403,7.897403,7.897403) : 0.200000
+Intensity at vertex(7.897403,7.897403,7.897403) : 1.200000
+Intensity at vertex(7.897403,7.897403,-7.897403) : 0.200000
+Intensity at vertex(-7.897403,7.897403,-7.897403) : 0.200000
+Reading No.: 59
+Intensity at vertex(-7.939281,-7.939281,7.939281) : 0.200000
+Intensity at vertex(7.939281,-7.939281,7.939281) : 0.200000
+Intensity at vertex(7.939281,-7.939281,-7.939281) : 0.200000
+Intensity at vertex(-7.939281,-7.939281,-7.939281) : 0.200000
+Intensity at vertex(-7.939281,7.939281,7.939281) : 0.200000
+Intensity at vertex(7.939281,7.939281,7.939281) : 1.200000
+Intensity at vertex(7.939281,7.939281,-7.939281) : 0.200000
+Intensity at vertex(-7.939281,7.939281,-7.939281) : 0.200000
+Reading No.: 60
+Intensity at vertex(-7.983253,-7.983253,7.983253) : 0.200000
+Intensity at vertex(7.983253,-7.983253,7.983253) : 0.200000
+Intensity at vertex(7.983253,-7.983253,-7.983253) : 0.200000
+Intensity at vertex(-7.983253,-7.983253,-7.983253) : 0.200000
+Intensity at vertex(-7.983253,7.983253,7.983253) : 0.200000
+Intensity at vertex(7.983253,7.983253,7.983253) : 1.200000
+Intensity at vertex(7.983253,7.983253,-7.983253) : 0.200000
+Intensity at vertex(-7.983253,7.983253,-7.983253) : 0.200000
+Reading No.: 61
+Intensity at vertex(-8.029423,-8.029423,8.029423) : 0.200000
+Intensity at vertex(8.029423,-8.029423,8.029423) : 0.200000
+Intensity at vertex(8.029423,-8.029423,-8.029423) : 0.200000
+Intensity at vertex(-8.029423,-8.029423,-8.029423) : 0.200000
+Intensity at vertex(-8.029423,8.029423,8.029423) : 0.200000
+Intensity at vertex(8.029423,8.029423,8.029423) : 1.200000
+Intensity at vertex(8.029423,8.029423,-8.029423) : 0.200000
+Intensity at vertex(-8.029423,8.029423,-8.029423) : 0.200000
+Reading No.: 62
+Intensity at vertex(-8.077902,-8.077902,8.077902) : 0.200000
+Intensity at vertex(8.077902,-8.077902,8.077902) : 0.200000
+Intensity at vertex(8.077902,-8.077902,-8.077902) : 0.200000
+Intensity at vertex(-8.077902,-8.077902,-8.077902) : 0.200000
+Intensity at vertex(-8.077902,8.077902,8.077902) : 0.200000
+Intensity at vertex(8.077902,8.077902,8.077902) : 1.200000
+Intensity at vertex(8.077902,8.077902,-8.077902) : 0.200000
+Intensity at vertex(-8.077902,8.077902,-8.077902) : 0.200000
+Reading No.: 63
+Intensity at vertex(-8.128805,-8.128805,8.128805) : 0.200000
+Intensity at vertex(8.128805,-8.128805,8.128805) : 0.200000
+Intensity at vertex(8.128805,-8.128805,-8.128805) : 0.200000
+Intensity at vertex(-8.128805,-8.128805,-8.128805) : 0.200000
+Intensity at vertex(-8.128805,8.128805,8.128805) : 0.200000
+Intensity at vertex(8.128805,8.128805,8.128805) : 1.200000
+Intensity at vertex(8.128805,8.128805,-8.128805) : 0.200000
+Intensity at vertex(-8.128805,8.128805,-8.128805) : 0.200000
+Reading No.: 64
+Intensity at vertex(-8.182253,-8.182253,8.182253) : 0.200000
+Intensity at vertex(8.182253,-8.182253,8.182253) : 0.200000
+Intensity at vertex(8.182253,-8.182253,-8.182253) : 0.200000
+Intensity at vertex(-8.182253,-8.182253,-8.182253) : 0.200000
+Intensity at vertex(-8.182253,8.182253,8.182253) : 0.200000
+Intensity at vertex(8.182253,8.182253,8.182253) : 1.200000
+Intensity at vertex(8.182253,8.182253,-8.182253) : 0.200000
+Intensity at vertex(-8.182253,8.182253,-8.182253) : 0.200000
+Reading No.: 65
+Intensity at vertex(-8.238374,-8.238374,8.238374) : 0.200000
+Intensity at vertex(8.238374,-8.238374,8.238374) : 0.200000
+Intensity at vertex(8.238374,-8.238374,-8.238374) : 0.200000
+Intensity at vertex(-8.238374,-8.238374,-8.238374) : 0.200000
+Intensity at vertex(-8.238374,8.238374,8.238374) : 0.200000
+Intensity at vertex(8.238374,8.238374,8.238374) : 1.200000
+Intensity at vertex(8.238374,8.238374,-8.238374) : 0.200000
+Intensity at vertex(-8.238374,8.238374,-8.238374) : 0.200000
+Reading No.: 66
+Intensity at vertex(-8.297300,-8.297300,8.297300) : 0.200000
+Intensity at vertex(8.297300,-8.297300,8.297300) : 0.200000
+Intensity at vertex(8.297300,-8.297300,-8.297300) : 0.200000
+Intensity at vertex(-8.297300,-8.297300,-8.297300) : 0.200000
+Intensity at vertex(-8.297300,8.297300,8.297300) : 0.200000
+Intensity at vertex(8.297300,8.297300,8.297300) : 1.200000
+Intensity at vertex(8.297300,8.297300,-8.297300) : 0.200000
+Intensity at vertex(-8.297300,8.297300,-8.297300) : 0.200000
+Reading No.: 67
+Intensity at vertex(-8.359173,-8.359173,8.359173) : 0.200000
+Intensity at vertex(8.359173,-8.359173,8.359173) : 0.200000
+Intensity at vertex(8.359173,-8.359173,-8.359173) : 0.200000
+Intensity at vertex(-8.359173,-8.359173,-8.359173) : 0.200000
+Intensity at vertex(-8.359173,8.359173,8.359173) : 0.200000
+Intensity at vertex(8.359173,8.359173,8.359173) : 1.200000
+Intensity at vertex(8.359173,8.359173,-8.359173) : 0.200000
+Intensity at vertex(-8.359173,8.359173,-8.359173) : 0.200000
+Reading No.: 68
+Intensity at vertex(-8.424139,-8.424139,8.424139) : 0.200000
+Intensity at vertex(8.424139,-8.424139,8.424139) : 0.200000
+Intensity at vertex(8.424139,-8.424139,-8.424139) : 0.200000
+Intensity at vertex(-8.424139,-8.424139,-8.424139) : 0.200000
+Intensity at vertex(-8.424139,8.424139,8.424139) : 0.200000
+Intensity at vertex(8.424139,8.424139,8.424139) : 1.200000
+Intensity at vertex(8.424139,8.424139,-8.424139) : 0.200000
+Intensity at vertex(-8.424139,8.424139,-8.424139) : 0.200000
+Reading No.: 69
+Intensity at vertex(-8.492353,-8.492353,8.492353) : 0.200000
+Intensity at vertex(8.492353,-8.492353,8.492353) : 0.200000
+Intensity at vertex(8.492353,-8.492353,-8.492353) : 0.200000
+Intensity at vertex(-8.492353,-8.492353,-8.492353) : 0.200000
+Intensity at vertex(-8.492353,8.492353,8.492353) : 0.200000
+Intensity at vertex(8.492353,8.492353,8.492353) : 1.200000
+Intensity at vertex(8.492353,8.492353,-8.492353) : 0.200000
+Intensity at vertex(-8.492353,8.492353,-8.492353) : 0.200000
+Reading No.: 70
+Intensity at vertex(-8.563979,-8.563979,8.563979) : 0.200000
+Intensity at vertex(8.563979,-8.563979,8.563979) : 0.200000
+Intensity at vertex(8.563979,-8.563979,-8.563979) : 0.200000
+Intensity at vertex(-8.563979,-8.563979,-8.563979) : 0.200000
+Intensity at vertex(-8.563979,8.563979,8.563979) : 0.200000
+Intensity at vertex(8.563979,8.563979,8.563979) : 1.200000
+Intensity at vertex(8.563979,8.563979,-8.563979) : 0.200000
+Intensity at vertex(-8.563979,8.563979,-8.563979) : 0.200000
+Reading No.: 71
+Intensity at vertex(-8.639186,-8.639186,8.639186) : 0.200000
+Intensity at vertex(8.639186,-8.639186,8.639186) : 0.200000
+Intensity at vertex(8.639186,-8.639186,-8.639186) : 0.200000
+Intensity at vertex(-8.639186,-8.639186,-8.639186) : 0.200000
+Intensity at vertex(-8.639186,8.639186,8.639186) : 0.200000
+Intensity at vertex(8.639186,8.639186,8.639186) : 1.200000
+Intensity at vertex(8.639186,8.639186,-8.639186) : 0.200000
+Intensity at vertex(-8.639186,8.639186,-8.639186) : 0.200000
+Reading No.: 72
+Intensity at vertex(-8.718153,-8.718153,8.718153) : 0.200000
+Intensity at vertex(8.718153,-8.718153,8.718153) : 0.200000
+Intensity at vertex(8.718153,-8.718153,-8.718153) : 0.200000
+Intensity at vertex(-8.718153,-8.718153,-8.718153) : 0.200000
+Intensity at vertex(-8.718153,8.718153,8.718153) : 0.200000
+Intensity at vertex(8.718153,8.718153,8.718153) : 1.200000
+Intensity at vertex(8.718153,8.718153,-8.718153) : 0.200000
+Intensity at vertex(-8.718153,8.718153,-8.718153) : 0.200000
+Reading No.: 73
+Intensity at vertex(-8.801068,-8.801068,8.801068) : 0.200000
+Intensity at vertex(8.801068,-8.801068,8.801068) : 0.200000
+Intensity at vertex(8.801068,-8.801068,-8.801068) : 0.200000
+Intensity at vertex(-8.801068,-8.801068,-8.801068) : 0.200000
+Intensity at vertex(-8.801068,8.801068,8.801068) : 0.200000
+Intensity at vertex(8.801068,8.801068,8.801068) : 1.200000
+Intensity at vertex(8.801068,8.801068,-8.801068) : 0.200000
+Intensity at vertex(-8.801068,8.801068,-8.801068) : 0.200000
+Reading No.: 74
+Intensity at vertex(-8.888129,-8.888129,8.888129) : 0.200000
+Intensity at vertex(8.888129,-8.888129,8.888129) : 0.200000
+Intensity at vertex(8.888129,-8.888129,-8.888129) : 0.200000
+Intensity at vertex(-8.888129,-8.888129,-8.888129) : 0.200000
+Intensity at vertex(-8.888129,8.888129,8.888129) : 0.200000
+Intensity at vertex(8.888129,8.888129,8.888129) : 1.200000
+Intensity at vertex(8.888129,8.888129,-8.888129) : 0.200000
+Intensity at vertex(-8.888129,8.888129,-8.888129) : 0.200000
+Reading No.: 75
+Intensity at vertex(-8.979544,-8.979544,8.979544) : 0.200000
+Intensity at vertex(8.979544,-8.979544,8.979544) : 0.200000
+Intensity at vertex(8.979544,-8.979544,-8.979544) : 0.200000
+Intensity at vertex(-8.979544,-8.979544,-8.979544) : 0.200000
+Intensity at vertex(-8.979544,8.979544,8.979544) : 0.200000
+Intensity at vertex(8.979544,8.979544,8.979544) : 1.200000
+Intensity at vertex(8.979544,8.979544,-8.979544) : 0.200000
+Intensity at vertex(-8.979544,8.979544,-8.979544) : 0.200000
+Reading No.: 76
+Intensity at vertex(-9.075529,-9.075529,9.075529) : 0.200000
+Intensity at vertex(9.075529,-9.075529,9.075529) : 0.200000
+Intensity at vertex(9.075529,-9.075529,-9.075529) : 0.200000
+Intensity at vertex(-9.075529,-9.075529,-9.075529) : 0.200000
+Intensity at vertex(-9.075529,9.075529,9.075529) : 0.200000
+Intensity at vertex(9.075529,9.075529,9.075529) : 1.200000
+Intensity at vertex(9.075529,9.075529,-9.075529) : 0.200000
+Intensity at vertex(-9.075529,9.075529,-9.075529) : 0.200000
+Reading No.: 77
+Intensity at vertex(-9.176313,-9.176313,9.176313) : 0.200000
+Intensity at vertex(9.176313,-9.176313,9.176313) : 0.200000
+Intensity at vertex(9.176313,-9.176313,-9.176313) : 0.200000
+Intensity at vertex(-9.176313,-9.176313,-9.176313) : 0.200000
+Intensity at vertex(-9.176313,9.176313,9.176313) : 0.200000
+Intensity at vertex(9.176313,9.176313,9.176313) : 1.200000
+Intensity at vertex(9.176313,9.176313,-9.176313) : 0.200000
+Intensity at vertex(-9.176313,9.176313,-9.176313) : 0.200000
+Reading No.: 78
+Intensity at vertex(-9.282137,-9.282137,9.282137) : 0.200000
+Intensity at vertex(9.282137,-9.282137,9.282137) : 0.200000
+Intensity at vertex(9.282137,-9.282137,-9.282137) : 0.200000
+Intensity at vertex(-9.282137,-9.282137,-9.282137) : 0.200000
+Intensity at vertex(-9.282137,9.282137,9.282137) : 0.200000
+Intensity at vertex(9.282137,9.282137,9.282137) : 1.200000
+Intensity at vertex(9.282137,9.282137,-9.282137) : 0.200000
+Intensity at vertex(-9.282137,9.282137,-9.282137) : 0.200000
+Reading No.: 79
+Intensity at vertex(-9.393251,-9.393251,9.393251) : 0.200000
+Intensity at vertex(9.393251,-9.393251,9.393251) : 0.200000
+Intensity at vertex(9.393251,-9.393251,-9.393251) : 0.200000
+Intensity at vertex(-9.393251,-9.393251,-9.393251) : 0.200000
+Intensity at vertex(-9.393251,9.393251,9.393251) : 0.200000
+Intensity at vertex(9.393251,9.393251,9.393251) : 1.200000
+Intensity at vertex(9.393251,9.393251,-9.393251) : 0.200000
+Intensity at vertex(-9.393251,9.393251,-9.393251) : 0.200000
+Reading No.: 80
+Intensity at vertex(-9.509922,-9.509922,9.509922) : 0.200000
+Intensity at vertex(9.509922,-9.509922,9.509922) : 0.200000
+Intensity at vertex(9.509922,-9.509922,-9.509922) : 0.200000
+Intensity at vertex(-9.509922,-9.509922,-9.509922) : 0.200000
+Intensity at vertex(-9.509922,9.509922,9.509922) : 0.200000
+Intensity at vertex(9.509922,9.509922,9.509922) : 1.200000
+Intensity at vertex(9.509922,9.509922,-9.509922) : 0.200000
+Intensity at vertex(-9.509922,9.509922,-9.509922) : 0.200000
+Reading No.: 81
+Intensity at vertex(-9.632426,-9.632426,9.632426) : 0.200000
+Intensity at vertex(9.632426,-9.632426,9.632426) : 0.200000
+Intensity at vertex(9.632426,-9.632426,-9.632426) : 0.200000
+Intensity at vertex(-9.632426,-9.632426,-9.632426) : 0.200000
+Intensity at vertex(-9.632426,9.632426,9.632426) : 0.200000
+Intensity at vertex(9.632426,9.632426,9.632426) : 1.200000
+Intensity at vertex(9.632426,9.632426,-9.632426) : 0.200000
+Intensity at vertex(-9.632426,9.632426,-9.632426) : 0.200000
+Reading No.: 82
+Intensity at vertex(-9.761055,-9.761055,9.761055) : 0.200000
+Intensity at vertex(9.761055,-9.761055,9.761055) : 0.200000
+Intensity at vertex(9.761055,-9.761055,-9.761055) : 0.200000
+Intensity at vertex(-9.761055,-9.761055,-9.761055) : 0.200000
+Intensity at vertex(-9.761055,9.761055,9.761055) : 0.200000
+Intensity at vertex(9.761055,9.761055,9.761055) : 1.200000
+Intensity at vertex(9.761055,9.761055,-9.761055) : 0.200000
+Intensity at vertex(-9.761055,9.761055,-9.761055) : 0.200000
+Reading No.: 83
+Intensity at vertex(-9.896115,-9.896115,9.896115) : 0.200000
+Intensity at vertex(9.896115,-9.896115,9.896115) : 0.200000
+Intensity at vertex(9.896115,-9.896115,-9.896115) : 0.200000
+Intensity at vertex(-9.896115,-9.896115,-9.896115) : 0.200000
+Intensity at vertex(-9.896115,9.896115,9.896115) : 0.200000
+Intensity at vertex(9.896115,9.896115,9.896115) : 1.200000
+Intensity at vertex(9.896115,9.896115,-9.896115) : 0.200000
+Intensity at vertex(-9.896115,9.896115,-9.896115) : 0.200000
+Reading No.: 84
+Intensity at vertex(-10.037929,-10.037929,10.037929) : 0.200000
+Intensity at vertex(10.037929,-10.037929,10.037929) : 0.200000
+Intensity at vertex(10.037929,-10.037929,-10.037929) : 0.200000
+Intensity at vertex(-10.037929,-10.037929,-10.037929) : 0.200000
+Intensity at vertex(-10.037929,10.037929,10.037929) : 0.200000
+Intensity at vertex(10.037929,10.037929,10.037929) : 0.200000
+Intensity at vertex(10.037929,10.037929,-10.037929) : 0.200000
+Intensity at vertex(-10.037929,10.037929,-10.037929) : 0.200000
+Reading No.: 85
+Intensity at vertex(-10.186832,-10.186832,10.186832) : 0.200000
+Intensity at vertex(10.186832,-10.186832,10.186832) : 0.200000
+Intensity at vertex(10.186832,-10.186832,-10.186832) : 0.200000
+Intensity at vertex(-10.186832,-10.186832,-10.186832) : 0.200000
+Intensity at vertex(-10.186832,10.186832,10.186832) : 0.200000
+Intensity at vertex(10.186832,10.186832,10.186832) : 0.200000
+Intensity at vertex(10.186832,10.186832,-10.186832) : 0.200000
+Intensity at vertex(-10.186832,10.186832,-10.186832) : 0.200000
+Reading No.: 86
+Intensity at vertex(-10.343182,-10.343182,10.343182) : 0.200000
+Intensity at vertex(10.343182,-10.343182,10.343182) : 0.200000
+Intensity at vertex(10.343182,-10.343182,-10.343182) : 0.200000
+Intensity at vertex(-10.343182,-10.343182,-10.343182) : 0.200000
+Intensity at vertex(-10.343182,10.343182,10.343182) : 0.200000
+Intensity at vertex(10.343182,10.343182,10.343182) : 0.200000
+Intensity at vertex(10.343182,10.343182,-10.343182) : 0.200000
+Intensity at vertex(-10.343182,10.343182,-10.343182) : 0.200000
+Reading No.: 87
+Intensity at vertex(-10.507348,-10.507348,10.507348) : 0.200000
+Intensity at vertex(10.507348,-10.507348,10.507348) : 0.200000
+Intensity at vertex(10.507348,-10.507348,-10.507348) : 0.200000
+Intensity at vertex(-10.507348,-10.507348,-10.507348) : 0.200000
+Intensity at vertex(-10.507348,10.507348,10.507348) : 0.200000
+Intensity at vertex(10.507348,10.507348,10.507348) : 0.200000
+Intensity at vertex(10.507348,10.507348,-10.507348) : 0.200000
+Intensity at vertex(-10.507348,10.507348,-10.507348) : 0.200000
+Reading No.: 88
+Intensity at vertex(-10.679724,-10.679724,10.679724) : 0.200000
+Intensity at vertex(10.679724,-10.679724,10.679724) : 0.200000
+Intensity at vertex(10.679724,-10.679724,-10.679724) : 0.200000
+Intensity at vertex(-10.679724,-10.679724,-10.679724) : 0.200000
+Intensity at vertex(-10.679724,10.679724,10.679724) : 0.200000
+Intensity at vertex(10.679724,10.679724,10.679724) : 0.200000
+Intensity at vertex(10.679724,10.679724,-10.679724) : 0.200000
+Intensity at vertex(-10.679724,10.679724,-10.679724) : 0.200000
+Reading No.: 89
+Intensity at vertex(-10.860718,-10.860718,10.860718) : 0.200000
+Intensity at vertex(10.860718,-10.860718,10.860718) : 0.200000
+Intensity at vertex(10.860718,-10.860718,-10.860718) : 0.200000
+Intensity at vertex(-10.860718,-10.860718,-10.860718) : 0.200000
+Intensity at vertex(-10.860718,10.860718,10.860718) : 0.200000
+Intensity at vertex(10.860718,10.860718,10.860718) : 0.200000
+Intensity at vertex(10.860718,10.860718,-10.860718) : 0.200000
+Intensity at vertex(-10.860718,10.860718,-10.860718) : 0.200000
+Reading No.: 90
+Intensity at vertex(-11.050761,-11.050761,11.050761) : 0.200000
+Intensity at vertex(11.050761,-11.050761,11.050761) : 0.200000
+Intensity at vertex(11.050761,-11.050761,-11.050761) : 0.200000
+Intensity at vertex(-11.050761,-11.050761,-11.050761) : 0.200000
+Intensity at vertex(-11.050761,11.050761,11.050761) : 0.200000
+Intensity at vertex(11.050761,11.050761,11.050761) : 0.200000
+Intensity at vertex(11.050761,11.050761,-11.050761) : 0.200000
+Intensity at vertex(-11.050761,11.050761,-11.050761) : 0.200000
+Reading No.: 91
+Intensity at vertex(-11.250307,-11.250307,11.250307) : 0.200000
+Intensity at vertex(11.250307,-11.250307,11.250307) : 0.200000
+Intensity at vertex(11.250307,-11.250307,-11.250307) : 0.200000
+Intensity at vertex(-11.250307,-11.250307,-11.250307) : 0.200000
+Intensity at vertex(-11.250307,11.250307,11.250307) : 0.200000
+Intensity at vertex(11.250307,11.250307,11.250307) : 0.200000
+Intensity at vertex(11.250307,11.250307,-11.250307) : 0.200000
+Intensity at vertex(-11.250307,11.250307,-11.250307) : 0.200000
+Reading No.: 92
+Intensity at vertex(-11.459830,-11.459830,11.459830) : 0.200000
+Intensity at vertex(11.459830,-11.459830,11.459830) : 0.200000
+Intensity at vertex(11.459830,-11.459830,-11.459830) : 0.200000
+Intensity at vertex(-11.459830,-11.459830,-11.459830) : 0.200000
+Intensity at vertex(-11.459830,11.459830,11.459830) : 0.200000
+Intensity at vertex(11.459830,11.459830,11.459830) : 0.200000
+Intensity at vertex(11.459830,11.459830,-11.459830) : 0.200000
+Intensity at vertex(-11.459830,11.459830,-11.459830) : 0.200000
+Reading No.: 93
+Intensity at vertex(-11.679830,-11.679830,11.679830) : 0.200000
+Intensity at vertex(11.679830,-11.679830,11.679830) : 0.200000
+Intensity at vertex(11.679830,-11.679830,-11.679830) : 0.200000
+Intensity at vertex(-11.679830,-11.679830,-11.679830) : 0.200000
+Intensity at vertex(-11.679830,11.679830,11.679830) : 0.200000
+Intensity at vertex(11.679830,11.679830,11.679830) : 0.200000
+Intensity at vertex(11.679830,11.679830,-11.679830) : 0.200000
+Intensity at vertex(-11.679830,11.679830,-11.679830) : 0.200000
+Reading No.: 94
+Intensity at vertex(-11.910829,-11.910829,11.910829) : 0.200000
+Intensity at vertex(11.910829,-11.910829,11.910829) : 0.200000
+Intensity at vertex(11.910829,-11.910829,-11.910829) : 0.200000
+Intensity at vertex(-11.910829,-11.910829,-11.910829) : 0.200000
+Intensity at vertex(-11.910829,11.910829,11.910829) : 0.200000
+Intensity at vertex(11.910829,11.910829,11.910829) : 0.200000
+Intensity at vertex(11.910829,11.910829,-11.910829) : 0.200000
+Intensity at vertex(-11.910829,11.910829,-11.910829) : 0.200000
+Reading No.: 95
+Intensity at vertex(-12.153378,-12.153378,12.153378) : 0.200000
+Intensity at vertex(12.153378,-12.153378,12.153378) : 0.200000
+Intensity at vertex(12.153378,-12.153378,-12.153378) : 0.200000
+Intensity at vertex(-12.153378,-12.153378,-12.153378) : 0.200000
+Intensity at vertex(-12.153378,12.153378,12.153378) : 0.200000
+Intensity at vertex(12.153378,12.153378,12.153378) : 0.200000
+Intensity at vertex(12.153378,12.153378,-12.153378) : 0.200000
+Intensity at vertex(-12.153378,12.153378,-12.153378) : 0.200000
+Reading No.: 96
+Intensity at vertex(-12.408054,-12.408054,12.408054) : 0.200000
+Intensity at vertex(12.408054,-12.408054,12.408054) : 0.200000
+Intensity at vertex(12.408054,-12.408054,-12.408054) : 0.200000
+Intensity at vertex(-12.408054,-12.408054,-12.408054) : 0.200000
+Intensity at vertex(-12.408054,12.408054,12.408054) : 0.200000
+Intensity at vertex(12.408054,12.408054,12.408054) : 0.200000
+Intensity at vertex(12.408054,12.408054,-12.408054) : 0.200000
+Intensity at vertex(-12.408054,12.408054,-12.408054) : 0.200000
+Reading No.: 97
+Intensity at vertex(-12.662731,-12.662731,12.662731) : 0.200000
+Intensity at vertex(12.662731,-12.662731,12.662731) : 0.200000
+Intensity at vertex(12.662731,-12.662731,-12.662731) : 0.200000
+Intensity at vertex(-12.662731,-12.662731,-12.662731) : 0.200000
+Intensity at vertex(-12.662731,12.662731,12.662731) : 0.200000
+Intensity at vertex(12.662731,12.662731,12.662731) : 0.200000
+Intensity at vertex(12.662731,12.662731,-12.662731) : 0.200000
+Intensity at vertex(-12.662731,12.662731,-12.662731) : 0.200000
+Reading No.: 98
+Intensity at vertex(-12.917408,-12.917408,12.917408) : 0.200000
+Intensity at vertex(12.917408,-12.917408,12.917408) : 0.200000
+Intensity at vertex(12.917408,-12.917408,-12.917408) : 0.200000
+Intensity at vertex(-12.917408,-12.917408,-12.917408) : 0.200000
+Intensity at vertex(-12.917408,12.917408,12.917408) : 0.200000
+Intensity at vertex(12.917408,12.917408,12.917408) : 0.200000
+Intensity at vertex(12.917408,12.917408,-12.917408) : 0.200000
+Intensity at vertex(-12.917408,12.917408,-12.917408) : 0.200000
+Reading No.: 99
+Intensity at vertex(-13.172085,-13.172085,13.172085) : 0.200000
+Intensity at vertex(13.172085,-13.172085,13.172085) : 0.200000
+Intensity at vertex(13.172085,-13.172085,-13.172085) : 0.200000
+Intensity at vertex(-13.172085,-13.172085,-13.172085) : 0.200000
+Intensity at vertex(-13.172085,13.172085,13.172085) : 0.200000
+Intensity at vertex(13.172085,13.172085,13.172085) : 0.200000
+Intensity at vertex(13.172085,13.172085,-13.172085) : 0.200000
+Intensity at vertex(-13.172085,13.172085,-13.172085) : 0.200000
+Reading No.: 100
+Intensity at vertex(-13.426762,-13.426762,13.426762) : 0.200000
+Intensity at vertex(13.426762,-13.426762,13.426762) : 0.200000
+Intensity at vertex(13.426762,-13.426762,-13.426762) : 0.200000
+Intensity at vertex(-13.426762,-13.426762,-13.426762) : 0.200000
+Intensity at vertex(-13.426762,13.426762,13.426762) : 0.200000
+Intensity at vertex(13.426762,13.426762,13.426762) : 0.200000
+Intensity at vertex(13.426762,13.426762,-13.426762) : 0.200000
+Intensity at vertex(-13.426762,13.426762,-13.426762) : 0.200000
+Reading No.: 101
+Intensity at vertex(-13.681438,-13.681438,13.681438) : 0.200000
+Intensity at vertex(13.681438,-13.681438,13.681438) : 0.200000
+Intensity at vertex(13.681438,-13.681438,-13.681438) : 0.200000
+Intensity at vertex(-13.681438,-13.681438,-13.681438) : 0.200000
+Intensity at vertex(-13.681438,13.681438,13.681438) : 0.200000
+Intensity at vertex(13.681438,13.681438,13.681438) : 0.200000
+Intensity at vertex(13.681438,13.681438,-13.681438) : 0.200000
+Intensity at vertex(-13.681438,13.681438,-13.681438) : 0.200000
+Reading No.: 102
+Intensity at vertex(-13.936115,-13.936115,13.936115) : 0.200000
+Intensity at vertex(13.936115,-13.936115,13.936115) : 0.200000
+Intensity at vertex(13.936115,-13.936115,-13.936115) : 0.200000
+Intensity at vertex(-13.936115,-13.936115,-13.936115) : 0.200000
+Intensity at vertex(-13.936115,13.936115,13.936115) : 0.200000
+Intensity at vertex(13.936115,13.936115,13.936115) : 0.200000
+Intensity at vertex(13.936115,13.936115,-13.936115) : 0.200000
+Intensity at vertex(-13.936115,13.936115,-13.936115) : 0.200000
+Reading No.: 103
+Intensity at vertex(-14.190792,-14.190792,14.190792) : 0.200000
+Intensity at vertex(14.190792,-14.190792,14.190792) : 0.200000
+Intensity at vertex(14.190792,-14.190792,-14.190792) : 0.200000
+Intensity at vertex(-14.190792,-14.190792,-14.190792) : 0.200000
+Intensity at vertex(-14.190792,14.190792,14.190792) : 0.200000
+Intensity at vertex(14.190792,14.190792,14.190792) : 0.200000
+Intensity at vertex(14.190792,14.190792,-14.190792) : 0.200000
+Intensity at vertex(-14.190792,14.190792,-14.190792) : 0.200000
+Reading No.: 104
+Intensity at vertex(-14.445469,-14.445469,14.445469) : 0.200000
+Intensity at vertex(14.445469,-14.445469,14.445469) : 0.200000
+Intensity at vertex(14.445469,-14.445469,-14.445469) : 0.200000
+Intensity at vertex(-14.445469,-14.445469,-14.445469) : 0.200000
+Intensity at vertex(-14.445469,14.445469,14.445469) : 0.200000
+Intensity at vertex(14.445469,14.445469,14.445469) : 0.200000
+Intensity at vertex(14.445469,14.445469,-14.445469) : 0.200000
+Intensity at vertex(-14.445469,14.445469,-14.445469) : 0.200000
+Reading No.: 105
+Intensity at vertex(-14.700146,-14.700146,14.700146) : 0.200000
+Intensity at vertex(14.700146,-14.700146,14.700146) : 0.200000
+Intensity at vertex(14.700146,-14.700146,-14.700146) : 0.200000
+Intensity at vertex(-14.700146,-14.700146,-14.700146) : 0.200000
+Intensity at vertex(-14.700146,14.700146,14.700146) : 0.200000
+Intensity at vertex(14.700146,14.700146,14.700146) : 0.200000
+Intensity at vertex(14.700146,14.700146,-14.700146) : 0.200000
+Intensity at vertex(-14.700146,14.700146,-14.700146) : 0.200000
+Reading No.: 106
+Intensity at vertex(-14.954823,-14.954823,14.954823) : 0.200000
+Intensity at vertex(14.954823,-14.954823,14.954823) : 0.200000
+Intensity at vertex(14.954823,-14.954823,-14.954823) : 0.200000
+Intensity at vertex(-14.954823,-14.954823,-14.954823) : 0.200000
+Intensity at vertex(-14.954823,14.954823,14.954823) : 0.200000
+Intensity at vertex(14.954823,14.954823,14.954823) : 0.200000
+Intensity at vertex(14.954823,14.954823,-14.954823) : 0.200000
+Intensity at vertex(-14.954823,14.954823,-14.954823) : 0.200000
+Reading No.: 107
+Intensity at vertex(-15.209499,-15.209499,15.209499) : 0.200000
+Intensity at vertex(15.209499,-15.209499,15.209499) : 0.200000
+Intensity at vertex(15.209499,-15.209499,-15.209499) : 0.200000
+Intensity at vertex(-15.209499,-15.209499,-15.209499) : 0.200000
+Intensity at vertex(-15.209499,15.209499,15.209499) : 0.200000
+Intensity at vertex(15.209499,15.209499,15.209499) : 0.200000
+Intensity at vertex(15.209499,15.209499,-15.209499) : 0.200000
+Intensity at vertex(-15.209499,15.209499,-15.209499) : 0.200000
+Reading No.: 108
+Intensity at vertex(-15.464176,-15.464176,15.464176) : 0.200000
+Intensity at vertex(15.464176,-15.464176,15.464176) : 0.200000
+Intensity at vertex(15.464176,-15.464176,-15.464176) : 0.200000
+Intensity at vertex(-15.464176,-15.464176,-15.464176) : 0.200000
+Intensity at vertex(-15.464176,15.464176,15.464176) : 0.200000
+Intensity at vertex(15.464176,15.464176,15.464176) : 0.200000
+Intensity at vertex(15.464176,15.464176,-15.464176) : 0.200000
+Intensity at vertex(-15.464176,15.464176,-15.464176) : 0.200000
+Reading No.: 109
+Intensity at vertex(-15.718853,-15.718853,15.718853) : 0.200000
+Intensity at vertex(15.718853,-15.718853,15.718853) : 0.200000
+Intensity at vertex(15.718853,-15.718853,-15.718853) : 0.200000
+Intensity at vertex(-15.718853,-15.718853,-15.718853) : 0.200000
+Intensity at vertex(-15.718853,15.718853,15.718853) : 0.200000
+Intensity at vertex(15.718853,15.718853,15.718853) : 0.200000
+Intensity at vertex(15.718853,15.718853,-15.718853) : 0.200000
+Intensity at vertex(-15.718853,15.718853,-15.718853) : 0.200000
+Reading No.: 110
+Intensity at vertex(-15.973530,-15.973530,15.973530) : 0.200000
+Intensity at vertex(15.973530,-15.973530,15.973530) : 0.200000
+Intensity at vertex(15.973530,-15.973530,-15.973530) : 0.200000
+Intensity at vertex(-15.973530,-15.973530,-15.973530) : 0.200000
+Intensity at vertex(-15.973530,15.973530,15.973530) : 0.200000
+Intensity at vertex(15.973530,15.973530,15.973530) : 0.200000
+Intensity at vertex(15.973530,15.973530,-15.973530) : 0.200000
+Intensity at vertex(-15.973530,15.973530,-15.973530) : 0.200000
+Reading No.: 111
+Intensity at vertex(-16.228207,-16.228207,16.228207) : 0.200000
+Intensity at vertex(16.228207,-16.228207,16.228207) : 0.200000
+Intensity at vertex(16.228207,-16.228207,-16.228207) : 0.200000
+Intensity at vertex(-16.228207,-16.228207,-16.228207) : 0.200000
+Intensity at vertex(-16.228207,16.228207,16.228207) : 0.200000
+Intensity at vertex(16.228207,16.228207,16.228207) : 0.200000
+Intensity at vertex(16.228207,16.228207,-16.228207) : 0.200000
+Intensity at vertex(-16.228207,16.228207,-16.228207) : 0.200000
+Reading No.: 112
+Intensity at vertex(-16.482883,-16.482883,16.482883) : 0.200000
+Intensity at vertex(16.482883,-16.482883,16.482883) : 0.200000
+Intensity at vertex(16.482883,-16.482883,-16.482883) : 0.200000
+Intensity at vertex(-16.482883,-16.482883,-16.482883) : 0.200000
+Intensity at vertex(-16.482883,16.482883,16.482883) : 0.200000
+Intensity at vertex(16.482883,16.482883,16.482883) : 0.200000
+Intensity at vertex(16.482883,16.482883,-16.482883) : 0.200000
+Intensity at vertex(-16.482883,16.482883,-16.482883) : 0.200000
+Reading No.: 113
+Intensity at vertex(-16.737560,-16.737560,16.737560) : 0.200000
+Intensity at vertex(16.737560,-16.737560,16.737560) : 0.200000
+Intensity at vertex(16.737560,-16.737560,-16.737560) : 0.200000
+Intensity at vertex(-16.737560,-16.737560,-16.737560) : 0.200000
+Intensity at vertex(-16.737560,16.737560,16.737560) : 0.200000
+Intensity at vertex(16.737560,16.737560,16.737560) : 0.200000
+Intensity at vertex(16.737560,16.737560,-16.737560) : 0.200000
+Intensity at vertex(-16.737560,16.737560,-16.737560) : 0.200000
+Reading No.: 114
+Intensity at vertex(-16.992237,-16.992237,16.992237) : 0.200000
+Intensity at vertex(16.992237,-16.992237,16.992237) : 0.200000
+Intensity at vertex(16.992237,-16.992237,-16.992237) : 0.200000
+Intensity at vertex(-16.992237,-16.992237,-16.992237) : 0.200000
+Intensity at vertex(-16.992237,16.992237,16.992237) : 0.200000
+Intensity at vertex(16.992237,16.992237,16.992237) : 0.200000
+Intensity at vertex(16.992237,16.992237,-16.992237) : 0.200000
+Intensity at vertex(-16.992237,16.992237,-16.992237) : 0.200000
+Reading No.: 115
+Intensity at vertex(-17.246914,-17.246914,17.246914) : 0.200000
+Intensity at vertex(17.246914,-17.246914,17.246914) : 0.200000
+Intensity at vertex(17.246914,-17.246914,-17.246914) : 0.200000
+Intensity at vertex(-17.246914,-17.246914,-17.246914) : 0.200000
+Intensity at vertex(-17.246914,17.246914,17.246914) : 0.200000
+Intensity at vertex(17.246914,17.246914,17.246914) : 0.200000
+Intensity at vertex(17.246914,17.246914,-17.246914) : 0.200000
+Intensity at vertex(-17.246914,17.246914,-17.246914) : 0.200000

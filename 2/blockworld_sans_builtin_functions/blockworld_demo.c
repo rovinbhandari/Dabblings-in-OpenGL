@@ -1,4 +1,5 @@
 #include <blockworld.h>
+#include <stdio.h>
 
 GLfloat lightpos[] =
 {100.f, 100.f, 100.f, 1.f};
@@ -7,6 +8,12 @@ GLfloat light_diffuse[] =
 GLfloat lightcol[] =
 {1.0,1.0,1,0};
 
+int opt, nopts = 3;
+
+GLdouble eyex = 11.0;
+GLdouble eyey = 11.0;
+GLdouble eyez = 11.0;
+   
 void init(void);
 void init2(void);
 void keyboard(unsigned char, int, int);
@@ -14,10 +21,6 @@ void reshape(int, int);
 
 void display (void)
 {
-	GLdouble eyex = 6.0;
-   GLdouble eyey = 6.0;
-   GLdouble eyez = 6.0;
-   
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -25,32 +28,47 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   /*
-   // Create a cubelet 
-	GLfloat texture_cubelet[] = {0.3f, 0.2f, 0.1f, 1};
-   bwInit(1);
-   glPushMatrix();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cubelet);
-	bwTranslate(4, 0, 0);
-   bwCubelet_glut();
-   glPopMatrix();
-   glPushMatrix();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cubelet);
-	bwTranslate(0, 0, 4);
-   bwCubelet_gl();
-   glPopMatrix();
-   */
+   GLfloat texture_cubelet[] = {0.3f, 0.2f, 0.1f, 1};
+   GLfloat texture_cubelet2[] = {0.6f, 0.2f, 0.7f, 1};
+   GLfloat texture_cube[] = {0.3, 0.1f, 0.05f, 1};
+   GLfloat texture_cuboid[] = {0.3, 0.7f, 0.05f, 1};
    
-	// Create a cuboid 
-   GLfloat texture_cuboid[] = {0.3, 0.1f, 0.05f, 1};
-   //bwCubeletInit_gl(1);
-	glPushMatrix();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cuboid);
-	bwTranslate(0, 1.8, 0);
-   bwCuboidHollow_units(14.0, 6.0, 5.0);
-   glPopMatrix();
+   switch(opt)
+   {
+      case 0:
+         // Create a cubelet 
+         bwCubeletInit_gl(1);
+         glPushMatrix();
+         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cubelet);
+         bwCubelet_gl();
+         glPopMatrix();
+         bwCubeletInit_gl(5);
+         glPushMatrix();
+         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cubelet2);
+         bwTranslate(0, 0, -6);
+         bwCubelet_gl();
+         glPopMatrix();
+         break;
    
-   
+      case 1:
+      	// Create a cube 
+      	glPushMatrix();
+         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cube);
+      	bwTranslate(0, 1.8, 0);
+         bwCubeSolid_gllen(7);
+         glPopMatrix();
+         break;
+
+      case 2:
+         // Create a cuboid
+      	glPushMatrix();
+         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cuboid);
+      	bwTranslate(0, 0.5, 0);
+         bwCuboidSolid_gllen(4.0, 3.0, 5.0);
+         glPopMatrix();
+         break;
+   }
+
    glutSwapBuffers();
 }
 
@@ -76,9 +94,10 @@ void init(void)
 int main (int argc, char **argv)
 {
    glutInit (&argc, argv);
-   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (750, 750);               // TODO : Reference
-   glutCreateWindow (argv[0]);                  // TODO : Reference
+   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowPosition(300, 300);
+   glutInitWindowSize (750, 750);
+   glutCreateWindow("BL[]CKW[]RLD");
    init();
 
    /* Set the display function */
@@ -125,6 +144,11 @@ void keyboard (unsigned char key, int x, int y)
    {
       case 27 :
          exit (0);
+         break;
+      default:
+         opt = (opt + 1) % nopts;
+			glutPostRedisplay();
+         break;
    }
 }
 

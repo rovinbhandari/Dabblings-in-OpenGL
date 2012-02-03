@@ -41,7 +41,7 @@ void display (void)
 
 	/* Create a cube using voxelib */
    GLfloat cube_mat[] = 
-   {0.5, 0.f, 0.f, 1};
+   {0.3, 0.1f, 0.05f, 1};
 	glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
 	glTranslated (0,3,0);
@@ -50,12 +50,12 @@ void display (void)
 
 	/* Create a cylinder using voxelib */
 	GLfloat cylinder_mat[] = 
-   {0.5, 0.5, 0.f, 1};
+   {0.3, 0.2, 0.2f, 1};
 	glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cylinder_mat);
 	glTranslated (3.5,0,0);
-	vlInit (0.01);
-   vlCylinder (70.0, 150.0);
+	vlInit (0.06);
+   vlCylinder (30.0, 70.0);
    glPopMatrix ();
 
 	/* Create a sphere using voxelib */
@@ -64,7 +64,7 @@ void display (void)
 	glPushMatrix ();
 //	vlInit (0.01);
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
-   vlSphere (20.0);
+   vlSphere (44.0);
    glPopMatrix ();
 
 

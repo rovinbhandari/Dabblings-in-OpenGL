@@ -6,21 +6,7 @@
 
 #define bwTranslate(i, j, k) glTranslated(i, j, k)
 
-enum {
-         X = 4,
-         Y = 2,
-         Z = 1
-     };
-      
-enum {
-         XY = X | Y,
-         YZ = Y | Z,
-         ZX = Z | X,
-         XYZ = X | Y | Z
-     };
-
 #define bwRotate(a, i, j, k) glRotated(a, i, j, k)
-#define bwRotateAX(a, x) glRotated(a, x & X, x & Y, x & Z)
 
 void bwCubeletInit_glut(GLdouble blockedgelength);
 

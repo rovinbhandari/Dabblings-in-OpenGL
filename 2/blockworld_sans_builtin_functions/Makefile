@@ -5,7 +5,7 @@ BIN=.
 CFLAGS=-Wall -g -I./
 OBJECTS= $(OBJ)/blockworld_demo.o
 LIB_BW= $(LIB_OBJ)/blockworld.o
-OUTPUT_FILE=demo
+OUTPUT_FILE=demo.out
 CC=gcc
 
 all: clean lib_bw $(OBJECTS) 

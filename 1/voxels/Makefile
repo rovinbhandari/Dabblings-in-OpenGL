@@ -5,7 +5,7 @@ BIN=.
 CFLAGS=-Wall -g -I./
 OBJECTS= $(OBJ)/main.o
 LIB_VOXEL= $(LIB_OBJ)/voxel.o
-OUTPUT_FILE=test
+OUTPUT_FILE=test.out
 CC=gcc
 
 all: lib_voxel $(OBJECTS) 
