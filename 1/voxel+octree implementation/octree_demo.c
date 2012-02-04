@@ -35,7 +35,7 @@ void display (void)
    GLfloat voxel_mat[] = 
    {0.f, 0.f, 1, 1};
    
-	set_voxel_edge (0.05);
+	set_voxel_edge (0.1);
 	
    set_function_ptr (&sphere_function);
 
