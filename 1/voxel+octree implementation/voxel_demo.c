@@ -35,14 +35,11 @@ void display (void)
 	
    vlSetFunction (&cone_function);
 
-	/* Create a sphere */
-	glPushMatrix ();
+   glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
    vlVoxel (-3, -3, 0, 6);
    glPopMatrix ();
-
-
-	glutSwapBuffers ();
+   glutSwapBuffers ();
 }
 
 void keyboard (unsigned char key, int x, int y)
