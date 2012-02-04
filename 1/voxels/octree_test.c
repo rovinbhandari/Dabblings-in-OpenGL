@@ -1,13 +1,17 @@
 /* Program to test the voxel library functions */
 
 
-#include <voxel.h>
+#include <octree.h>
 #include <common.h>
+#include <voxel.h>
+
 
 GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
 GLfloat lightcol[] =
 {1.0,1.0,1,0};
+
+
 
 void init (void)
 {
@@ -31,45 +35,17 @@ void display (void)
    GLfloat voxel_mat[] = 
    {0.f, 0.f, 1, 1};
    
-	vlInit (0.1);
+	set_voxel_edge (0.05);
 	
-   vlSetFunction (&cube_function);
+   set_function_ptr (&sphere_function);
 
-/*
-<<<<<<< HEAD
-	// Create a cube using voxelib
-   GLfloat cube_mat[] = 
-   {0.3, 0.1f, 0.05f, 1};
-	glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-	glTranslated (0,3,0);
-   vlCube (4.0);
-   glPopMatrix (); 
+   point_t ref_point = { -1, -1, -1 };
+   octree_t *octree = construct_octree ( &ref_point, 2);
 
-	// Create a cylinder using voxelib 
-	GLfloat cylinder_mat[] = 
-   {0.3, 0.2, 0.2f, 1};
-	glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cylinder_mat);
-	glTranslated (3.5,0,0);
-	vlInit (0.06);
-   vlCylinder (30.0, 70.0);
-   glPopMatrix ();
-
-	// Create a sphere using voxelib 
-	GLfloat sphere_mat[] = 
-   {0.2, 0.5, 0.5f, 1};
-	glPushMatrix ();
-//	vlInit (0.01);
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
-   vlSphere (44.0);
-=======
-*/
 	/* Create a sphere */
 	glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-   vlVoxel (-2, -2, -2, 4);
-//>>>>>>> d6796934bb151d9f848c359d93cdb5030ffaf5ea
+   putVoxels (octree);
    glPopMatrix ();
 
 
