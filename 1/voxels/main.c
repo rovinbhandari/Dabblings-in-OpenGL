@@ -31,14 +31,14 @@ void display (void)
    GLfloat voxel_mat[] = 
    {0.f, 0.f, 1, 1};
    
-	vlInit (0.1);
+	vlInit (0.05);
 	
-   vlSetFunction (&cube_function);
+   vlSetFunction (&cone_function);
 
 	/* Create a sphere */
 	glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-   vlVoxel (-2, -2, -2, 4);
+   vlVoxel (-3, -3, 0, 6);
    glPopMatrix ();
 
 

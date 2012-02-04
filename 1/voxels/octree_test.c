@@ -37,10 +37,10 @@ void display (void)
    
 	set_voxel_edge (0.05);
 	
-   set_function_ptr (&sphere_function);
+   set_function_ptr (&cone_function);
 
-   point_t ref_point = { -1, -1, -1 };
-   octree_t *octree = construct_octree ( &ref_point, 2);
+   point_t ref_point = { -3, -3, 0 };
+   octree_t *octree = construct_octree ( &ref_point, 6);
 
 	/* Create a sphere */
 	glPushMatrix ();
