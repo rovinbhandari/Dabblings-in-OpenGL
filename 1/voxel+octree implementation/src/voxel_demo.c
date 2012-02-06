@@ -3,11 +3,11 @@
 
 #include <voxel.h>
 #include <common.h>
-
-GLfloat lightpos[] =
-{10.f, 10.f, 10.f, 1.f};
-GLfloat lightcol[] =
-{1.0,1.0,1,0};
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
 
 void init (void)
 {
@@ -17,9 +17,10 @@ void init (void)
 
 void display (void)
 {
-	GLdouble eyex = 6.0;
-	GLdouble eyey = 6.0;
-	GLdouble eyez = 6.0;
+   struct timeval start, end;
+   double start_time, end_time, diff;
+
+   gettimeofday(&start, NULL);
 
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -28,52 +29,39 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   GLfloat voxel_mat[] = 
-   {0.f, 0.f, 1, 1};
-   
-	vlInit (0.1);
+   vlInit (voxel_edge_len);
 	
-   vlSetFunction (&cube_function);
+   vlSetFunction (&cone_function);
 
-/*
-<<<<<<< HEAD
-	// Create a cube using voxelib
-   GLfloat cube_mat[] = 
-   {0.3, 0.1f, 0.05f, 1};
-	glPushMatrix ();
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cone_mat);
+   vlVoxel (-cone_radius, -cone_radius, 0, cone_height);
+   glPopMatrix ();
+
+   vlSetFunction(&sphere_function);
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere1_mat);
+   glTranslated (0,3,-4);
+   vlVoxel (-sphere_radius, -sphere_radius, -sphere_radius, 2*sphere_radius);
+   glPopMatrix ();
+ 
+ 
+   vlSetFunction(&cube_function);
+   glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-	glTranslated (0,3,0);
-   vlCube (4.0);
-   glPopMatrix (); 
-
-	// Create a cylinder using voxelib 
-	GLfloat cylinder_mat[] = 
-   {0.3, 0.2, 0.2f, 1};
-	glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cylinder_mat);
-	glTranslated (3.5,0,0);
-	vlInit (0.06);
-   vlCylinder (30.0, 70.0);
+   glTranslated (0, -10, -3);
+   vlVoxel (-cube_edge/2, -cube_edge/2, -cube_edge/2, cube_edge);
    glPopMatrix ();
+   glutSwapBuffers ();
+   
+   gettimeofday(&end, NULL);
+   
+   start_time = ((start.tv_sec) * 1000 + start.tv_usec/1000.0) + 0.5;
+   end_time = ((end.tv_sec) * 1000 + end.tv_usec/1000.0) + 0.5;
 
-	// Create a sphere using voxelib 
-	GLfloat sphere_mat[] = 
-   {0.2, 0.5, 0.5f, 1};
-	glPushMatrix ();
-//	vlInit (0.01);
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere_mat);
-   vlSphere (44.0);
-=======
-*/
-	/* Create a sphere */
-	glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-   vlVoxel (-2, -2, -2, 4);
-//>>>>>>> d6796934bb151d9f848c359d93cdb5030ffaf5ea
-   glPopMatrix ();
+   diff = end_time - start_time;
 
-
-	glutSwapBuffers ();
+   printf ("Time taken : %g\n", diff);
 }
 
 void keyboard (unsigned char key, int x, int y)
@@ -96,6 +84,16 @@ void reshape (int w, int h)
 
 int main (int argc, char **argv)
 {
+   if (argc > 1 )
+   {
+      voxel_edge_len = atof (argv[1]);
+      printf ("Setting voxel edge length to %g\n", voxel_edge_len);
+   }
+   else
+   {
+      printf ("No voxel length provided. Setting it to %g\n", voxel_edge_len );
+   }
+   
    glutInit (&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
    glutInitWindowSize (750, 750);               // TODO : Reference

@@ -2,16 +2,49 @@
 #include <math.h>
 
 #define SQR(x) (x)*(x)
+#define TOL 0.1
+
+//voxel_edge = 0.05;
+/*
+eyex = (GLdouble) 6.0;
+eyey = (GLdouble) 6.0;
+eyez = (GLdouble) 6.0;
+*/
+
+GLdouble eyex = 6.0;
+GLdouble eyey = 6.0;
+GLdouble eyez = 6.0;
+
+GLdouble voxel_edge_len = 0.05;
+
+GLfloat lightpos[] =
+{10.f, 10.f, 10.f, 1.f};
+GLfloat lightcol[] =
+{1.0,1.0,1,0};
+
+double cube_edge =  3;
+double cone_radius = 2;
+double cone_height = 6;
+double sphere_radius = 2;
+
+GLfloat cone_mat[] = 
+{0.f, 0.f, 1, 1};
+
+GLfloat sphere1_mat[] = 
+{1, 1, 0.0, 1};
+
+GLfloat cube_mat[] = 
+{0, 1, 0.0, 1};
 
 unsigned char cmpDouble (double a, double b)
 {
-   if ( a <= 1.1 * b && a >= 0.9 * b)
+   if ( a <= (1 + TOL) * b && a >= (1 - TOL) * b)
       return 1;
    else
       return 0;
 }
 
-unsigned int abs (int n)
+double absolute (double n)
 {
    return (n >= 0) ? n : -n;
 }
@@ -20,15 +53,13 @@ unsigned int abs (int n)
 
 int cube_function (double x, double y, double z)
 {
-   double edge = 4;
-   
-   x = abs (x);
-   y = abs (y);
-   z = abs (z);
+   x = absolute (x);
+   y = absolute (y);
+   z = absolute (z);
 
-   edge = edge / 2;
+   double edge = cube_edge / 2;
    
-   if ( LTE (x, edge)  && LTE (y, edge) && LTE (z, edge))
+   if ( LTE (x, edge)  && LTE (y, edge) && LTE(z, edge) )
    {
       return 1;
    }
@@ -40,10 +71,8 @@ int cube_function (double x, double y, double z)
 
 int cone_function (double x, double y, double z)
 {
-   double base_radius = 3;
-   double height = 6;
 
-   if ( z <= height && SQR(x) + SQR(y) <= SQR(base_radius * ( (height - z) /height)) )
+   if ( z <= cone_height && SQR(x) + SQR(y) <= SQR(cone_radius * ( (cone_height - z) /cone_height)) )
       return 1;
    else
       return 0;
@@ -51,9 +80,8 @@ int cone_function (double x, double y, double z)
 
 int sphere_function (double x, double y, double z)
 {
-   double radius = 1;
 
-   if ( LTE ( SQR (x) + SQR (y) + SQR(z), SQR (radius)))
+   if ( LTE ( SQR (x) + SQR (y) + SQR(z), SQR (sphere_radius)))
    {
       return 1;
    }
