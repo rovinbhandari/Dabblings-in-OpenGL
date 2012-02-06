@@ -6,10 +6,6 @@
 
 int (*func) (double, double, double);
 
-GLdouble eyex = 6.0;
-GLdouble eyey = 6.0;
-GLdouble eyez = 6.0;
-
 GLfloat viewangle;
 
 GLdouble edge = 1.0;

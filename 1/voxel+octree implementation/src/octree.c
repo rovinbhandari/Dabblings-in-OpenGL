@@ -51,7 +51,7 @@ unsigned char all_leaves (octree_t *nodes[], unsigned int size)
 octree_t * create_octree (point_t *ref_point, double length)
 {
 //	debug_file = fopen ("debug", "a");
-	printf ("Creating octree with length = %f\n", length);
+//	printf ("Creating octree with length = %f\n", length);
 
    octree_t *children[N_CHILDREN] = { (octree_t *) NULL };
 
@@ -139,11 +139,11 @@ octree_t * create_octree (point_t *ref_point, double length)
       tree->children[i] = children[i];
    }
 
-	if ( LEAF == type )
+/*	if ( LEAF == type )
 	{
-		printf ("Voxel exists at %f %f %f of size %f\n", tree->point.x, tree->point.y, tree->point.z, tree->length);
+//		printf ("Voxel exists at %f %f %f of size %f\n", tree->point.x, tree->point.y, tree->point.z, tree->length);
 	}
-
+*/
    return tree;
 }
 
@@ -186,4 +186,39 @@ void putVoxels (octree_t *tree)
    vlInit (voxel_edge);
 
    put_voxels_implementation (tree);
+}
+
+#include <assert.h>
+
+void printTree (octree_t *tree, unsigned int level)
+{
+   assert (octree_file);
+
+   unsigned int tmp = level;
+
+   while (tmp--)
+   {
+      fprintf (octree_file, "\t");
+   }
+
+   if (tree)
+   {
+      fprintf (octree_file, "(%g,%g,%g) -- %g\n", tree->point.x, tree->point.y, tree->point.z, tree->length);
+   }
+   else
+   {
+      fprintf (octree_file, "Empty\n");
+      return;
+   }
+
+   fflush (octree_file);
+
+//   fprintf (stderr, "Printing %x\n", tree);
+   if ( LEAF != tree->type )
+   {
+      for (tmp = 0; tmp < N_CHILDREN; tmp++)
+      {
+         printTree (tree->children[tmp], level+1);
+      }  
+   }
 }
