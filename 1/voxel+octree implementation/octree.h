@@ -7,10 +7,13 @@
 #define OCTREE_H_INCLUDED
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <common.h>
  
 enum { NODE, LEAF };
  
+FILE * octree_file;
+
 typedef struct octree_t 
 {     
    // This point is (x-min, y-min, z-min)
@@ -47,5 +50,7 @@ void set_function_ptr (int (*func_ptr) (double, double, double));
 octree_t * construct_octree (point_t *ref_point, double length);
 
 void putVoxels (octree_t *tree);
+
+void printTree (octree_t *tree, unsigned int level);
 
 #endif   // end of file

@@ -3,6 +3,9 @@
 
 #define N_CHILDREN 8
 
+#include <GL/glut.h>
+#include <GL/gl.h>
+
 typedef struct
 {
    double x;
@@ -22,6 +25,9 @@ int (*func) (double, double, double);
 // Voxel edge length
 double voxel_edge;
 
+GLdouble eyex, eyey, eyez;
+
+GLdouble voxel_edge_len;
 
 unsigned int closest_power_of_2 (unsigned int n);
 int test_function (point_t *ref_point, double length);

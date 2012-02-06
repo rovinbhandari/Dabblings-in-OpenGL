@@ -37,7 +37,7 @@ void display (void)
    static GLfloat cube_mat[] = 
    {0, 1, 0.0, 1};
 	
-   vlInit (0.05);
+   vlInit (voxel_edge_len);
 	
    vlSetFunction (&cone_function);
 
@@ -57,7 +57,7 @@ void display (void)
    vlSetFunction(&cube_function);
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-   glTranslated (-3, -5, 0);
+//   glTranslated (-3, -5, 0);
    vlVoxel (-cube_edge/2, -cube_edge/2, -cube_edge/2, cube_edge);
    glPopMatrix ();
    glutSwapBuffers ();

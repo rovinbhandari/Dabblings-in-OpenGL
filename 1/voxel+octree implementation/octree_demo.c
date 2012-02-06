@@ -5,7 +5,7 @@
 #include <common.h>
 #include <voxel.h>
 #include <stdio.h>
-
+#include <assert.h>
 
 GLfloat lightpos[] =
 {10.f, 10.f, 10.f, 1.f};
@@ -22,10 +22,6 @@ void init (void)
 
 void display (void)
 {
-	GLdouble eyex = 6.0;
-	GLdouble eyey = 6.0;
-	GLdouble eyez = 6.0;
-
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -42,7 +38,9 @@ void display (void)
    static GLfloat cube_mat[] = 
    {0, 1, 0.0, 1};
    
-   set_voxel_edge (0.05);
+   static char printed = 0;
+
+   set_voxel_edge (voxel_edge_len);
 	
    // Set function for cone.
    set_function_ptr (&cone_function);
@@ -51,6 +49,7 @@ void display (void)
    ref_point_cone.x = ref_point_cone.y = -cone_radius ;
    ref_point_cone.z = 0;
 
+
    static octree_t *octree_cone;
    octree_cone = construct_octree ( &ref_point_cone, cone_height);
 
@@ -58,6 +57,8 @@ void display (void)
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
    putVoxels (octree_cone);
    glPopMatrix ();
+
+
 
    // Set function for cone.
    set_function_ptr (&sphere_function);
@@ -77,18 +78,30 @@ void display (void)
    set_function_ptr (&cube_function);
 
    static point_t ref_point_cube ;
-   ref_point_sphere.x = ref_point_sphere.y = ref_point_sphere.z = - cube_edge/2;
+   ref_point_sphere.x = ref_point_sphere.y = ref_point_sphere.z = -cube_edge/2;
    static octree_t *octree_cube;
    octree_cube = construct_octree ( &ref_point_cube, cube_edge);
    
+   
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-   glTranslated (-3,-5,0);
+//   glTranslated (-3,-5,0);
    putVoxels (octree_cube);
    glPopMatrix ();
 
 
    glutSwapBuffers ();
+   
+   if (!printed)
+   {
+      fprintf (octree_file, "------OCTREE FOR CONE -----\n");
+      printTree (octree_cone, 0);
+      fprintf (octree_file, "------OCTREE FOR SPHERE -----\n");
+      printTree (octree_sphere, 0);
+      fprintf (octree_file, "------OCTREE FOR CUBE -----\n");
+      printTree (octree_cube, 0);
+   }
+   printed = 1;
 }
 
 void keyboard (unsigned char key, int x, int y)
@@ -111,6 +124,9 @@ void reshape (int w, int h)
 
 int main (int argc, char **argv)
 {
+   octree_file = fopen ("octree_representation", "w");
+   assert (octree_file);
+
    glutInit (&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
    glutInitWindowSize (750, 750);               // TODO : Reference

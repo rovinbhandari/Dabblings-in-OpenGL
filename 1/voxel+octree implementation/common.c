@@ -10,10 +10,18 @@ eyey = (GLdouble) 6.0;
 eyez = (GLdouble) 6.0;
 */
 
-double cube_edge =  5;
+GLdouble eyex = 6.0;
+GLdouble eyey = 6.0;
+GLdouble eyez = 6.0;
+
+GLdouble voxel_edge_len = 0.05;
+
+
+double cube_edge =  3;
 double cone_radius = 2;
 double cone_height = 6;
 double sphere_radius = 2;
+
 
 unsigned char cmpDouble (double a, double b)
 {
@@ -38,7 +46,7 @@ int cube_function (double x, double y, double z)
 
    double edge = cube_edge / 2;
    
-   if ( x <= edge  && y <= edge && z <= edge)
+   if ( LTE (x, edge)  && LTE (y, edge) && LTE(z, edge) )
    {
       return 1;
    }

@@ -4,10 +4,6 @@
 
 #define LENedge   1.0d
 
-GLdouble eyex = 6.0;
-GLdouble eyey = 6.0;
-GLdouble eyez = 6.0;
-
 int (*func) (double, double, double);
 
 GLfloat viewangle;
