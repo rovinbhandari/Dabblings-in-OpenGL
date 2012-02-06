@@ -5,6 +5,9 @@
 #include <common.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
 
 void init (void)
 {
@@ -14,6 +17,11 @@ void init (void)
 
 void display (void)
 {
+   struct timeval start, end;
+   double start_time, end_time, diff;
+
+   gettimeofday(&start, NULL);
+
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -45,6 +53,15 @@ void display (void)
    vlVoxel (-cube_edge/2, -cube_edge/2, -cube_edge/2, cube_edge);
    glPopMatrix ();
    glutSwapBuffers ();
+   
+   gettimeofday(&end, NULL);
+   
+   start_time = ((start.tv_sec) * 1000 + start.tv_usec/1000.0) + 0.5;
+   end_time = ((end.tv_sec) * 1000 + end.tv_usec/1000.0) + 0.5;
+
+   diff = end_time - start_time;
+
+   printf ("Time taken : %g\n", diff);
 }
 
 void keyboard (unsigned char key, int x, int y)

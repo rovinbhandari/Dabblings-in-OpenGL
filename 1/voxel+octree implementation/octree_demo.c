@@ -7,7 +7,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
-
+#include <sys/time.h>
+#include <time.h>
 
 void init (void)
 {
@@ -17,6 +18,11 @@ void init (void)
 
 void display (void)
 {
+   struct timeval start, end;
+   double start_time, end_time, diff;
+
+   gettimeofday (&start, NULL);
+   
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -38,7 +44,8 @@ void display (void)
 
 
    static octree_t *octree_cone;
-   octree_cone = construct_octree ( &ref_point_cone, cone_height);
+   if ( !printed )
+      octree_cone = construct_octree ( &ref_point_cone, cone_height);
 
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cone_mat);
@@ -53,7 +60,9 @@ void display (void)
    static point_t ref_point_sphere ;
    ref_point_sphere.x = ref_point_sphere.y = ref_point_sphere.z = -sphere_radius;
    static octree_t *octree_sphere;
-   octree_sphere = construct_octree ( &ref_point_sphere, 2 * sphere_radius);
+   
+   if (!printed)
+      octree_sphere = construct_octree ( &ref_point_sphere, 2 * sphere_radius);
 
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere1_mat);
@@ -67,7 +76,9 @@ void display (void)
    static point_t ref_point_cube ;
    ref_point_cube.x = ref_point_cube.y = ref_point_cube.z = -cube_edge/2;
    static octree_t *octree_cube;
-   octree_cube = construct_octree ( &ref_point_cube, cube_edge);
+   
+   if (!printed)
+      octree_cube = construct_octree ( &ref_point_cube, cube_edge);  
    
    
    glPushMatrix ();
@@ -79,6 +90,15 @@ void display (void)
 
    glutSwapBuffers ();
    
+   gettimeofday(&end, NULL);
+   
+   start_time = ((start.tv_sec) * 1000 + start.tv_usec/1000.0);
+   end_time = ((end.tv_sec) * 1000 + end.tv_usec/1000.0);
+
+   diff = end_time - start_time;
+
+   printf ("Time taken : %g\n", diff);
+
    if (!printed)
    {
       fprintf (octree_file, "------OCTREE FOR CONE -----\n");
