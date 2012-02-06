@@ -11,8 +11,6 @@ OCTREE_BIN  = $(BIN)/octree_demo.out
 VOXEL_BIN   = $(BIN)/voxel_demo.out
 CC          = gcc
 
-# I am not very clear what is happening here, Rajat.
-
 all: lib_voxel voxel_demo octree_demo
 
 lib_voxel: $(LIB_VOXEL)
