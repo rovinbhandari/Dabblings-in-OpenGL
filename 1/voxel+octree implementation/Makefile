@@ -15,7 +15,7 @@ CC=gcc
 
 # I am not very clear what is happening here, Rajat.
 
-all: clean lib_voxel $(OBJECTS) octree_demo
+all: lib_voxel $(OBJECTS) octree_demo
 	$(CC) $(CFLAGS) $(LIB_VOXEL) $(OBJECTS) -o $(BIN)/$(OUTPUT_FILE) -lGL -lglut -lGLU -lm -I/usr/X11R6/include -L/usr/X11R6/lib
 
 lib_voxel: $(LIB_VOXEL)

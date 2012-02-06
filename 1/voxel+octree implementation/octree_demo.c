@@ -4,6 +4,7 @@
 #include <octree.h>
 #include <common.h>
 #include <voxel.h>
+#include <stdio.h>
 
 
 GLfloat lightpos[] =
@@ -32,24 +33,62 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   GLfloat voxel_mat[] = 
+   static GLfloat voxel_mat[] = 
    {0.f, 0.f, 1, 1};
+
+   static GLfloat sphere1_mat[] = 
+   {1, 1, 0.0, 1};
+
+   static GLfloat cube_mat[] = 
+   {0, 1, 0.0, 1};
    
-	set_voxel_edge (0.1);
+   set_voxel_edge (0.05);
 	
+   // Set function for cone.
    set_function_ptr (&cone_function);
 
-   point_t ref_point = { -3, -3, 0 };
-   octree_t *octree = construct_octree ( &ref_point, 6);
+   static point_t ref_point_cone;
+   ref_point_cone.x = ref_point_cone.y = -cone_radius ;
+   ref_point_cone.z = 0;
 
-	/* Create a sphere */
-	glPushMatrix ();
+   static octree_t *octree_cone;
+   octree_cone = construct_octree ( &ref_point_cone, cone_height);
+
+   glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-   putVoxels (octree);
+   putVoxels (octree_cone);
+   glPopMatrix ();
+
+   // Set function for cone.
+   set_function_ptr (&sphere_function);
+   
+   static point_t ref_point_sphere ;
+   ref_point_sphere.x = ref_point_sphere.y = ref_point_sphere.z = -sphere_radius;
+   static octree_t *octree_sphere;
+   octree_sphere = construct_octree ( &ref_point_sphere, 2 * sphere_radius);
+
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere1_mat);
+   glTranslated (0,3,-4);
+   putVoxels (octree_sphere);
+   glPopMatrix ();
+
+   // Set function for cube
+   set_function_ptr (&cube_function);
+
+   static point_t ref_point_cube ;
+   ref_point_sphere.x = ref_point_sphere.y = ref_point_sphere.z = - cube_edge/2;
+   static octree_t *octree_cube;
+   octree_cube = construct_octree ( &ref_point_cube, cube_edge);
+   
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+   glTranslated (-3,-5,0);
+   putVoxels (octree_cube);
    glPopMatrix ();
 
 
-	glutSwapBuffers ();
+   glutSwapBuffers ();
 }
 
 void keyboard (unsigned char key, int x, int y)

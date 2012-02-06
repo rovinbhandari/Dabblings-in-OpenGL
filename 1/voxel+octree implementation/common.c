@@ -3,6 +3,18 @@
 
 #define SQR(x) (x)*(x)
 
+//voxel_edge = 0.05;
+/*
+eyex = (GLdouble) 6.0;
+eyey = (GLdouble) 6.0;
+eyez = (GLdouble) 6.0;
+*/
+
+double cube_edge =  5;
+double cone_radius = 2;
+double cone_height = 6;
+double sphere_radius = 2;
+
 unsigned char cmpDouble (double a, double b)
 {
    if ( a <= 1.1 * b && a >= 0.9 * b)
@@ -11,7 +23,7 @@ unsigned char cmpDouble (double a, double b)
       return 0;
 }
 
-unsigned int abs (int n)
+double absolute (double n)
 {
    return (n >= 0) ? n : -n;
 }
@@ -20,15 +32,13 @@ unsigned int abs (int n)
 
 int cube_function (double x, double y, double z)
 {
-   double edge = 4;
-   
-   x = abs (x);
-   y = abs (y);
-   z = abs (z);
+   x = absolute (x);
+   y = absolute (y);
+   z = absolute (z);
 
-   edge = edge / 2;
+   double edge = cube_edge / 2;
    
-   if ( LTE (x, edge)  && LTE (y, edge) && LTE (z, edge))
+   if ( x <= edge  && y <= edge && z <= edge)
    {
       return 1;
    }
@@ -40,10 +50,8 @@ int cube_function (double x, double y, double z)
 
 int cone_function (double x, double y, double z)
 {
-   double base_radius = 3;
-   double height = 6;
 
-   if ( z <= height && SQR(x) + SQR(y) <= SQR(base_radius * ( (height - z) /height)) )
+   if ( z <= cone_height && SQR(x) + SQR(y) <= SQR(cone_radius * ( (cone_height - z) /cone_height)) )
       return 1;
    else
       return 0;
@@ -51,9 +59,8 @@ int cone_function (double x, double y, double z)
 
 int sphere_function (double x, double y, double z)
 {
-   double radius = 1;
 
-   if ( LTE ( SQR (x) + SQR (y) + SQR(z), SQR (radius)))
+   if ( LTE ( SQR (x) + SQR (y) + SQR(z), SQR (sphere_radius)))
    {
       return 1;
    }

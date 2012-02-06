@@ -10,6 +10,12 @@ typedef struct
    double z;
 } point_t;
 
+
+double sphere_radius;
+double cone_radius;
+double cone_height;
+double cube_edge;
+
 // Function pointer
 int (*func) (double, double, double);
 

@@ -17,9 +17,9 @@ void init (void)
 
 void display (void)
 {
-	GLdouble eyex = 6.0;
-	GLdouble eyey = 6.0;
-	GLdouble eyez = 6.0;
+   GLdouble eyex = 6.0;
+   GLdouble eyey = 6.0;
+   GLdouble eyez = 6.0;
 
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -28,16 +28,37 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   GLfloat voxel_mat[] = 
+   static GLfloat cone_mat[] = 
    {0.f, 0.f, 1, 1};
+
+   static GLfloat sphere1_mat[] = 
+   {1.f, 1.f, 0, 1};
    
-	vlInit (0.05);
+   static GLfloat cube_mat[] = 
+   {0, 1, 0.0, 1};
+	
+   vlInit (0.05);
 	
    vlSetFunction (&cone_function);
 
    glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
-   vlVoxel (-3, -3, 0, 6);
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cone_mat);
+   vlVoxel (-cone_radius, -cone_radius, 0, cone_height);
+   glPopMatrix ();
+
+   vlSetFunction(&sphere_function);
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, sphere1_mat);
+   glTranslated (0,3,-4);
+   vlVoxel (-sphere_radius, -sphere_radius, -sphere_radius, 2*sphere_radius);
+   glPopMatrix ();
+ 
+ 
+   vlSetFunction(&cube_function);
+   glPushMatrix ();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
+   glTranslated (-3, -5, 0);
+   vlVoxel (-cube_edge/2, -cube_edge/2, -cube_edge/2, cube_edge);
    glPopMatrix ();
    glutSwapBuffers ();
 }
