@@ -2,6 +2,7 @@
 #include <math.h>
 
 #define SQR(x) (x)*(x)
+#define TOL 0.1
 
 //voxel_edge = 0.05;
 /*
@@ -16,16 +17,28 @@ GLdouble eyez = 6.0;
 
 GLdouble voxel_edge_len = 0.05;
 
+GLfloat lightpos[] =
+{10.f, 10.f, 10.f, 1.f};
+GLfloat lightcol[] =
+{1.0,1.0,1,0};
 
 double cube_edge =  3;
 double cone_radius = 2;
 double cone_height = 6;
 double sphere_radius = 2;
 
+GLfloat cone_mat[] = 
+{0.f, 0.f, 1, 1};
+
+GLfloat sphere1_mat[] = 
+{1, 1, 0.0, 1};
+
+GLfloat cube_mat[] = 
+{0, 1, 0.0, 1};
 
 unsigned char cmpDouble (double a, double b)
 {
-   if ( a <= 1.1 * b && a >= 0.9 * b)
+   if ( a <= (1 + TOL) * b && a >= (1 - TOL) * b)
       return 1;
    else
       return 0;

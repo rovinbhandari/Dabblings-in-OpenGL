@@ -3,11 +3,8 @@
 
 #include <voxel.h>
 #include <common.h>
-
-GLfloat lightpos[] =
-{10.f, 10.f, 10.f, 1.f};
-GLfloat lightcol[] =
-{1.0,1.0,1,0};
+#include <stdio.h>
+#include <stdlib.h>
 
 void init (void)
 {
@@ -17,10 +14,6 @@ void init (void)
 
 void display (void)
 {
-   GLdouble eyex = 6.0;
-   GLdouble eyey = 6.0;
-   GLdouble eyez = 6.0;
-
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -28,15 +21,6 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   static GLfloat cone_mat[] = 
-   {0.f, 0.f, 1, 1};
-
-   static GLfloat sphere1_mat[] = 
-   {1.f, 1.f, 0, 1};
-   
-   static GLfloat cube_mat[] = 
-   {0, 1, 0.0, 1};
-	
    vlInit (voxel_edge_len);
 	
    vlSetFunction (&cone_function);
@@ -57,7 +41,7 @@ void display (void)
    vlSetFunction(&cube_function);
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-//   glTranslated (-3, -5, 0);
+   glTranslated (0, -10, -3);
    vlVoxel (-cube_edge/2, -cube_edge/2, -cube_edge/2, cube_edge);
    glPopMatrix ();
    glutSwapBuffers ();
@@ -83,6 +67,16 @@ void reshape (int w, int h)
 
 int main (int argc, char **argv)
 {
+   if (argc > 1 )
+   {
+      voxel_edge_len = atof (argv[1]);
+      printf ("Setting voxel edge length to %g\n", voxel_edge_len);
+   }
+   else
+   {
+      printf ("No voxel length provided. Setting it to %g\n", voxel_edge_len );
+   }
+   
    glutInit (&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
    glutInitWindowSize (750, 750);               // TODO : Reference

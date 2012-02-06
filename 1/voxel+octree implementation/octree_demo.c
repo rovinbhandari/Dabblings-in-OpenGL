@@ -6,12 +6,7 @@
 #include <voxel.h>
 #include <stdio.h>
 #include <assert.h>
-
-GLfloat lightpos[] =
-{10.f, 10.f, 10.f, 1.f};
-GLfloat lightcol[] =
-{1.0,1.0,1,0};
-
+#include <stdlib.h>
 
 
 void init (void)
@@ -29,15 +24,7 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt (eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   static GLfloat voxel_mat[] = 
-   {0.f, 0.f, 1, 1};
-
-   static GLfloat sphere1_mat[] = 
-   {1, 1, 0.0, 1};
-
-   static GLfloat cube_mat[] = 
-   {0, 1, 0.0, 1};
-   
+      
    static char printed = 0;
 
    set_voxel_edge (voxel_edge_len);
@@ -54,7 +41,7 @@ void display (void)
    octree_cone = construct_octree ( &ref_point_cone, cone_height);
 
    glPushMatrix ();
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, voxel_mat);
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cone_mat);
    putVoxels (octree_cone);
    glPopMatrix ();
 
@@ -78,14 +65,14 @@ void display (void)
    set_function_ptr (&cube_function);
 
    static point_t ref_point_cube ;
-   ref_point_sphere.x = ref_point_sphere.y = ref_point_sphere.z = -cube_edge/2;
+   ref_point_cube.x = ref_point_cube.y = ref_point_cube.z = -cube_edge/2;
    static octree_t *octree_cube;
    octree_cube = construct_octree ( &ref_point_cube, cube_edge);
    
    
    glPushMatrix ();
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cube_mat);
-//   glTranslated (-3,-5,0);
+   glTranslated (0,-10,-3);
    putVoxels (octree_cube);
    glPopMatrix ();
 
@@ -124,6 +111,15 @@ void reshape (int w, int h)
 
 int main (int argc, char **argv)
 {
+   if (argc > 1 )
+   {
+      voxel_edge_len = atof (argv[1]);
+      printf ("Setting voxel edge length to %g\n", voxel_edge_len);
+   }
+   else
+   {
+      printf ("No voxel length provided. Setting it to %g\n", voxel_edge_len );
+   }
    octree_file = fopen ("octree_representation", "w");
    assert (octree_file);
 

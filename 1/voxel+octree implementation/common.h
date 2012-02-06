@@ -28,6 +28,12 @@ double voxel_edge;
 GLdouble eyex, eyey, eyez;
 
 GLdouble voxel_edge_len;
+GLfloat lightpos[4];
+GLfloat lightcol[4];
+GLfloat cone_mat[4];
+GLfloat cube_mat[4];
+GLfloat sphere1_mat[4];
+
 
 unsigned int closest_power_of_2 (unsigned int n);
 int test_function (point_t *ref_point, double length);
