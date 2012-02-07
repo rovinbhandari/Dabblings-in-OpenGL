@@ -140,7 +140,7 @@ int main (int argc, char **argv)
    {
       printf ("No voxel length provided. Setting it to %g\n", voxel_edge_len );
    }
-   octree_file = fopen ("octree_representation", "w");
+   octree_file = fopen ("octree_representation.dump", "w");
    assert (octree_file);
 
    glutInit (&argc, argv);

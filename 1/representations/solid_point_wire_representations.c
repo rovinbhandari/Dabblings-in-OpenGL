@@ -1,8 +1,3 @@
-/* Program to create a wireframe cube and torus
- * Author : Rajat Khanduja
- * Date : 30/1/12
- */
-
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <string.h>

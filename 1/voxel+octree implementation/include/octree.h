@@ -1,8 +1,3 @@
-/* File contains the declaration of structures and functions required by octree
- * Author : Rajat Khanduja
- * Date  : 02/02/12
- */
-
 #ifndef OCTREE_H_INCLUDED
 #define OCTREE_H_INCLUDED
 
