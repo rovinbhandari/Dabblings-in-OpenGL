@@ -35,6 +35,18 @@ void bwTranslate(GLdouble i, GLdouble j, GLdouble k)
    glMultMatrixd(tm);
 }
 
+void bwScale(GLdouble i, GLdouble j, GLdouble k)
+{
+   const GLdouble tm[] =
+            {
+               i, 0, 0, 0,
+               0, j, 0, 0,
+               0, 0, k, 0,
+               0, 0, 0, 1
+            };
+   glMultMatrixd(tm);
+}
+
 void bwCuboid(GLdouble l, GLdouble b, GLdouble h)
 {
    __bwInit__(__bwDimensions__(l, b, h));

@@ -61,15 +61,16 @@ void display (void)
         // Create sphere
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
         bwTranslate(2, 3, 0);
+        bwScale(0.4, 0.6, .5);
         bwSphere(5., 1.0);
         break;
         
       case 5:
         // Create cylinder
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
-      	bwTranslate(2, 3, 0);
-      	bwRotate(60, 0, 0, 1);
-        bwCylinder(5, 8.5, 1);
+        bwTranslate(2, 3, 0);
+        bwRotate(60, 0, 0, 1);
+        bwCylinder(5, 8.5, .5);
         break;
    }
    glutSwapBuffers();

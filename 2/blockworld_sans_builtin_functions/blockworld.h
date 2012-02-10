@@ -16,6 +16,7 @@ typedef struct bwCuboidDimensions
    	   bwCD;
 
 void bwTranslate(GLdouble, GLdouble, GLdouble);
+void bwScale(GLdouble, GLdouble, GLdouble);
 
 void bwCube(GLdouble);
 void bwCuboid(GLdouble, GLdouble, GLdouble);
