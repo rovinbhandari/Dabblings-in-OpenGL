@@ -1,22 +1,16 @@
 #include <blockworld.h>
-#include <stdio.h>
 
-GLfloat lightpos1[] =
-{110.f, 111.f, 110.f, 1.f};
-GLfloat light_diffuse1[] =
-{1, 1, 1, 1};
-GLfloat lightpos2[] =
-{-90.f, -95.f, -11.f, 1.f};
-GLfloat light_diffuse2[] =
-{1, 1, 1, 1};
+GLfloat lightpos1[] = {110.f, 111.f, 110.f, 1.f};
+GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
+GLfloat light_diffuse1[] = {1, 1, 1, 1};
+GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 2;
+int opt, nopts = 5;
 
 GLdouble eyex = 11.0;
 GLdouble eyey = 11.0;
 GLdouble eyez = 11.0;
    
-void init(void);
 void keyboard(unsigned char, int, int);
 void reshape(int, int);
 
@@ -29,32 +23,49 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   GLfloat texture_cube[] = {0.9, 0.9f, 0.0f, 1};
-   GLfloat texture_cuboid[] = {0.0, 0.0f, 0.0f, 1};
+   GLfloat texture1[] = {0.3, 0.06f, 0.33f, 1};
+   GLfloat texture2[] = {0.4, 0.1f, 0.1f, 1};
    
    switch(opt)
    {
       case 0:
-         // Create a cuboid 
-         //glPushMatrix();
-         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cuboid);
-         //bwTranslate(0, 4, 1.2);
-	 bwCuboid(5, 3.2, 6.3);
-         //glPopMatrix();
-         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cube);
+         // Create cuboids
+         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+         bwCuboid(5, 3.2, 6.3);
+         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
          bwCuboid(8, 5.2, 1.3);
          break;
    
       case 1:
       	// Create a cube
       	glPushMatrix();
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture_cube);
-      	bwTranslate(0, 0, 0);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
+      	bwTranslate(0, 0, -4);
         bwCube(7);
         glPopMatrix();
         break;
+        
+      case 2:
+        // Create cuboid2
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+        bwCuboid2(5, 3.5, 6);
+        break;
+        
+      case 3:
+        // Create sphere
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
+      	bwTranslate(2, 3, 0);
+        bwSphere(5., 1.0);
+        break;
+        
+      case 4:
+        // Create cylinder
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+      	bwTranslate(2, 3, 0);
+      	bwRotate(60, 0, 0, 1);
+        bwCylinder(5, 8.5, 1);
+        break;
    }
-
    glutSwapBuffers();
 }
 
@@ -89,18 +100,10 @@ int main (int argc, char **argv)
    glutInitWindowSize (750, 750);
    glutCreateWindow("BL[]CKW[]RLD");
    init();
-
-   /* Set the display function */
    glutDisplayFunc (&display);
-
-   /* Set the reshape function */
    glutReshapeFunc (&reshape);
-
-   /* Set the keyboard function */
    glutKeyboardFunc (&keyboard);
-   
    glutMainLoop ();
-
    return 0;
 }
 

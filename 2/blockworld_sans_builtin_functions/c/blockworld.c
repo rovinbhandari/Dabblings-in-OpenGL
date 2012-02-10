@@ -5,24 +5,104 @@
 static bwCD __bwCuboidDimensions__ = {0.2d, 02.d, 0.2d};
 static size_t __sizebwCD__ = sizeof(bwCD);
 
-// Will be filled in with X,Y,Z vertexes.
 static GLdouble __bwCuboidVertices__[8][3];
-
-// Normals for the 6 faces of a cube.
 static GLdouble __bwCuboidNormals__[6][3] =
    {
       {-1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {1.0, 0.0, 0.0},
       {0.0, -1.0, 0.0}, {0.0, 0.0, 1.0}, {0.0, 0.0, -1.0}
    };
-
-// Vertex indices for the 6 faces of a cube.
 static GLint __bwCuboidFaces__[6][4] =
    {
       {0, 1, 2, 3}, {3, 2, 6, 7}, {7, 6, 5, 4},
       {4, 5, 1, 0}, {5, 6, 2, 1}, {7, 4, 0, 3}
    };
 
-bwCD* bwDimensions(GLdouble l, GLdouble b, GLdouble h)
+static bwCD* __bwDimensions__(GLdouble l, GLdouble b, GLdouble h);
+static void __bwInit__(bwCD* dims);
+static void __bwCuboid__(void);
+static GLdouble __bwHCF__(GLdouble a, GLdouble b);
+static GLboolean __bwCompareDouble__(GLdouble a, GLdouble b);
+
+void bwCuboid(GLdouble l, GLdouble b, GLdouble h)
+{
+   __bwInit__(__bwDimensions__(l, b, h));
+   __bwCuboid__();
+}
+
+void bwCube(GLdouble e)
+{
+   bwCuboid(e, e, e);
+}
+
+
+void bwCuboid2(GLdouble l, GLdouble b, GLdouble h)
+{
+   GLdouble minedge = __bwHCF__(__bwHCF__(l, b), h), i, j, k;
+   for(i = 0.0d; i < l; i += minedge)
+      for(j = 0.0d; j < h; j += minedge)
+         for(k = 0.0d; k < b; k += minedge)
+         {
+            glPushMatrix();
+            bwTranslate(i, j, k);
+            bwCube(minedge);
+            glPopMatrix();
+         }
+}
+
+void bwSphere(GLdouble r, GLdouble e)
+{
+   GLdouble max_boundary = r + 2 * e, i, j, k, dist, maxradius, minradius;
+   for(i = -1 * max_boundary * e; i <= max_boundary * e; i += e)
+      for(j = -1 * max_boundary * e; j <= max_boundary * e; j += e)
+         for(k = -1 * max_boundary * e; k <= max_boundary * e; k += e)
+         {
+            dist = sqrt(i * i + j * j + k * k);
+            maxradius = r * e + e / 2;
+            minradius = r * e - e / 2;
+            if(dist > minradius && dist <= maxradius)
+            {
+               glPushMatrix();
+               bwTranslate(i, j, k);
+               bwCube(e);
+               glPopMatrix();
+            }
+         }
+}
+
+void bwCylinder(GLdouble r, GLdouble h, GLdouble e)
+{
+   GLdouble max_boundary = r + 2 * e, i, j, k, dist, maxradius, minradius;
+   for(i = -1 * max_boundary * e; i <= max_boundary * e; i += e)
+      for(j = -1 * max_boundary * e; j <= max_boundary * e; j += e)
+         for(k = 0.0d; k <= h * e; k += e)
+         {
+            dist = sqrt(i * i + j * j);
+            maxradius = r * e + e / 2;
+            minradius = r * e - e / 2;
+            if(k > 2 * e && k < (h - 2) * e)
+            {
+               if(dist > minradius && dist <= maxradius)
+               {
+                  glPushMatrix();
+                  bwTranslate(i, j, k);
+                  bwCube(e);
+                  glPopMatrix();
+               } 
+            }
+            else
+            {
+               if(dist <= maxradius)
+               {
+                  glPushMatrix();
+                  bwTranslate(i, j, k);
+                  bwCube(e);
+                  glPopMatrix();
+               }
+            }
+         }
+}
+
+static bwCD* __bwDimensions__(GLdouble l, GLdouble b, GLdouble h)
 {
    bwCD* x = (bwCD*) malloc(__sizebwCD__);
    x->length = l;
@@ -75,14 +155,23 @@ static void __bwCuboid__(void)
    }
 }
 
-void bwCuboid(GLdouble l, GLdouble b, GLdouble h)
+static GLdouble __bwHCF__(GLdouble a, GLdouble b)
 {
-   __bwInit__(bwDimensions(l, b, h));
-   __bwCuboid__();
+   GLdouble t;
+   while(fabs(b - 0.0d) > TOLERANCE)
+   {
+      t = b;
+      b = fmod(a, b);
+      a = t;
+   }
+   return a;
 }
 
-void bwCube(GLdouble e)
+static GLboolean __bwCompareDouble__(GLdouble a, GLdouble b)
 {
-   bwCuboid(e, e, e);
+   if ( a <= 1.1 * b || a >= 0.9 * b)
+      return GL_TRUE;
+   else
+      return GL_FALSE;
 }
 

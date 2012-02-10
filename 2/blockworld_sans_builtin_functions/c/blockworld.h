@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <assert.h>
 
 #define bwTranslate(i, j, k) glTranslated(i, j, k)
 
@@ -16,8 +17,9 @@ typedef struct bwCuboidDimensions
 	      }
    	   bwCD;
 
-bwCD* bwDimensions(GLdouble, GLdouble, GLdouble);
-
-void bwCuboid(GLdouble, GLdouble, GLdouble);
 void bwCube(GLdouble);
+void bwCuboid(GLdouble, GLdouble, GLdouble);
+void bwCuboid2(GLdouble, GLdouble, GLdouble);
+void bwSphere(GLdouble, GLdouble);
+void bwCylinder(GLdouble, GLdouble, GLdouble);
 
