@@ -5,8 +5,6 @@
 #include <math.h>
 #include <assert.h>
 
-#define bwTranslate(i, j, k) glTranslated(i, j, k)
-
 #define bwRotate(a, i, j, k) glRotated(a, i, j, k)
 
 typedef struct bwCuboidDimensions
@@ -16,6 +14,8 @@ typedef struct bwCuboidDimensions
       	   GLdouble height;
 	      }
    	   bwCD;
+
+void bwTranslate(GLdouble, GLdouble, GLdouble);
 
 void bwCube(GLdouble);
 void bwCuboid(GLdouble, GLdouble, GLdouble);

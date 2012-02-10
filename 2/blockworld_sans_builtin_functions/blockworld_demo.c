@@ -5,7 +5,7 @@ GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 5;
+int opt, nopts = 6;
 
 GLdouble eyex = 11.0;
 GLdouble eyey = 11.0;
@@ -29,36 +29,42 @@ void display (void)
    switch(opt)
    {
       case 0:
-         // Create cuboids
-         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
-         bwCuboid(5, 3.2, 6.3);
-         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-         bwCuboid(8, 5.2, 1.3);
-         break;
+        // Create cuboid
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+        glTranslated(2.3, 2, -3);
+        bwCuboid(5, 3.2, 6.3);
+        break;
    
       case 1:
-      	// Create a cube
-      	glPushMatrix();
+        // Create cuboid
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-      	bwTranslate(0, 0, -4);
+        bwTranslate(2.3, 2, -3);
+        bwCuboid(5, 3.2, 6.3);
+        break;
+   
+      case 2:
+        // Create a cube
+     	  glPushMatrix();
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
+        bwTranslate(0, 0, -4);
         bwCube(7);
         glPopMatrix();
         break;
         
-      case 2:
+      case 3:
         // Create cuboid2
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
         bwCuboid2(5, 3.5, 6);
         break;
         
-      case 3:
+      case 4:
         // Create sphere
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-      	bwTranslate(2, 3, 0);
+        bwTranslate(2, 3, 0);
         bwSphere(5., 1.0);
         break;
         
-      case 4:
+      case 5:
         // Create cylinder
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
       	bwTranslate(2, 3, 0);

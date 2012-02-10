@@ -23,6 +23,18 @@ static void __bwCuboid__(void);
 static GLdouble __bwHCF__(GLdouble a, GLdouble b);
 static GLboolean __bwCompareDouble__(GLdouble a, GLdouble b);
 
+void bwTranslate(GLdouble i, GLdouble j, GLdouble k)
+{
+   const GLdouble tm[] =
+            {
+               1, 0, 0, 0,
+               0, 1, 0, 0,
+               0, 0, 1, 0,
+               i, j, k, 1
+            };
+   glMultMatrixd(tm);
+}
+
 void bwCuboid(GLdouble l, GLdouble b, GLdouble h)
 {
    __bwInit__(__bwDimensions__(l, b, h));
