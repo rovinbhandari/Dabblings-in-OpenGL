@@ -5,7 +5,7 @@ GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 6;
+int opt, nopts = 7;
 
 GLdouble eyex = 11.0;
 GLdouble eyey = 11.0;
@@ -72,6 +72,13 @@ void display (void)
         bwRotate(60, 0, 0, 1);
         bwCylinder(5, 8.5, .5);
         break;
+      
+      case 6:
+        // Create Pyramid
+        glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
+        bwPyramid (4, 5, 0.1);
+        break;
+
    }
    glutSwapBuffers();
 }

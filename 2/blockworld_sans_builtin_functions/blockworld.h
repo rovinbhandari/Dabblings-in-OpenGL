@@ -23,4 +23,4 @@ void bwCuboid(GLdouble, GLdouble, GLdouble);
 void bwCuboid2(GLdouble, GLdouble, GLdouble);
 void bwSphere(GLdouble, GLdouble);
 void bwCylinder(GLdouble, GLdouble, GLdouble);
-
+void bwPyramid (GLdouble, GLdouble, GLdouble);
