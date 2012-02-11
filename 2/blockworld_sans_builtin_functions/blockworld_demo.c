@@ -1,16 +1,17 @@
 #include <blockworld.h>
 #include <blockworld_complex_figures.h>
+#include <tree.h>
 
 GLfloat lightpos1[] = {110.f, 111.f, 110.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 8;
+int opt, nopts = 12;
 
-GLdouble eyex = 11.0;
+GLdouble eyex = 11;
 GLdouble eyey = 11.0;
-GLdouble eyez = 11.0;
+GLdouble eyez = 11;
    
 void keyboard(unsigned char, int, int);
 void reshape(int, int);
@@ -74,16 +75,47 @@ void display (void)
         bwCylinder(5, 8.5, .5);
         break;
       
-      case 6:
+/*      case 6:
         // Create a rectangle (hollow_cuboid)
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
         GLdouble tmp1, tmp2, tmp3;
         tmp1 = 7, tmp2 =3, tmp3 = 0.2;
         bwRectangle (tmp1, tmp2, tmp3);
-        break;
-      case 7:
+        break; */
+      case 6:
         // Create a house
         bwHouse ();
+        break;
+
+      case 7:
+        // Create Tree_Branch
+        bwBranch();
+        break;
+      
+      case 8:
+        // Create Tree_MainBranch
+        bwScale(0.2, 0.2, 0.2);
+        bwMainBranch();
+
+      case 9:
+        // Create Tree_Stub
+        bwScale(0.3, 0.3, 0.3);
+        bwStub(SIZESTUB);
+        break;
+
+      case 10:
+        // Create Tree_Trunk
+        bwScale(0.25, 0.25, 0.25);
+        bwTranslate(-2, -7, -2);
+        bwTrunk();
+        break;
+      
+      case 11:
+        // Create Tree
+        bwScale(0.2, 0.2, 0.2);
+        //bwRotate(-45, 1, 0, -1);
+        bwTranslate(-1, -10, -1);
+        bwTree();
         break;
 
    }
@@ -109,8 +141,11 @@ void init(void)
 
    
    glMatrixMode(GL_PROJECTION);
-   glOrtho(-50., 50., -50., 50., -50., 50.);
+   glOrtho(-90., 90., -90., 90., -90., 90.);
    glMatrixMode(GL_MODELVIEW);
+
+   opt = 11;
+   srand(time(NULL));
 }
 
 int main (int argc, char **argv)

@@ -51,6 +51,19 @@ double absolute (double n)
 
 #define LTE(x,y) ((x) < (y) || cmpDouble (x,y))
 
+int arbit_function (double x, double y, double z)
+{
+   if ( LTE ( SQR (x) + SQR (y) + (z), 3))
+   {
+      return 1;
+   }
+   else
+   {
+      return 0;
+   }
+  
+}
+
 int cube_function (double x, double y, double z)
 {
    x = absolute (x);
