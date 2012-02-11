@@ -1,11 +1,12 @@
 #include <blockworld.h>
+#include <tree.h>
 
 GLfloat lightpos1[] = {110.f, 111.f, 110.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 7;
+int opt, nopts = 8;
 
 GLdouble eyex = 11.0;
 GLdouble eyey = 11.0;
@@ -79,6 +80,11 @@ void display (void)
         bwPyramid (4, 5, 0.1);
         break;
 
+      case 7:
+        // Create Tree
+        bwBranch();
+        break;
+
    }
    glutSwapBuffers();
 }
@@ -108,6 +114,7 @@ void init(void)
 
 int main (int argc, char **argv)
 {
+   srand(time(NULL));
    glutInit (&argc, argv);
    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
    glutInitWindowPosition(300, 300);
