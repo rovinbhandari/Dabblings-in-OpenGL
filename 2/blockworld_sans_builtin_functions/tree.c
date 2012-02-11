@@ -1,10 +1,10 @@
 #include <tree.h>
 
-#define COLRAND0to0_1      ((rand() % 100) / 1000.0f)
-#define COLRAND0_3to0_8    ((rand() % 50) / 100.0f + 0.3f)
+#define COLRANDRB        ((rand() % 100) / 1000.0f)     // Yo!   // [0, 0.1]
+#define COLRANDG         ((rand() % 30) / 100.0f + 0.3f)         // [0.3, 0.6]
 void bwLeaf()
 {
-   GLfloat textureleaf[] = {COLRAND0to0_1, COLRAND0_3to0_8, COLRAND0to0_1, 1.0f};
+   GLfloat textureleaf[] = {COLRANDRB, COLRANDG, COLRANDRB, 1.0f};   // Yo!
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureleaf);
    bwCube(SIZELEAF);
 }
