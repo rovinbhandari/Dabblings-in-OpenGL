@@ -62,7 +62,7 @@ void bwMainBranch()
    glPopMatrix();
 }
 
-#define EVEN(x)   (!(x % 3))
+#define THICKBARKCHECK(x)   (!(x % 3))
 #define A   (3 * SIZEBARK)
 #define B   (1 * SIZEBARK)
 #define Z   0.0d
@@ -74,7 +74,7 @@ void bwMainBranch()
 #define OUTERCOND2   (i >= Z && i <= e && k >= e - A && k <= e)
 #define OUTERCOND3   (i >= e - A && i <= e && k >= Z && k <= e)
 #define OUTERCOND4   (i >= Z && i <= e && k >= Z && k <= A)
-#define OUTERCOND5   (EVEN((GLint) (i / A)) && EVEN((GLint) (k / A)))
+#define OUTERCOND5   (THICKBARKCHECK((GLint) (i / A)) && THICKBARKCHECK((GLint) (k / A)))
 void bwStub()
 {
    GLfloat texturebark1[] = {102 / 255.0, 52 / 255.0, 0, 1.0f};
@@ -164,3 +164,4 @@ void bwTree()
    }
    
 }
+
