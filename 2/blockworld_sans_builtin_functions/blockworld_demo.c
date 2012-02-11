@@ -75,13 +75,16 @@ void display (void)
         break;
       
       case 6:
-        // Create Pyramid
-        glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-        bwPyramid (4, 5, 0.5);
+        // Create a rectangle (hollow_cuboid)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
+        GLdouble tmp1, tmp2, tmp3;
+        tmp1 = 7, tmp2 =3, tmp3 = 0.2;
+        bwRectangle (tmp1, tmp2, tmp3);
         break;
       case 7:
         // Create a house
         bwHouse ();
+        break;
 
    }
    glutSwapBuffers();

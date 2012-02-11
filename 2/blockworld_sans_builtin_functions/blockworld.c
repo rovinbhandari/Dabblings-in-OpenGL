@@ -1,7 +1,9 @@
 #include <blockworld.h>
+#include <stdio.h>
 
 #define TOLERANCE 0.0001
 
+static GLdouble cuboid_width = 0.1;
 static bwCD __bwCuboidDimensions__ = {0.2d, 02.d, 0.2d};
 static size_t __sizebwCD__ = sizeof(bwCD);
 
@@ -126,26 +128,6 @@ void bwCylinder(GLdouble r, GLdouble h, GLdouble e)
          }
 }
 
-void bwPyramid (GLdouble base_edge, GLdouble height, GLdouble cuboid_height)
-{
-	GLdouble cur_height = 0;
-
-	while (height - cur_height > 0)
-	{
-		glPushMatrix ();
-		bwTranslate (0, cur_height, 0);
-
-		/* Using bwCuboid gives different behavior */
-		if (height - cur_height > cuboid_height)
-			bwCuboid2 (base_edge, base_edge, cuboid_height);
-		else
-			bwCuboid2 (base_edge, base_edge, (height - cur_height));
-
-		glPopMatrix ();
-		cur_height += cuboid_height;
-		base_edge  -= cuboid_height;
-	}
-}
 
 static bwCD* __bwDimensions__(GLdouble l, GLdouble b, GLdouble h)
 {
@@ -220,3 +202,38 @@ static GLboolean __bwCompareDouble__(GLdouble a, GLdouble b)
       return GL_FALSE;
 }
 
+void bwRectangle (GLdouble l, GLdouble b, GLdouble h)
+{
+  bwCuboid (cuboid_width, b, h );
+ 
+  glPushMatrix ();
+  glTranslated (l - cuboid_width , 0, 0);
+  bwCuboid (cuboid_width, b, h );
+  glPopMatrix  ();
+
+  glPushMatrix ();
+  glTranslated (0 , 0, b - cuboid_width);
+  bwCuboid (l, cuboid_width, h);
+  glPopMatrix  ();
+
+  bwCuboid (l, cuboid_width, h);
+ 
+}
+
+void bwRectangle2 (GLdouble l, GLdouble b, GLdouble h)
+{
+  bwCuboid2 (cuboid_width, b, h );
+ 
+  glPushMatrix ();
+  glTranslated (l - cuboid_width , 0, 0);
+  bwCuboid2 (cuboid_width, b, h );
+  glPopMatrix  ();
+
+  glPushMatrix ();
+  glTranslated (0 , 0, b - cuboid_width);
+  bwCuboid2 (l, cuboid_width, h);
+  glPopMatrix  ();
+
+  bwCuboid2 (l, cuboid_width, h);
+ 
+}
