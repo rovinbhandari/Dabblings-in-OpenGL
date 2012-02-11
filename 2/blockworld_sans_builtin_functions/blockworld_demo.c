@@ -6,11 +6,11 @@ GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 8;
+int opt, nopts = 10;
 
-GLdouble eyex = 11.0;
+GLdouble eyex = 12.0;
 GLdouble eyey = 11.0;
-GLdouble eyez = 11.0;
+GLdouble eyez = 12.0;
    
 void keyboard(unsigned char, int, int);
 void reshape(int, int);
@@ -81,8 +81,21 @@ void display (void)
         break;
 
       case 7:
-        // Create Tree
+        // Create Tree_Branch
         bwBranch();
+        break;
+      
+      case 8:
+        // Create Tree_Branch
+        bwScale(0.3, 0.3, 0.3);
+        bwStub(SIZESTUB);
+        break;
+
+      case 9:
+        // Create Tree_Stub
+        bwScale(0.25, 0.25, 0.25);
+        bwTranslate(-2, -7, -2);
+        bwTrunk();
         break;
 
    }
@@ -108,13 +121,15 @@ void init(void)
 
    
    glMatrixMode(GL_PROJECTION);
-   glOrtho(-50., 50., -50., 50., -50., 50.);
+   glOrtho(-90., 90., -90., 90., -90., 90.);
    glMatrixMode(GL_MODELVIEW);
+
+   opt = 7;
+   srand(time(NULL));
 }
 
 int main (int argc, char **argv)
 {
-   srand(time(NULL));
    glutInit (&argc, argv);
    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
    glutInitWindowPosition(300, 300);

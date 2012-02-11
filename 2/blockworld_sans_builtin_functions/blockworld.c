@@ -21,7 +21,6 @@ static bwCD* __bwDimensions__(GLdouble l, GLdouble b, GLdouble h);
 static void __bwInit__(bwCD* dims);
 static void __bwCuboid__(void);
 static GLdouble __bwHCF__(GLdouble a, GLdouble b);
-static GLboolean __bwCompareDouble__(GLdouble a, GLdouble b);
 
 void bwTranslate(GLdouble i, GLdouble j, GLdouble k)
 {
@@ -212,9 +211,9 @@ static GLdouble __bwHCF__(GLdouble a, GLdouble b)
    return a;
 }
 
-static GLboolean __bwCompareDouble__(GLdouble a, GLdouble b)
+GLboolean bwCompareDouble(GLdouble a, GLdouble b)
 {
-   if ( a <= 1.1 * b || a >= 0.9 * b)
+   if(a <= 1.1 * b && a >= 0.9 * b)
       return GL_TRUE;
    else
       return GL_FALSE;
