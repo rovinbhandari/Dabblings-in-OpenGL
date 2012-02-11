@@ -126,6 +126,27 @@ void bwCylinder(GLdouble r, GLdouble h, GLdouble e)
          }
 }
 
+void bwPyramid (GLdouble base_edge, GLdouble height, GLdouble cuboid_height)
+{
+	GLdouble cur_height = 0;
+
+	while (height - cur_height > 0)
+	{
+		glPushMatrix ();
+		bwTranslate (0, cur_height, 0);
+
+		/* Using bwCuboid gives different behavior */
+		if (height - cur_height > cuboid_height)
+			bwCuboid2 (base_edge, base_edge, cuboid_height);
+		else
+			bwCuboid2 (base_edge, base_edge, (height - cur_height));
+
+		glPopMatrix ();
+		cur_height += cuboid_height;
+		base_edge  -= cuboid_height;
+	}
+}
+
 static bwCD* __bwDimensions__(GLdouble l, GLdouble b, GLdouble h)
 {
    bwCD* x = (bwCD*) malloc(__sizebwCD__);
