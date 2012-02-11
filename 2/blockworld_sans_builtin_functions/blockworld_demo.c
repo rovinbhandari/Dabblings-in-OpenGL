@@ -7,7 +7,7 @@ GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 12;
+int opt, nopts = 13;
 
 GLdouble eyex = 11;
 GLdouble eyey = 11.0;
@@ -18,6 +18,7 @@ void reshape(int, int);
 
 void display (void)
 {
+   opt = 12;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -117,6 +118,11 @@ void display (void)
         bwTranslate(-1, -10, -1);
         bwTree();
         break;
+      case 12:
+        //Create a character
+        
+//        bwScale (0.2, 0.2, 0.2);
+        bwMario ();
 
    }
    glutSwapBuffers();

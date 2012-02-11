@@ -159,8 +159,60 @@ void bwHouse (void)
   
 }
 
-void bwRobotBody (void)
+/* Inspiration for human figure : http://fc07.deviantart.net/fs71/i/2010/336/6/1/super_voxel_mario_by_coppelano-d341zsg.png */
+
+void bwMarioFoot (GLint direction)
 {
-  GLdouble leg_height  = 3;
-  GLdouble feet_base_l, feet_base_b, feet_height;
+  //layered cuboids
+  GLint layers = 3;
+  GLdouble layer_height = 0.5;
+  GLdouble max_block_length, max_block_breadth, min_block_length, min_block_breadth;
+
+  max_block_length = 1.6, max_block_breadth = 0.8;
+  min_block_length = 0.6, min_block_breadth = 0.2;
+  
+  GLdouble layer_length_diff, layer_breadth_diff;
+
+  layer_length_diff  = ( max_block_length  - min_block_length ) / layers;
+  layer_breadth_diff = ( max_block_breadth - min_block_breadth) / layers;
+
+  GLint i = 0;
+
+  for ( ; i < layers; i++)
+  {
+    glPushMatrix ();
+    bwTranslate (0, i * layer_height,0);
+    bwCuboid (max_block_breadth, direction * max_block_length, layer_height);
+    max_block_length  -= layer_length_diff;
+//    max_block_breadth -= layer_breadth_diff; 
+    glPopMatrix ();
+  }
+
+}
+
+void bwCap (GLint direction)
+{
+    
+}
+
+void bwMario (void)
+{
+  GLdouble distance_between_feet = 2;
+
+  static GLdouble feet_color[] = {0.0, 0.0, 0.0, 1};
+  
+
+  /* Draw feet */
+  glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, feet_color);
+
+  glPushMatrix ();
+  bwTranslate (0, 0, -distance_between_feet / 2);
+  bwMarioFoot (-1);
+  glPopMatrix ();
+
+  glPushMatrix ();
+  bwTranslate (0, 0, distance_between_feet / 2) ;
+  bwMarioFoot (1);
+  glPopMatrix ();
+
 }
