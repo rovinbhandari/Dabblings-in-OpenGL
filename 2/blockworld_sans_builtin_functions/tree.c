@@ -25,9 +25,46 @@ void bwBranch()
          }
 }
 
+void bwMainBranch()
+{
+   glPushMatrix();
+   bwBranch();
+   glPopMatrix();
+   glPushMatrix();
+   bwTranslate(0, 0, SIZEBRANCH);
+   bwBranch();
+   glPopMatrix();
+   glPushMatrix();
+   bwTranslate(0, SIZEBRANCH, 0);
+   bwBranch();
+   glPopMatrix();
+   glPushMatrix();
+   bwTranslate(0, SIZEBRANCH, SIZEBRANCH);
+   bwBranch();
+   glPopMatrix();
+   
+   glPushMatrix();
+   bwTranslate(SIZEBRANCH, SIZEBRANCH / 2, 0);
+   bwBranch();
+   glPopMatrix();
+   glPushMatrix();
+   bwTranslate(SIZEBRANCH, SIZEBRANCH / 2, SIZEBRANCH);
+   bwBranch();
+   glPopMatrix();
+   glPushMatrix();
+   bwTranslate(SIZEBRANCH, -1 * SIZEBRANCH / 2, SIZEBRANCH / 3);
+   bwBranch();
+   glPopMatrix();
+   
+   glPushMatrix();
+   bwTranslate(2.1 * SIZEBRANCH, SIZEBRANCH / 2, SIZEBRANCH / 2);
+   bwBranch();
+   glPopMatrix();
+}
+
 #define EVEN(x)   (!(x % 3))
 #define A   (3 * SIZEBARK)
-#define B   (3 * SIZEBARK)
+#define B   (1 * SIZEBARK)
 #define Z   0.0d
 #define INNERCOND1   (i >= A && i <= A + B && k >= A && k <= e - A)
 #define INNERCOND2   (i >= A && i <= e - A && k >= e - (A + B) && k <= e - A)
@@ -89,3 +126,41 @@ void bwTrunk()
    }
 }
 
+#define SIZETRUNK          (SIZESTUB * NSTUBSINTRUNK)
+#define SIZEMAINBRANCHl    (SIZEBRANCH * 3)
+#define SIZEMAINBRANCHh    (SIZEBRANCH * 2)
+void bwTree()
+{
+  
+   glPushMatrix();
+   bwTrunk();
+   glPopMatrix();
+   
+   int i, j;
+   for(i = 0; i < MAINBRANCHLEVELS; i++)
+      for(j = 0; j < NMAINBRANCHESONLEVEL; j++)
+      {
+         glPushMatrix();
+         bwTranslate(2 * SIZESTUB, SIZETRUNK + (1 + i) * SIZEMAINBRANCHh, 2 * SIZESTUB);
+         bwRotate((j * SEPARATIONBWMAINBRANCHES) % 360, 0, 1, 0);
+         bwMainBranch();
+         glPopMatrix();
+         
+         glPushMatrix();
+         bwTranslate(SIZESTUB + SIZEMAINBRANCHl, SIZETRUNK + (1 + i) * SIZEMAINBRANCHh, 0);
+         bwRotate((j * SEPARATIONBWMAINBRANCHES + SEPARATIONBWMAINBRANCHES / 2) % 360, 0, 1, 0);
+         bwMainBranch();
+         glPopMatrix();
+        
+       }
+   
+   for(j = 0; j < NMAINBRANCHESONLEVEL; j++)
+   {
+      glPushMatrix();
+      bwTranslate(0, SIZETRUNK + (1 + i) * SIZEMAINBRANCHh, 0);
+      bwRotate(j * SEPARATIONBWMAINBRANCHES, 0, 1, 0);
+      bwMainBranch();
+      glPopMatrix();
+   }
+   
+}
