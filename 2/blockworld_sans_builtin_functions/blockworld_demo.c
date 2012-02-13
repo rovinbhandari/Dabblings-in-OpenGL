@@ -1,13 +1,12 @@
 #include <blockworld.h>
 #include <blockworld_complex_figures.h>
-#include <tree.h>
 
 GLfloat lightpos1[] = {110.f, 111.f, 110.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 15;
+int opt, nopts = 4;
 
 GLdouble eyex = 11;
 GLdouble eyey = 11.0;
@@ -21,7 +20,6 @@ void reshape(int, int);
 
 void display (void)
 {
-   opt = 14;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -34,7 +32,7 @@ void display (void)
    
    switch(opt)
    {
-      case 0:
+/*      case 0:
         // Create cuboid
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
         glTranslated(2.3, 2, -3);
@@ -78,21 +76,13 @@ void display (void)
         bwRotate(60, 0, 0, 1);
         bwCylinder(5, 8.5, .5);
         break;
-      
-/*      case 6:
-        // Create a rectangle (hollow_cuboid)
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-        GLdouble tmp1, tmp2, tmp3;
-        tmp1 = 7, tmp2 =3, tmp3 = 0.2;
-        bwRectangle (tmp1, tmp2, tmp3);
-        break; */
-      case 6:
+*/      
+      case 0:
         // Create a house
         bwHouse ();
-
         break;
 
-      case 7:
+/*      case 7:
         // Create Tree_Branch
         bwBranch();
         break;
@@ -114,27 +104,37 @@ void display (void)
         bwTranslate(-2, -7, -2);
         bwTrunk();
         break;
-      
-      case 11:
+*/      
+      case 1:
         // Create Tree
         bwScale(0.2, 0.2, 0.2);
         //bwRotate(-45, 1, 0, -1);
         bwTranslate(-1, -10, -1);
         bwTree();
         break;
-      case 12:
+      
+/*      case 12:
         //Create a character
-        
 //        bwScale (0.2, 0.2, 0.2);
-      case 13:
-
-      case 14:
+        bwBody();
+        break;
+*/
+      case 2:
     
         bwTranslate (pos, 0, 0);
         bwRotate (angle, 0, 1, 0); 
         bwHouse ();
         break;
-
+      
+/*      case 14:
+        //Create a character
+        bwHead();
+        break;
+*/
+      case 3:
+        //Create a character
+        bwDog();
+        break;
    }
    glutSwapBuffers();
 }
@@ -161,7 +161,6 @@ void init(void)
    glOrtho(-90., 90., -90., 90., -90., 90.);
    glMatrixMode(GL_MODELVIEW);
 
-   opt = 6;
    srand(time(NULL));
 }
 
