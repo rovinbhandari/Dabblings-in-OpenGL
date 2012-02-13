@@ -1,10 +1,10 @@
 #include <tree.h>
 
-#define COLRAND0to0_1      ((rand() % 100) / 1000.0f)
-#define COLRAND0_3to0_8    ((rand() % 50) / 100.0f + 0.3f)
+#define COLRANDRB        ((rand() % 100) / 1000.0f)     // Yo!   // [0, 0.1]
+#define COLRANDG         ((rand() % 30) / 100.0f + 0.3f)         // [0.3, 0.6]
 void bwLeaf()
 {
-   GLfloat textureleaf[] = {COLRAND0to0_1, COLRAND0_3to0_8, COLRAND0to0_1, 1.0f};
+   GLfloat textureleaf[] = {COLRANDRB, COLRANDG, COLRANDRB, 1.0f};   // Yo!
    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureleaf);
    bwCube(SIZELEAF);
 }
@@ -62,7 +62,7 @@ void bwMainBranch()
    glPopMatrix();
 }
 
-#define EVEN(x)   (!(x % 3))
+#define THICKBARKCHECK(x)   (!(x % 3))
 #define A   (3 * SIZEBARK)
 #define B   (1 * SIZEBARK)
 #define Z   0.0d
@@ -74,7 +74,7 @@ void bwMainBranch()
 #define OUTERCOND2   (i >= Z && i <= e && k >= e - A && k <= e)
 #define OUTERCOND3   (i >= e - A && i <= e && k >= Z && k <= e)
 #define OUTERCOND4   (i >= Z && i <= e && k >= Z && k <= A)
-#define OUTERCOND5   (EVEN((GLint) (i / A)) && EVEN((GLint) (k / A)))
+#define OUTERCOND5   (THICKBARKCHECK((GLint) (i / A)) && THICKBARKCHECK((GLint) (k / A)))
 void bwStub()
 {
    GLfloat texturebark1[] = {102 / 255.0, 52 / 255.0, 0, 1.0f};
@@ -164,3 +164,4 @@ void bwTree()
    }
    
 }
+
