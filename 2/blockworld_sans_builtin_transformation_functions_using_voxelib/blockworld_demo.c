@@ -28,16 +28,18 @@ void display (void)
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
    
+
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   vlInit (0.5);
+   vlInit (0.1);
    switch(opt)
    {
       case 0:
-        cuboid_set_edges (1,1,1);
-        vlSetFunction (voxel_cuboid);
-        vlVoxel (0, 0, 0, 5);
+        glPushMatrix ();
+        bwScale (0.8, 0.8, 0.8);
+        bwHouse ();
+        glPopMatrix ();
         break;
 
 /*      case 1:

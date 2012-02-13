@@ -4,16 +4,11 @@
 #include <GL/gl.h>
 
 
-/* Function to set the length, breadth and height for the voxel_cuboid
- * function.
+/* Function to construct a cuboid using voxel method (internally).
+ * The domain for the recursive partitioning is set to the 'size' of a
+ * cube of edge of maximum of the edges of the cuboid.
+ * The cube is constructed such that (x_min, y_min, z_min) = (0,0,0)
  */
-void set_cuboid_edges (GLdouble length, GLdouble breadth, GLdouble height);
-
-/*
- * Function that returns 1 if the given (x,y,z) lies inside the cuboid
- * of length 'cuboid_length', breadth 'cuboid_breadth' and height 
- * 'cuboid_height' with (x_min, y_min, z_min) = (0, 0, 0)
- */
-int voxel_cuboid (GLdouble x, GLdouble y, GLdouble z);
+void bwVoxelCuboid (GLdouble length, GLdouble breadth, GLdouble height);
 
 #endif  // End of file
