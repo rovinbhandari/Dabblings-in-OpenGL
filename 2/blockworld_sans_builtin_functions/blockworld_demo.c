@@ -1,9 +1,9 @@
 #include <blockworld.h>
 #include <blockworld_complex_figures.h>
 
-GLfloat lightpos1[] = {110.f, 110.f, 110.f, 1.f};
+GLfloat lightpos1[] = {110.f, 16.f, 10.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
-GLfloat light_diffuse1[] = {1, 1, 1, 1};
+GLfloat light_diffuse1[] = {0.8, 0.8, 0.8, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
 int opt, nopts = 4;
@@ -20,7 +20,6 @@ void reshape(int, int);
 
 void display (void)
 {   
-   opt = 2;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -33,79 +32,11 @@ void display (void)
    
    switch(opt)
    {
-/*      case 0:
-        // Create cuboid
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
-        glTranslated(2.3, 2, -3);
-        bwCuboid(5, 3.2, 6.3);
-        break;
-   
-      case 1:
-        // Create cuboid
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-        bwTranslate(2.3, 2, -3);
-        bwCuboid(5, 3.2, 6.3);
-        break;
-   
-      case 2:
-        // Create a cube
-     	  glPushMatrix();
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-        bwTranslate(0, 0, -4);
-        bwCube(7);
-        glPopMatrix();
-        break;
-        
-      case 3:
-        // Create cuboid2
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
-        bwCuboid2(5, 3.5, 6);
-        break;
-        
-      case 4:
-        // Create sphere
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-        bwTranslate(2, 3, 0);
-        bwScale(0.4, 0.6, .5);
-        bwSphere(5., 1.0);
-        break;
-        
-      case 5:
-        // Create cylinder
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
-        bwTranslate(2, 3, 0);
-        bwRotate(60, 0, 0, 1);
-        bwCylinder(5, 8.5, .5);
-        break;
-*/      
       case 0:
         // Create a house
         bwHouse ();
         break;
 
-/*      case 7:
-        // Create Tree_Branch
-        bwBranch();
-        break;
-      
-      case 8:
-        // Create Tree_MainBranch
-        bwScale(0.2, 0.2, 0.2);
-        bwMainBranch();
-
-      case 9:
-        // Create Tree_Stub
-        bwScale(0.3, 0.3, 0.3);
-        bwStub(SIZESTUB);
-        break;
-
-      case 10:
-        // Create Tree_Trunk
-        bwScale(0.25, 0.25, 0.25);
-        bwTranslate(-2, -7, -2);
-        bwTrunk();
-        break;
-*/      
       case 1:
         // Create Tree
         bwScale(0.2, 0.2, 0.2);
@@ -114,40 +45,30 @@ void display (void)
         bwTree();
         break;
       
-/*      case 12:
-        //Create a character
-//        bwScale (0.2, 0.2, 0.2);
-        bwBody();
-        break;
-*/
-      case 2:
-    
+      case 3:
+        // Create the whole scene
+        //  Tree
         glPushMatrix ();
-        bwTranslate (-8, -2, 3);
-        bwScale (1, 1.2, 1);
-        bwRotate (30, 0, 1, 0); 
-        bwHouse ();
-        glPopMatrix ();
-
-        glPushMatrix ();
-        bwTranslate (3, -7, -3.0); 
+        bwTranslate (2, -7, -3.0); 
         bwScale (0.2, 0.2, 0.2);
-        bwRotate (-50, 0, 1, 0);
+        //bwRotate (-45, 0, 1, 0);
         bwTree();
         glPopMatrix ();
-      
-
-        bwTranslate (0,-2,6);
+//  House
+        glPushMatrix ();
+        bwTranslate (-7, -2, 1);
+        bwScale (0.9, 1.1, 0.9);
+        bwRotate (20, 0, 1, 0); 
+        bwHouse ();
+        glPopMatrix ();
+                //  Dog
+        bwTranslate (0,-5,6);
         bwRotate (30, 0, 1, 0);
         bwScale (0.3, 0.3, 0.3);
         bwDog ();  
         break;
-/*      case 14:
-        //Create a character
-        bwHead();
-        break;
-*/
-      case 3:
+      
+      case 2:
         //Create a character
         bwDog();
         break;
@@ -177,6 +98,7 @@ void init(void)
    glOrtho(-200., 200., -150., 150., -150., 150.);
    glMatrixMode(GL_MODELVIEW);
 
+   opt = 3;
    srand(time(NULL));
 }
 
