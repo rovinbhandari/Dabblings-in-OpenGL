@@ -5,5 +5,6 @@
 #include <character.h>
 
 void bwHouse (void);
-  
+void bwRoad  (void);
+
 #endif // End of file

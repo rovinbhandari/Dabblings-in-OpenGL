@@ -29,8 +29,8 @@ static void bwRoof (GLdouble base_l, GLdouble base_b,
 		glPopMatrix ();
 		cur_height += cuboid_height;
 		base_l     -= cuboid_height * B_FACTOR;
-    base_b     -= cuboid_height;
-    i++;
+      base_b     -= cuboid_height;
+      i++;
 	}
 }
 
