@@ -57,7 +57,7 @@ void display (void)
         glPopMatrix ();
         //  House
         glPushMatrix ();
-        bwTranslate (-10, -2, 1);
+        bwTranslate (-10, -3, 1);
         bwScale (1.1, 1.3, 1.1);
         bwRotate (20, 0, 1, 0); 
         bwHouse ();
