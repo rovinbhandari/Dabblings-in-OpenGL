@@ -34,6 +34,32 @@ static void bwRoof (GLdouble base_l, GLdouble base_b,
 	}
 }
 
+#define COLRANDRGB       ((rand() % 501) / 1000.0f + 0.5)    // [0.5, 1.0]
+#define SIZESMOKEPARTICLE      0.01d
+static void bwSmokeParticle()
+{
+   GLfloat col = COLRANDRGB, textureleaf[] = {col, col, col, 1.0f};
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureleaf);
+   bwCube(SIZESMOKEPARTICLE);
+}
+
+#define SIZESMOKECLOUD     0.4d
+void bwSmoke()
+{
+   GLdouble i, j, k;
+   for(i = 0.0d; i < SIZESMOKECLOUD; i += SIZESMOKEPARTICLE)
+      for(j = 0.0d; j < SIZESMOKECLOUD; j += SIZESMOKEPARTICLE)
+         for(k = 0.0d; k < SIZESMOKECLOUD; k += SIZESMOKEPARTICLE)
+         {
+            if((rand() % 1000) > 10)               // 1% probabilistic density
+               continue;
+            glPushMatrix();
+            bwTranslate(i, j, k);
+            bwSmokeParticle();
+            glPopMatrix();
+         }
+}
+
 
 void bwHouse (void)
 {
@@ -46,7 +72,7 @@ void bwHouse (void)
   GLdouble window_edge, window_height;
   GLdouble glass_edge;
 
-  static GLfloat door_texture[]    = { 1.0, 1.0, 1.0, 1};
+  static GLfloat door_texture[]    = { 0.33, 0.17, 0.03, 1};
   static GLfloat pyramid_texture[] = { 0.7, 0.3, 0.3, 1};
   static GLfloat cuboid1_texture[] = { 0.9, 0.6, 0.4, 1};
   static GLfloat cuboid2_texture[] = { 0.7, 0.7, 0.5, 1};
@@ -161,7 +187,20 @@ void bwHouse (void)
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, chimney_texture);
   bwTranslate ((2) * base1, height_cuboid2, base2_l / 3);
   bwRectangle2 (chimney_base, chimney_base, chimney_height);
-  glPopMatrix (); 
+  glPopMatrix ();
   
+  // Create Smoke clouds above chimney
+  glPushMatrix ();
+  bwTranslate ((2) * base1, height_cuboid2 + chimney_height * 1.2, base2_l / 5);
+  bwSmoke();
+  glPopMatrix ();
+  glPushMatrix ();
+  bwTranslate ((2) * base1, height_cuboid2 + chimney_height * 1.3, base2_l / 20);
+  bwSmoke();
+  glPopMatrix ();
+  glPushMatrix ();
+  bwTranslate ((2.02) * base1, height_cuboid2 + chimney_height * 1.4, 0);
+  bwSmoke();
+  glPopMatrix ();
 }
 

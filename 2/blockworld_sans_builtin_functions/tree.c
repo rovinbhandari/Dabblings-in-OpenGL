@@ -16,7 +16,7 @@ void bwBranch()
       for(j = 0.0d; j < SIZEBRANCH; j += SIZELEAF)
          for(k = 0.0d; k < SIZEBRANCH; k += SIZELEAF)
          {
-            if((rand() % 1000) > 100)
+            if((rand() % 1000) > 100)                  // 10% probabilistic density
                continue;
             glPushMatrix();
             bwTranslate(i, j, k);
