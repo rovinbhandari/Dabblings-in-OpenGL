@@ -2,9 +2,11 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
-#define DIFF 0.2
+#define DIFF 0.1
 #define SHELTER_DIFF 0.05
 #define WINDOW_BORDER 0.1
+#define ROOF_EXT 0.08
+#define B_FACTOR 1.4
 
 GLdouble view_angle = 0;
 
@@ -12,21 +14,23 @@ static void bwRoof (GLdouble base_l, GLdouble base_b,
                     GLdouble height, GLdouble cuboid_height)
 {
   GLdouble cur_height = 0;
+  GLint i = 0;
 	while (height - cur_height > 0)
 	{
 		glPushMatrix ();
-		bwTranslate (0, cur_height, 0);
+		bwTranslate ( -ROOF_EXT + (i * cuboid_height * B_FACTOR) / 2 , cur_height, 0);
 
 		/* Using bwCuboid gives different behavior */
 		if (height - cur_height > cuboid_height)
-			bwCuboid(base_l + 0.08, base_b, cuboid_height);
+			bwCuboid( base_l + ROOF_EXT * 2, base_b, cuboid_height);
 		else
-			bwCuboid (base_l + 0.08, base_b, (height - cur_height));
+			bwCuboid (base_l + ROOF_EXT * 2, base_b, (height - cur_height));
 
 		glPopMatrix ();
 		cur_height += cuboid_height;
-		base_l     -= cuboid_height;
+		base_l     -= cuboid_height * B_FACTOR;
     base_b     -= cuboid_height;
+    i++;
 	}
 }
 
@@ -60,7 +64,7 @@ void bwHouse (void)
   door_width     = 1.5;
   door_height    = height_cuboid1 / 2;
   chimney_base   = 0.5;
-  chimney_height = 1.7;
+  chimney_height = 1.9;
   door_knob_size = 0.1;
   window_edge    = 1.8;
   window_height  = 2.5;
@@ -71,7 +75,7 @@ void bwHouse (void)
   //bwRectangle (base1, base1, height_cuboid1);
   bwCuboid2(base1, base1, height_cuboid1);
   glPushMatrix ();
-  bwTranslate (0, height_cuboid1 + 2 * SHELTER_DIFF, 0);
+  bwTranslate (0, height_cuboid1, 0);
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, pyramid_texture);
   bwRoof (base1 + base2_l, base1 + 3 * SHELTER_DIFF, height_pyramid, 0.05);
   glPopMatrix ();

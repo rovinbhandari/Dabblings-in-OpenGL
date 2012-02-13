@@ -7,17 +7,21 @@ GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 13;
+int opt, nopts = 15;
 
 GLdouble eyex = 11;
 GLdouble eyey = 11.0;
 GLdouble eyez = 11;
-   
+ 
+GLint angle = 45;
+GLdouble pos = 0;
+
 void keyboard(unsigned char, int, int);
 void reshape(int, int);
 
 void display (void)
 {
+   opt = 14;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -85,6 +89,7 @@ void display (void)
       case 6:
         // Create a house
         bwHouse ();
+
         break;
 
       case 7:
@@ -121,7 +126,14 @@ void display (void)
         //Create a character
         
 //        bwScale (0.2, 0.2, 0.2);
-        bwMario ();
+      case 13:
+
+      case 14:
+    
+        bwTranslate (pos, 0, 0);
+        bwRotate (angle, 0, 1, 0); 
+        bwHouse ();
+        break;
 
    }
    glutSwapBuffers();
@@ -175,7 +187,23 @@ void keyboard (unsigned char key, int x, int y)
       case 27 :
          exit (0);
          break;
-      default:
+      case 'a' :
+        angle = (angle + 2);
+        glutPostRedisplay ();
+        break;
+      case 'z':
+        angle = (angle - 2);
+        glutPostRedisplay ();
+        break;
+      case 'd' :
+        pos = (pos + 0.5);
+        glutPostRedisplay ();
+        break;
+      case 's' :
+        pos = (pos - 0.5);
+        glutPostRedisplay ();
+        break;
+ default:
          opt = (opt + 1) % nopts;
 			glutPostRedisplay();
          break;
