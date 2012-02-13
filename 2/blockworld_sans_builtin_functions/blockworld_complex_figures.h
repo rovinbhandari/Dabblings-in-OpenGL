@@ -5,6 +5,6 @@
 #include <character.h>
 
 void bwHouse (void);
-void bwRoad  (void);
+void bwRoad  (GLdouble length, GLdouble width, GLdouble heigth);
 
 #endif // End of file

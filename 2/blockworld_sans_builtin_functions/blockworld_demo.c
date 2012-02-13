@@ -20,6 +20,7 @@ void reshape(int, int);
 
 void display (void)
 {   
+   opt = 4;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -72,6 +73,11 @@ void display (void)
         //Create a character
         bwDog();
         break;
+      case 4:
+        //Create a road
+        bwTranslate(-2, 0, 3);
+        bwRoad (15, 3, 0.2);
+        break;
    }
    glutSwapBuffers();
 }
@@ -98,7 +104,6 @@ void init(void)
    glOrtho(-200., 200., -150., 150., -150., 150.);
    glMatrixMode(GL_MODELVIEW);
 
-   opt = 3;
    srand(time(NULL));
 }
 

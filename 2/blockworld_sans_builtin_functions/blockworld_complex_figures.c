@@ -1,6 +1,8 @@
 #include <blockworld.h>
 #include <GL/glut.h>
 #include <GL/gl.h>
+#include <stdlib.h>
+#include <time.h>
 
 #define DIFF 0.05
 #define SHELTER_DIFF 0.05
@@ -165,3 +167,53 @@ void bwHouse (void)
   
 }
 
+#define RANDGRAY  (rand() % 10) / 100.0 + 0.2   //[0.2, 0.3]
+
+/* Function to draw a single segment of road length */
+void bwRoadSegment (GLdouble length, GLdouble width, GLdouble height)
+{
+  GLdouble cuboid_width = 0.75;
+  GLdouble cur_width    = 0;
+
+  static GLfloat road_texture[] = {0.3, 0.3, 0.3, 1};
+
+  static char first = 1;
+
+  if (first)
+  {
+    srand(time(NULL));
+    first = 0;
+  }
+
+#define RESET_VAL() road_texture[0] = road_texture[1] = road_texture[2] = \
+                    RANDGRAY;
+#define PRINT_VALS() printf ("%g %g %g\n", road_texture[0], road_texture[1], road_texture[2]);                    
+
+  while ( cur_width + cuboid_width <= width )
+  {
+    glPushMatrix ();
+    bwTranslate (0, 0, cur_width);
+    glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, road_texture);
+    PRINT_VALS();
+    bwCuboid (length, cuboid_width, height);
+    glPopMatrix ();
+    cur_width += cuboid_width;
+    RESET_VAL();
+  }
+}
+
+void bwRoad (GLdouble length, GLdouble width, GLdouble height)
+{
+  GLdouble layer_length = 0.5;
+  GLdouble cur_length   = 0; 
+ 
+  while ( cur_length < length )
+  {
+    glPushMatrix ();
+    bwTranslate (cur_length, 0, 0);
+//    bwCuboid (layer_length, width, height);
+    bwRoadSegment (layer_length, width, height);
+    glPopMatrix ();
+    cur_length += layer_length;
+  }
+}
