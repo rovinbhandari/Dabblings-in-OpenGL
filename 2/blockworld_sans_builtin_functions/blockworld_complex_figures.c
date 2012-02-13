@@ -48,7 +48,7 @@ void bwHouse (void)
 
   static GLfloat door_texture[]    = { 1.0, 1.0, 1.0, 1};
   static GLfloat pyramid_texture[] = { 0.7, 0.3, 0.3, 1};
-  static GLfloat cuboid1_texture[] = { 0.8, 0.5, 0.2, 1};
+  static GLfloat cuboid1_texture[] = { 0.9, 0.6, 0.4, 1};
   static GLfloat cuboid2_texture[] = { 0.7, 0.7, 0.5, 1};
   static GLfloat chimney_texture[] = { 0.3, 0.3, 0.3, 1};
   static GLfloat knob_texture[]    = { 1.0, 1.0, 0.0, 1};
