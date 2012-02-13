@@ -1,13 +1,12 @@
 #include <blockworld.h>
 #include <blockworld_complex_figures.h>
-#include <tree.h>
 
 GLfloat lightpos1[] = {110.f, 111.f, 110.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 13;
+int opt, nopts = 15;
 
 GLdouble eyex = 11;
 GLdouble eyey = 11.0;
@@ -75,13 +74,6 @@ void display (void)
         bwCylinder(5, 8.5, .5);
         break;
       
-/*      case 6:
-        // Create a rectangle (hollow_cuboid)
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
-        GLdouble tmp1, tmp2, tmp3;
-        tmp1 = 7, tmp2 =3, tmp3 = 0.2;
-        bwRectangle (tmp1, tmp2, tmp3);
-        break; */
       case 6:
         // Create a house
         bwHouse ();
@@ -117,12 +109,21 @@ void display (void)
         bwTranslate(-1, -10, -1);
         bwTree();
         break;
+      
       case 12:
         //Create a character
-        
-//        bwScale (0.2, 0.2, 0.2);
-        bwMario ();
+        bwBody();
+        break;
+      
+      case 13:
+        //Create a character
+        bwHead();
+        break;
 
+      case 14:
+        //Create a character
+        bwDog();
+        break;
    }
    glutSwapBuffers();
 }
@@ -149,7 +150,7 @@ void init(void)
    glOrtho(-90., 90., -90., 90., -90., 90.);
    glMatrixMode(GL_MODELVIEW);
 
-   opt = 6;
+   opt = 12;
    srand(time(NULL));
 }
 
