@@ -1,22 +1,26 @@
 #include <blockworld.h>
 #include <blockworld_complex_figures.h>
 
-GLfloat lightpos1[] = {110.f, 111.f, 110.f, 1.f};
+GLfloat lightpos1[] = {110.f, 110.f, 110.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
-int opt, nopts = 15;
+int opt, nopts = 4;
 
-GLdouble eyex = 11;
-GLdouble eyey = 11.0;
-GLdouble eyez = 11;
-   
+GLdouble eyex = 10;
+GLdouble eyey = 8;
+GLdouble eyez = 10;
+ 
+GLint angle = 45;
+GLdouble pos = 0;
+
 void keyboard(unsigned char, int, int);
 void reshape(int, int);
 
 void display (void)
-{
+{   
+   opt = 2;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -29,7 +33,7 @@ void display (void)
    
    switch(opt)
    {
-      case 0:
+/*      case 0:
         // Create cuboid
         glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
         glTranslated(2.3, 2, -3);
@@ -73,13 +77,13 @@ void display (void)
         bwRotate(60, 0, 0, 1);
         bwCylinder(5, 8.5, .5);
         break;
-      
-      case 6:
+*/      
+      case 0:
         // Create a house
         bwHouse ();
         break;
 
-      case 7:
+/*      case 7:
         // Create Tree_Branch
         bwBranch();
         break;
@@ -101,8 +105,8 @@ void display (void)
         bwTranslate(-2, -7, -2);
         bwTrunk();
         break;
-      
-      case 11:
+*/      
+      case 1:
         // Create Tree
         bwScale(0.2, 0.2, 0.2);
         //bwRotate(-45, 1, 0, -1);
@@ -110,17 +114,40 @@ void display (void)
         bwTree();
         break;
       
-      case 12:
+/*      case 12:
         //Create a character
+//        bwScale (0.2, 0.2, 0.2);
         bwBody();
         break;
+*/
+      case 2:
+    
+        glPushMatrix ();
+        bwTranslate (-8, -2, 3);
+        bwScale (1, 1.2, 1);
+        bwRotate (30, 0, 1, 0); 
+        bwHouse ();
+        glPopMatrix ();
+
+        glPushMatrix ();
+        bwTranslate (3, -7, -3.0); 
+        bwScale (0.2, 0.2, 0.2);
+        bwRotate (-50, 0, 1, 0);
+        bwTree();
+        glPopMatrix ();
       
-      case 13:
+
+        bwTranslate (0,-2,6);
+        bwRotate (30, 0, 1, 0);
+        bwScale (0.3, 0.3, 0.3);
+        bwDog ();  
+        break;
+/*      case 14:
         //Create a character
         bwHead();
         break;
-
-      case 14:
+*/
+      case 3:
         //Create a character
         bwDog();
         break;
@@ -147,10 +174,9 @@ void init(void)
 
    
    glMatrixMode(GL_PROJECTION);
-   glOrtho(-90., 90., -90., 90., -90., 90.);
+   glOrtho(-200., 200., -150., 150., -150., 150.);
    glMatrixMode(GL_MODELVIEW);
 
-   opt = 12;
    srand(time(NULL));
 }
 
@@ -159,7 +185,7 @@ int main (int argc, char **argv)
    glutInit (&argc, argv);
    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
    glutInitWindowPosition(300, 300);
-   glutInitWindowSize (750, 750);
+   glutInitWindowSize (950, 750);
    glutCreateWindow("BL[]CKW[]RLD");
    init();
    glutDisplayFunc (&display);
@@ -176,6 +202,22 @@ void keyboard (unsigned char key, int x, int y)
       case 27 :
          exit (0);
          break;
+      case 'a' :
+        angle = (angle + 2);
+        glutPostRedisplay ();
+        break;
+      case 'z':
+        angle = (angle - 2);
+        glutPostRedisplay ();
+        break;
+      case 'd' :
+        pos = (pos + 0.5);
+        glutPostRedisplay ();
+        break;
+      case 's' :
+        pos = (pos - 0.5);
+        glutPostRedisplay ();
+        break;
       default:
          opt = (opt + 1) % nopts;
 			glutPostRedisplay();
