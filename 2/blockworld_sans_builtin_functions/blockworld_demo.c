@@ -28,9 +28,6 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   GLfloat texture1[] = {0.3, 0.06f, 0.33f, 1};
-   GLfloat texture2[] = {0.4, 0.1f, 0.1f, 1};
-   
    switch(opt)
    {
       case 0:
@@ -67,22 +64,22 @@ void display (void)
         
         //Create a road
         glPushMatrix ();
-  	    bwTranslate(-6.2, 0, 8);
+        bwTranslate(-6.2, 0, 7.7);
         bwRotate (20, 0, 1, 0);
-        bwRoad (11, 2, 0.4);
+        bwRoad (11, 4, 0.2);
         glPopMatrix ();
 
         glPushMatrix ();
-        bwTranslate (4.17, 0, 4.25);
-        bwRotate (-3, 0, 1, 0);
-        bwRoad (10,2,0.4);
+        bwTranslate (4.17, 0, 3.94);
+        bwRotate (-25, 0, 1, 0);
+        bwRoad (10,4,0.2);
         glPopMatrix ();
 
         //  Dog
         glPushMatrix ();
-        bwTranslate (0,-5,6);
-        bwRotate (30, 0, 1, 0);
-        bwScale (0.3, 0.3, 0.3);
+        bwTranslate (2,1.5,8);
+        bwRotate (10, 0, 1, 0);
+        bwScale (0.2, 0.2, 0.2);
         bwDog ();  
         glPopMatrix ();
 
