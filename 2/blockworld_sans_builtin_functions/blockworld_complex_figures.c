@@ -19,9 +19,9 @@ static void bwRoof (GLdouble base_l, GLdouble base_b,
 
 		/* Using bwCuboid gives different behavior */
 		if (height - cur_height > cuboid_height)
-			bwRectangle2 (base_l, base_b, cuboid_height);
+			bwCuboid(base_l + 0.08, base_b, cuboid_height);
 		else
-			bwCuboid2 (base_l, base_b, (height - cur_height));
+			bwCuboid (base_l + 0.08, base_b, (height - cur_height));
 
 		glPopMatrix ();
 		cur_height += cuboid_height;
@@ -68,7 +68,8 @@ void bwHouse (void)
   
   // Create one cuboid and place roof on top
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid1_texture);
-  bwRectangle2 (base1, base1, height_cuboid1);
+  //bwRectangle (base1, base1, height_cuboid1);
+  bwCuboid2(base1, base1, height_cuboid1);
   glPushMatrix ();
   bwTranslate (0, height_cuboid1 + 2 * SHELTER_DIFF, 0);
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, pyramid_texture);
@@ -79,7 +80,8 @@ void bwHouse (void)
   glPushMatrix ();
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid2_texture);
   bwTranslate (base1, 0, 0);
-  bwRectangle2 (base2_l, base1, height_cuboid2);
+  //bwRectangle (base2_l, base1, height_cuboid2);
+  bwCuboid(base2_l, base1, height_cuboid2);
   glPopMatrix ();
 
   // Create a rectangle (as door)

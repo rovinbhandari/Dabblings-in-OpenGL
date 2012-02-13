@@ -18,7 +18,6 @@ void reshape(int, int);
 
 void display (void)
 {
-   opt = 12;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -150,7 +149,7 @@ void init(void)
    glOrtho(-90., 90., -90., 90., -90., 90.);
    glMatrixMode(GL_MODELVIEW);
 
-   opt = 11;
+   opt = 6;
    srand(time(NULL));
 }
 

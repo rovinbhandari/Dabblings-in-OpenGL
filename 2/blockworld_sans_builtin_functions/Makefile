@@ -3,8 +3,8 @@ OBJ=.
 LIB_OBJ=.
 BIN=.
 CFLAGS=-Wall -g -I./
-OBJECTS= $(OBJ)/blockworld_complex_figures.o $(OBJ)/blockworld_demo.o
-LIB_BW= $(LIB_OBJ)/blockworld.o $(LIB_OBJ)/tree.o
+OBJECTS= $(OBJ)/blockworld_complex_figures.o  $(OBJ)/tree.o $(OBJ)/blockworld_demo.o
+LIB_BW= $(LIB_OBJ)/blockworld.o
 OUTPUT_FILE=demo.out
 CC=gcc
 
