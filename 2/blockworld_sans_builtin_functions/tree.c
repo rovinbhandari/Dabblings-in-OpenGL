@@ -161,14 +161,14 @@ void bwTree()
    for(j = 0; j < NMAINBRANCHESONLEVEL; j++)
    {
       glPushMatrix();
-      bwTranslate(0, SIZETRUNK + (1 + i) * SIZEMAINBRANCHh, 0);
+      bwTranslate(0, SIZETRUNK + (1 + i) * SIZEMAINBRANCHh - SIZEBRANCH / 2, 0);
       bwRotate(j * SEPARATIONBWMAINBRANCHES, 0, 1, 0);
       bwMainBranch();
       glPopMatrix();
    }
    
    glPushMatrix();
-   bwTranslate(0, SIZETRUNK + (2 + i) * SIZEMAINBRANCHh, 0);
+   bwTranslate(0, SIZETRUNK + (2 + i) * SIZEMAINBRANCHh - SIZEBRANCH / 2, 0);
    bwBranch();
    glPopMatrix();
 }
