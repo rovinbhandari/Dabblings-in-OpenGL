@@ -9,7 +9,7 @@
 #define SIZEBODYh    SIZEBODYb
 
 #define SIZETAILl    0.31d
-#define SIZETAILb    1.2d
+#define SIZETAILb    0.8d
 #define SIZETAILh    0.8d
 
 #define SIZEHEADl1   (4 * SIZEBODYl / 7)

@@ -1,7 +1,7 @@
 #include <tree.h>
 
-#define COLRANDRB        ((rand() % 100) / 1000.0f)     // Yo!   // [0, 0.1]
-#define COLRANDG         ((rand() % 30) / 100.0f + 0.3f)         // [0.3, 0.6]
+#define COLRANDRB        ((rand() % 101) / 1000.0f)     // Yo!   // [0, 0.1]
+#define COLRANDG         ((rand() % 31) / 100.0f + 0.3f)         // [0.3, 0.6]
 void bwLeaf()
 {
    GLfloat textureleaf[] = {COLRANDRB, COLRANDG, COLRANDRB, 1.0f};   // Yo!
