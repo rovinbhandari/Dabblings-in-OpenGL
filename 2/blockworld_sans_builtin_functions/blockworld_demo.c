@@ -49,9 +49,9 @@ void display (void)
         // Create the whole scene
         //  Tree
         glPushMatrix ();
-        bwTranslate (2, -7, -3.0); 
-        bwScale (0.2, 0.2, 0.2);
-        //bwRotate (-45, 0, 1, 0);
+        bwTranslate (2, -7.5, -3.0); 
+        bwScale (0.18, 0.18, 0.18);
+        bwRotate (-45, 0, 1, 0);
         bwTree();
         glPopMatrix ();
         //  House

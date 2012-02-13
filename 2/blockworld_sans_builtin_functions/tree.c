@@ -171,11 +171,5 @@ void bwTree()
    bwTranslate(0, SIZETRUNK + (2 + i) * SIZEMAINBRANCHh, 0);
    bwBranch();
    glPopMatrix();
-/*
-   glPushMatrix();
-   bwTranslate(0, SIZETRUNK + (i - 1) * SIZEMAINBRANCHh, 0);
-   bwBranch();
-   glPopMatrix();
-*/
 }
 
