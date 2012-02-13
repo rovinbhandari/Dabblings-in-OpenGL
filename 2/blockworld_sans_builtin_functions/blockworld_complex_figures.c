@@ -73,7 +73,7 @@ void bwHouse (void)
   // Create one cuboid and place roof on top
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid1_texture);
   //bwRectangle (base1, base1, height_cuboid1);
-  bwCuboid2(base1, base1, height_cuboid1);
+  bwCuboid(base1, base1, height_cuboid1);
   glPushMatrix ();
   bwTranslate (0, height_cuboid1, 0);
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, pyramid_texture);
