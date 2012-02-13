@@ -2,7 +2,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 
-#define DIFF 0.1
+#define DIFF 0.05
 #define SHELTER_DIFF 0.05
 #define WINDOW_BORDER 0.1
 #define ROOF_EXT 0.08

@@ -5,7 +5,7 @@
 
 #define SIZEBARK           0.1d
 #define SIZESTUB           14 * SIZEBARK * 6
-#define NSTUBSINTRUNK      4
+#define NSTUBSINTRUNK      5
 
 #define MAINBRANCHLEVELS   1
 #define NMAINBRANCHESONLEVEL        5

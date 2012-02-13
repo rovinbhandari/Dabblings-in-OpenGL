@@ -1,16 +1,16 @@
 #include <blockworld.h>
 #include <blockworld_complex_figures.h>
 
-GLfloat lightpos1[] = {110.f, 111.f, 110.f, 1.f};
+GLfloat lightpos1[] = {110.f, 110.f, 110.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
 GLfloat light_diffuse1[] = {1, 1, 1, 1};
 GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
 int opt, nopts = 4;
 
-GLdouble eyex = 11;
-GLdouble eyey = 11.0;
-GLdouble eyez = 11;
+GLdouble eyex = 10;
+GLdouble eyey = 8;
+GLdouble eyez = 10;
  
 GLint angle = 45;
 GLdouble pos = 0;
@@ -19,7 +19,8 @@ void keyboard(unsigned char, int, int);
 void reshape(int, int);
 
 void display (void)
-{
+{   
+   opt = 2;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -121,11 +122,26 @@ void display (void)
 */
       case 2:
     
-        bwTranslate (pos, 0, 0);
-        bwRotate (angle, 0, 1, 0); 
+        glPushMatrix ();
+        bwTranslate (-8, -2, 3);
+        bwScale (1, 1.2, 1);
+        bwRotate (30, 0, 1, 0); 
         bwHouse ();
-        break;
+        glPopMatrix ();
+
+        glPushMatrix ();
+        bwTranslate (3, -7, -3.0); 
+        bwScale (0.2, 0.2, 0.2);
+        bwRotate (-50, 0, 1, 0);
+        bwTree();
+        glPopMatrix ();
       
+
+        bwTranslate (0,-2,6);
+        bwRotate (30, 0, 1, 0);
+        bwScale (0.3, 0.3, 0.3);
+        bwDog ();  
+        break;
 /*      case 14:
         //Create a character
         bwHead();
@@ -158,7 +174,7 @@ void init(void)
 
    
    glMatrixMode(GL_PROJECTION);
-   glOrtho(-90., 90., -90., 90., -90., 90.);
+   glOrtho(-200., 200., -150., 150., -150., 150.);
    glMatrixMode(GL_MODELVIEW);
 
    srand(time(NULL));
@@ -169,7 +185,7 @@ int main (int argc, char **argv)
    glutInit (&argc, argv);
    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
    glutInitWindowPosition(300, 300);
-   glutInitWindowSize (750, 750);
+   glutInitWindowSize (950, 750);
    glutCreateWindow("BL[]CKW[]RLD");
    init();
    glutDisplayFunc (&display);
