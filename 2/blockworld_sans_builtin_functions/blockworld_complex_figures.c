@@ -188,22 +188,30 @@ void bwMarioFoot (GLint direction)
     glPopMatrix ();
   }
 
+/*  GLdouble leg_height = 1; 
+  GLdouble leg_width  = 0.5;
+
+  glPushMatrix ();
+  bwTranslate (0, i * layer_height, 0);
+  bwCuboid (leg_width, leg_width, leg_height);
+  glPopMatrix ();
+*/
 }
 
 void bwCap (GLint direction)
 {
-    
+  GLdouble cap_width = 0.5;
 }
 
 void bwMario (void)
 {
   GLdouble distance_between_feet = 2;
 
-  static GLdouble feet_color[] = {0.0, 0.0, 0.0, 1};
+  static GLfloat feet_color[] = {0.3, 0.3, 0.3, 1};
   
 
   /* Draw feet */
-  glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, feet_color);
+  glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, feet_color);
 
   glPushMatrix ();
   bwTranslate (0, 0, -distance_between_feet / 2);
