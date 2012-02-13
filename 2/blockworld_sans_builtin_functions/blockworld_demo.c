@@ -20,7 +20,7 @@ void reshape(int, int);
 
 void display (void)
 {   
-   opt = 4;
+   opt = 3;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -48,6 +48,7 @@ void display (void)
       
       case 3:
         // Create the whole scene
+       	
         //  Tree
         glPushMatrix ();
         bwTranslate (2, -7.5, -3.0); 
@@ -55,6 +56,7 @@ void display (void)
         bwRotate (-45, 0, 1, 0);
         bwTree();
         glPopMatrix ();
+
         //  House
         glPushMatrix ();
         bwTranslate (-10, -3, 1);
@@ -62,21 +64,33 @@ void display (void)
         bwRotate (20, 0, 1, 0); 
         bwHouse ();
         glPopMatrix ();
+        
+        //Create a road
+        glPushMatrix ();
+  	    bwTranslate(-6.2, 0, 8);
+        bwRotate (20, 0, 1, 0);
+        bwRoad (11, 2, 0.4);
+        glPopMatrix ();
+
+        glPushMatrix ();
+        bwTranslate (4.17, 0, 4.25);
+        bwRotate (-3, 0, 1, 0);
+        bwRoad (10,2,0.4);
+        glPopMatrix ();
+
         //  Dog
+        glPushMatrix ();
         bwTranslate (0,-5,6);
         bwRotate (30, 0, 1, 0);
         bwScale (0.3, 0.3, 0.3);
         bwDog ();  
+        glPopMatrix ();
+
         break;
       
       case 2:
         //Create a character
         bwDog();
-        break;
-      case 4:
-        //Create a road
-        bwTranslate(-2, 0, 3);
-        bwRoad (15, 3, 0.2);
         break;
    }
    glutSwapBuffers();

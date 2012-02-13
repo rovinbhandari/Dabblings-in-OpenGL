@@ -31,8 +31,8 @@ static void bwRoof (GLdouble base_l, GLdouble base_b,
 		glPopMatrix ();
 		cur_height += cuboid_height;
 		base_l     -= cuboid_height * B_FACTOR;
-      base_b     -= cuboid_height;
-      i++;
+    base_b     -= cuboid_height;
+    i++;
 	}
 }
 
@@ -233,7 +233,6 @@ void bwRoadSegment (GLdouble length, GLdouble width, GLdouble height)
     glPushMatrix ();
     bwTranslate (0, 0, cur_width);
     glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, road_texture);
-    PRINT_VALS();
     bwCuboid (length, cuboid_width, height);
     glPopMatrix ();
     cur_width += cuboid_width;
