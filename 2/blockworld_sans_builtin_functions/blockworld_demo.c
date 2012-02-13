@@ -203,7 +203,7 @@ void keyboard (unsigned char key, int x, int y)
         pos = (pos - 0.5);
         glutPostRedisplay ();
         break;
- default:
+      default:
          opt = (opt + 1) % nopts;
 			glutPostRedisplay();
          break;
