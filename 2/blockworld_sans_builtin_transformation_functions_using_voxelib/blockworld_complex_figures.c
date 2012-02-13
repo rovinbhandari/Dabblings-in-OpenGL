@@ -65,6 +65,12 @@ void bwSmoke()
 
 void bwHouse (void)
 {
+//  vlSetFunction (bwHouse_);
+//  vlVoxel (10, 10, 10); 
+}
+
+int bwHouse_ (double a, double b, double c)
+{
   GLdouble base1, base2_l, base2_b;
   GLdouble height_cuboid1, height_cuboid2;
   GLdouble height_pyramid;

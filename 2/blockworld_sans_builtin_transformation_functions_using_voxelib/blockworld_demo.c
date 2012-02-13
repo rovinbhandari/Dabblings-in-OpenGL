@@ -1,5 +1,7 @@
 #include <blockworld.h>
+#include <blockworld_voxel.h>
 #include <blockworld_complex_figures.h>
+#include <voxel.h>
 
 GLfloat lightpos1[] = {110.f, 16.f, 10.f, 1.f};
 GLfloat lightpos2[] = {-90.f, -95.f, -11.f, 1.f};
@@ -17,9 +19,10 @@ void reshape(int, int);
 
 void display (void)
 {   
-   GLdouble eyex = 10;
-   GLdouble eyey = 8;
-   GLdouble eyez = 10;
+   static GLdouble eyex = 10;
+   static GLdouble eyey = 8;
+   static GLdouble eyez = 10;
+
    opt = 0;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -28,14 +31,16 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
+   vlInit (0.5);
    switch(opt)
    {
       case 0:
-        // Create a house
-        bwHouse ();
+        cuboid_set_edges (1,1,1);
+        vlSetFunction (voxel_cuboid);
+        vlVoxel (0, 0, 0, 5);
         break;
 
-      case 1:
+/*      case 1:
         // Create Tree
         bwScale(0.2, 0.2, 0.2);
         //bwRotate(-45, 1, 0, -1);
@@ -88,7 +93,7 @@ void display (void)
       case 2:
         //Create a character
         bwDog();
-        break;
+        break; */
    }
    glutSwapBuffers();
 }
