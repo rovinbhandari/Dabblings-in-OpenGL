@@ -1,7 +1,7 @@
 #include <tree.h>
 
 #define COLRANDRB        ((rand() % 101) / 1000.0f)     // Yo!   // [0, 0.1]
-#define COLRANDG         ((rand() % 31) / 100.0f + 0.3f)         // [0.3, 0.6]
+#define COLRANDG         ((rand() % 31) / 100.0f + 0.2f)         // [0.2, 0.5]
 void bwLeaf()
 {
    GLfloat textureleaf[] = {COLRANDRB, COLRANDG, COLRANDRB, 1.0f};   // Yo!
@@ -63,8 +63,10 @@ void bwMainBranch()
 }
 
 #define THICKBARKCHECK(x)   (!(x % 3))
-#define A   (3 * SIZEBARK)
-#define B   (1 * SIZEBARK)
+#define THICKNESSOUTERLAYER (3 * SIZEBARK)
+#define THICKNESSINNERLAYER (1 * SIZEBARK)
+#define A   THICKNESSOUTERLAYER
+#define B   THICKNESSINNERLAYER
 #define Z   0.0d
 #define INNERCOND1   (i >= A && i <= A + B && k >= A && k <= e - A)
 #define INNERCOND2   (i >= A && i <= e - A && k >= e - (A + B) && k <= e - A)
@@ -75,10 +77,12 @@ void bwMainBranch()
 #define OUTERCOND3   (i >= e - A && i <= e && k >= Z && k <= e)
 #define OUTERCOND4   (i >= Z && i <= e && k >= Z && k <= A)
 #define OUTERCOND5   (THICKBARKCHECK((GLint) (i / A)) && THICKBARKCHECK((GLint) (k / A)))
+#define COLOURNORMALIZER   (0.7d / 255)
+#define C   COLOURNORMALIZER
 void bwStub()
 {
-   GLfloat texturebark1[] = {102 / 255.0, 52 / 255.0, 0, 1.0f};
-   GLfloat texturebark2[] = {82 / 255.0, 41 / 255.0, 0, 1.0f};
+   GLfloat texturebark1[] = {C * 102, C * 52, 0, 1.0f};
+   GLfloat texturebark2[] = {C * 82, C * 41, 0, 1.0f};
    GLdouble i, j, k, e = SIZESTUB;
    for(i = 0.0d; i < e; i += SIZEBARK)
       for(j = 0.0d; j < e; j += SIZEBARK)

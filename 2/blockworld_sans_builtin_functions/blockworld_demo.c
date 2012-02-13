@@ -54,14 +54,14 @@ void display (void)
         //bwRotate (-45, 0, 1, 0);
         bwTree();
         glPopMatrix ();
-//  House
+        //  House
         glPushMatrix ();
-        bwTranslate (-7, -2, 1);
-        bwScale (0.9, 1.1, 0.9);
+        bwTranslate (-10, -2, 1);
+        bwScale (1.1, 1.3, 1.1);
         bwRotate (20, 0, 1, 0); 
         bwHouse ();
         glPopMatrix ();
-                //  Dog
+        //  Dog
         bwTranslate (0,-5,6);
         bwRotate (30, 0, 1, 0);
         bwScale (0.3, 0.3, 0.3);
