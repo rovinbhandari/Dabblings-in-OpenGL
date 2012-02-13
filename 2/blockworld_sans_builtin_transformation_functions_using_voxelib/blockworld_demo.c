@@ -8,9 +8,6 @@ GLfloat light_diffuse2[] = {1, 1, 1, 1};
 
 int opt, nopts = 4;
 
-GLdouble eyex = 10;
-GLdouble eyey = 8;
-GLdouble eyez = 10;
  
 GLint angle = 45;
 GLdouble pos = 0;
@@ -20,7 +17,10 @@ void reshape(int, int);
 
 void display (void)
 {   
-   opt = 3;
+   GLdouble eyex = 10;
+   GLdouble eyey = 8;
+   GLdouble eyez = 10;
+   opt = 0;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
