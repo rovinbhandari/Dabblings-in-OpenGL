@@ -203,16 +203,15 @@ void bwDog_ (double x, double y, double z, double length)
 #define EAR_CHECK_BASE(a,b,c)  (  (x >= a && x <= a + SIZEEARl)\
                                && (y >= b && y <= b + SIZEEARh)\
                                && (z >= c && z <= c + SIZEEARb))
-#define EAR1_CHECK(a,b,c) EAR_CHECK_BASE (0, SIZEHEADh1 + SIZEHEADh2, 0)
-#define EAR2_CHECK(a,b,c) EAR_CHECK_BASE (0, SIZEHEADh1 + SIZEHEADh2, SIZEHEADb2 - SIZEEARb)
+#define EAR1_CHECK(a,b,c) EAR_CHECK_BASE (SIZEBODYl - SIZEHEADl2 / 2, SIZEHEADh1 + SIZEHEADh2 + SIZEBODYh + SIZELEGh - 1, 0)
+#define EAR2_CHECK(a,b,c) EAR_CHECK_BASE (SIZEBODYl - SIZEHEADl2 / 2, SIZEHEADh1 + SIZEHEADh2 + SIZEBODYh + SIZELEGh - 1.0, SIZEHEADb2 - SIZEEARb)
 
-#define EAR_CHECK   ((EAR1_CHECK(HEAD_X_SHIFT,HEAD_Y_SHIFT, HEAD_Z_SHIFT)))
-//                  && (EAR2_CHECK(HEAD_X_SHIFT, HEAD_Y_SHIFT, HEAD_Z_SHIFT))))
+#define EAR_CHECK   ((EAR1_CHECK(HEAD_X_SHIFT,HEAD_Y_SHIFT, HEAD_Z_SHIFT))\
+                  || (EAR2_CHECK(HEAD_X_SHIFT, HEAD_Y_SHIFT, HEAD_Z_SHIFT)))
 
    /* Check for ears */
    if ( EAR_CHECK )
    {
-      printf ("Creating ear\n");
       glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
       vlPutVoxelAt (x, y, z, length);
    }
