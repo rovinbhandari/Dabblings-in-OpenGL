@@ -18,6 +18,10 @@ static GLboolean vlCmpDouble (GLdouble a, GLdouble b)
       return GL_FALSE;
 }
 
+GLdouble vlGetVoxelSize ()
+{
+  return edge;
+}
 
 void vlInit (GLdouble voxel_size)
 {

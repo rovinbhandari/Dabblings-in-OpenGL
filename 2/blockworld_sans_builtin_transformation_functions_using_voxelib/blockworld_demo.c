@@ -11,7 +11,7 @@ GLfloat light_diffuse2[] = {1, 1, 1, 1};
 int opt, nopts = 4;
 
  
-GLint angle = 45;
+GLint angle = -25;
 GLdouble pos = 0;
 
 void keyboard(unsigned char, int, int);
@@ -32,12 +32,13 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-   vlInit (0.1);
+   vlInit (0.05);
    switch(opt)
    {
       case 0:
         glPushMatrix ();
         bwScale (0.8, 0.8, 0.8);
+//        bwRotate (angle, 0, 1, 0);
         bwHouse ();
         glPopMatrix ();
         break;

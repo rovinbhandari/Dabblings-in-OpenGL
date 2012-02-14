@@ -4,12 +4,17 @@
 #include <GL/gl.h>
 #include <stdlib.h>
 #include <time.h>
+#include <common.h>
+#include <voxel.h>
 
 #define DIFF 0.1
 #define SHELTER_DIFF 0.05
 #define WINDOW_BORDER 0.1
 #define ROOF_EXT 0.08
 #define B_FACTOR 1.4
+
+#define LTE(x,e) ((x<e) && vlCmpDouble (x,e)) 
+#define GTE(x,e) ((x>e) && vlCmpDouble (x,e))
 
 GLdouble view_angle = 0;
 
@@ -81,6 +86,83 @@ static GLfloat knob_texture[]    = { 1.0, 1.0, 0.0, 1};
 static GLfloat window_texture[]   = { 0.0, 0.0, 0.0, 1};
 static GLfloat glass_texture[]  = { 1.0, 1.0, 1.0, 1};
 
+GLdouble voxel_size;
+
+int bwHouse_ (double x, double y, double z, double length)
+{
+
+  if ( length > 2 * voxel_size )
+  {
+    GLint i;
+    GLdouble new_x, new_y, new_z, new_length;
+    new_length = length / 2;
+
+    for ( i = 0; i < N_CHILDREN; i++)
+    {
+        new_x = x + ((i / 4) % 2) * new_length;
+        new_y = y + ((i / 2) % 2) * new_length;
+        new_z = z + (      i % 2) * new_length;
+
+        bwHouse_ (new_x, new_y, new_z, new_length);
+    }
+  }
+
+  /* Check if the point lies in the first cuboid area */
+  if (   ( x >= 0 && x <= base1)
+      && ( y >= 0 && y <= height_cuboid1)
+      && ( z >= 0 && z <= base1) )
+  {
+    glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid1_texture);
+    vlPutVoxelAt (x, y, z, voxel_size);
+  }
+#define Y_EXPR (y - height_cuboid1)
+#define ROOF_X ( (x - (Y_EXPR) >= 0 )\
+              && (x - (Y_EXPR) + (base1 + base2_l - (Y_EXPR))))
+#define ROOF_Y ( (y >= height_cuboid1) && (y <= height_cuboid1 + height_pyramid))
+#define ROOF_Z ( (z - (Y_EXPR) >= 0 )\
+              && (z - (Y_EXPR) + (base1 + base2_l - (Y_EXPR))))
+  else if ( (ROOF_X) && (ROOF_Y) && (ROOF_Z) )
+  {
+    glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, pyramid_texture);
+    vlPutVoxelAt (x, y, z, voxel_size);
+    //bwRoof (base1 + base2_l, base1 + 3 * SHELTER_DIFF, height_pyramid, 0.05);
+  }
+  /* Check for second cube */
+  else if (   ( x >= base1 && x <= base1 + base2_l ) 
+           && ( y >= 0 && y <= height_cuboid2)
+           && ( z >= 0 && z <= base1 ) )
+  {
+    // Create the second cuboid
+    glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid2_texture);
+    vlPutVoxelAt(x, y, z, voxel_size);
+  }
+
+#define DOOR_KNOB_X  (( x >= (base1 / 2 - door_width / 3))\
+                  && ( x <= (base1 / 2 - door_width / 3) + door_knob_size))
+#define DOOR_KNOB_Y  (( y >= door_height / 2)\
+                  && ( y <= door_height / 2 + door_knob_size))
+#define DOOR_KNOB_Z  (( z >= base1 + 1.3* DIFF)\
+                  && (z <= base1 + 1.3 * DIFF + door_knob_size))
+  // Door knob
+  else if  ( (DOOR_KNOB_X) && (DOOR_KNOB_Y) && (DOOR_KNOB_Z) )
+  {
+    glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, knob_texture);
+    vlPutVoxelAt (x, y, z, voxel_size);
+  }
+
+#define CHIMNEY_X ((x >= 2 * base1) && ( x <= 2 * base1 + chimney_base) )
+#define CHIMNEY_Y ( (y >= height_cuboid2)\
+                &&  (y <= height_cuboid2 + chimney_height))
+#define CHIMNEY_Z ( (z >= base2_l / 3) && (z <= base2_l / 3 + chimney_base) ) 
+  // Create a chimney
+  else if ( CHIMNEY_X && CHIMNEY_Y && CHIMNEY_Z )
+  {
+    glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, chimney_texture);
+    vlPutVoxelAt (x, y, z, voxel_size);
+  }
+
+}
+
 void bwHouse (void)
 {
   base1   = 4;
@@ -98,21 +180,8 @@ void bwHouse (void)
   window_height  = 2.5;
   glass_edge     = (window_edge - 3 * WINDOW_BORDER) / 2;
 
-  // Create one cuboid and TODO : place roof on top
-  glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid1_texture);
-  bwVoxelCuboid (base1, base1, height_cuboid2);
-  glPushMatrix ();
-  bwTranslate (0, height_cuboid1, 0);
-  glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, pyramid_texture);
-  bwRoof (base1 + base2_l, base1 + 3 * SHELTER_DIFF, height_pyramid, 0.05);
-  glPopMatrix ();
-
-  // Create the second cuboid
-  glPushMatrix ();
-  glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid2_texture);
-  bwTranslate (base1, 0, 0);
-  bwVoxelCuboid(base2_l, base1, height_cuboid2);
-  glPopMatrix ();
+  voxel_size = vlGetVoxelSize ();
+  bwHouse_ (0, 0, 0, max (base1 + base2_l, height_cuboid1 + height_pyramid));
 
   // Create a rectangle (as door)
   GLdouble z_deviation = base1 + DIFF;
@@ -123,13 +192,6 @@ void bwHouse (void)
   glVertex3f (-door_width/2 + base1/2, door_height, z_deviation);
   glVertex3f (-door_width/2 + base1/2, 0 + DIFF, z_deviation);
   glEnd ();
-
-  // Door knob
-  glPushMatrix ();
-  glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, knob_texture);
-  bwTranslate ( base1 / 2 - door_width /3, door_height / 2, z_deviation);
-  bwVoxelCuboid (door_knob_size, door_knob_size, door_knob_size);
-  glPopMatrix ();
 
   // Create a square as a Window
   glBegin (GL_POLYGON);
@@ -182,21 +244,6 @@ void bwHouse (void)
   glVertex3f (x_deviation + glass_edge, y_deviation , z_deviation);
   glEnd();
 
-  // Create a chimney
-  glPushMatrix ();
-  glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, chimney_texture);
-  bwTranslate ((2) * base1, height_cuboid2, base2_l / 3);
-  bwVoxelCuboid (chimney_base, chimney_base, chimney_height);
-  glPopMatrix ();
-
-}
-
-int bwHouse_ (double a, double b, double c)
-{
-  
-    
-  
-    
   // Create Smoke clouds above chimney
   glPushMatrix ();
   bwTranslate ((2) * base1, height_cuboid2 + chimney_height * 1.2, base2_l / 5);

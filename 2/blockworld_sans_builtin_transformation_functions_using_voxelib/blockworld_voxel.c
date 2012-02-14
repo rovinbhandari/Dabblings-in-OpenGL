@@ -1,9 +1,9 @@
 #include <blockworld_voxel.h>
 #include <voxel.h>
 
-static inline max (GLdouble a, GLdouble b)
+inline GLdouble max (GLdouble a, GLdouble b)
 {
-  return (a > b) ? a : b ;
+  return a > b ? a : b;
 }
 
 GLdouble cuboid_length, cuboid_breadth, cuboid_height;

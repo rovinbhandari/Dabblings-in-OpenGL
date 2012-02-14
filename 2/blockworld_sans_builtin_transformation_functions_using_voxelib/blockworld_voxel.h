@@ -11,4 +11,6 @@
  */
 void bwVoxelCuboid (GLdouble length, GLdouble breadth, GLdouble height);
 
+
+GLdouble max (GLdouble a, GLdouble b);
 #endif  // End of file
