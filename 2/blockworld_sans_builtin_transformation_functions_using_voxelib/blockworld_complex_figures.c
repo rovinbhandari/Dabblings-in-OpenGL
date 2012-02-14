@@ -18,29 +18,27 @@
 
 GLdouble view_angle = 0;
 
-static void bwRoof (GLdouble base_l, GLdouble base_b, 
-                    GLdouble height, GLdouble cuboid_height)
-{
-  GLdouble cur_height = 0;
-  GLint i = 0;
-	while (height - cur_height > 0)
-	{
-		glPushMatrix ();
-		bwTranslate ( -ROOF_EXT + (i * cuboid_height * B_FACTOR) / 2 , cur_height, 0);
-
-		/* Using bwCuboid gives different behavior */
-		if (height - cur_height > cuboid_height)
-			bwCuboid( base_l + ROOF_EXT * 2, base_b, cuboid_height);
-		else
-			bwCuboid (base_l + ROOF_EXT * 2, base_b, (height - cur_height));
-
-		glPopMatrix ();
-		cur_height += cuboid_height;
-		base_l     -= cuboid_height * B_FACTOR;
-    base_b     -= cuboid_height;
-    i++;
-	}
-}
+#define VOXEL_LEN_TEST(x,y,z,length,voxel_size,func) \
+do\
+{\
+  if ( length > 2 * voxel_size )\
+  {\
+    GLint i;\
+    GLdouble new_x, new_y, new_z, new_length;\
+    new_length = length / 2;\
+    \
+    for ( i = 0; i < N_CHILDREN; i++)\
+    {\
+        new_x = x + ((i / 4) % 2) * new_length;\
+        new_y = y + ((i / 2) % 2) * new_length;\
+        new_z = z + (      i % 2) * new_length;\
+    \
+        func (new_x, new_y, new_z, new_length);\
+    }\
+    return; \
+  }\
+}\
+while(0)  
 
 #define COLRANDRGB       ((rand() % 501) / 1000.0f + 0.5)    // [0.5, 1.0]
 #define SIZESMOKEPARTICLE      0.01d
@@ -90,22 +88,8 @@ GLdouble voxel_size;
 
 int bwHouse_ (double x, double y, double z, double length)
 {
-
-  if ( length > 2 * voxel_size )
-  {
-    GLint i;
-    GLdouble new_x, new_y, new_z, new_length;
-    new_length = length / 2;
-
-    for ( i = 0; i < N_CHILDREN; i++)
-    {
-        new_x = x + ((i / 4) % 2) * new_length;
-        new_y = y + ((i / 2) % 2) * new_length;
-        new_z = z + (      i % 2) * new_length;
-
-        bwHouse_ (new_x, new_y, new_z, new_length);
-    }
-  }
+  
+  VOXEL_LEN_TEST (x, y, z, length, voxel_size, bwHouse_);
 
   /* Check if the point lies in the first cuboid area */
   if (   ( x >= 0 && x <= base1)
@@ -180,6 +164,8 @@ void bwHouse (void)
   window_height  = 2.5;
   glass_edge     = (window_edge - 3 * WINDOW_BORDER) / 2;
 
+
+  // Create house using Voxels. 
   voxel_size = vlGetVoxelSize ();
   bwHouse_ (0, 0, 0, max (base1 + base2_l, height_cuboid1 + height_pyramid));
 
@@ -260,51 +246,40 @@ void bwHouse (void)
 }
 
 #define RANDGRAY  (rand() % 10) / 100.0 + 0.2   //[0.2, 0.3]
-
-/* Function to draw a single segment of road length */
-void bwRoadSegment (GLdouble length, GLdouble width, GLdouble height)
-{
-  GLdouble cuboid_width = 0.75;
-  GLdouble cur_width    = 0;
-
-  static GLfloat road_texture[] = {0.3, 0.3, 0.3, 1};
-
-  static char first = 1;
-
-  if (first)
-  {
-    srand(time(NULL));
-    first = 0;
-  }
-
 #define RESET_VAL() road_texture[0] = road_texture[1] = road_texture[2] = \
                     RANDGRAY;
 #define PRINT_VALS() printf ("%g %g %g\n", road_texture[0], road_texture[1], road_texture[2]);                    
 
-  while ( cur_width + cuboid_width <= width )
+
+GLdouble road_length, road_width, road_height;
+static GLfloat road_texture[] = {0.3, 0.3, 0.3, 1};
+GLdouble block_length = 0.15;
+
+void bwRoad_ (GLdouble x, GLdouble y ,GLdouble z, GLdouble length)
+{
+  
+  VOXEL_LEN_TEST (x, y, z, length, block_length, bwRoad_);
+
+  printf ("%g %g %g %g : %g %g %g\n", x, y, z, length, road_length, road_height, road_width);
+  if (   ( x >= 0) && (x <= road_length)
+      && ( y >= 0) && (y <= road_height)
+      && ( z >= 0) && (z <= road_width))
   {
-    glPushMatrix ();
-    bwTranslate (0, 0, cur_width);
+    printf ("Rendering at %g %g %g\n");
     glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, road_texture);
-    bwCuboid (length, cuboid_width, height);
-    glPopMatrix ();
-    cur_width += cuboid_width;
-    RESET_VAL();
+    vlPutVoxelAt (x, y, z, length);
+    RESET_VAL ();
   }
 }
 
 void bwRoad (GLdouble length, GLdouble width, GLdouble height)
 {
-  GLdouble layer_length = 0.5;
-  GLdouble cur_length   = 0; 
- 
-  while ( cur_length < length )
-  {
-    glPushMatrix ();
-    bwTranslate (cur_length, 0, 0);
-//    bwCuboid (layer_length, width, height);
-    bwRoadSegment (layer_length, width, height);
-    glPopMatrix ();
-    cur_length += layer_length;
-  }
+  vlInit (block_length);
+  road_length = length;
+  road_width  = width;
+  road_height = height;
+
+  bwRoad_ (0, 0, 0, max (max (length, width), height));
 }
+
+

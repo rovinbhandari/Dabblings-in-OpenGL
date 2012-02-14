@@ -23,7 +23,7 @@ void display (void)
    static GLdouble eyey = 8;
    static GLdouble eyez = 10;
 
-   opt = 0;
+   opt = 3;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -42,6 +42,9 @@ void display (void)
         bwRotate (angle, 0, 1, 0);
         bwHouse ();
         glPopMatrix ();
+
+        
+        bwRoad(10, 2, 0.2);
         break;
 
 /*      case 1:
@@ -52,8 +55,9 @@ void display (void)
         bwTree();
         break;
       
+*/
       case 3:
-        // Create the whole scene
+/*        // Create the whole scene
        	
         //  Tree
         glPushMatrix ();
@@ -63,7 +67,7 @@ void display (void)
         bwTree();
         glPopMatrix ();
 
-        //  House
+*/      //  House
         glPushMatrix ();
         bwTranslate (-10, -3, 1);
         bwScale (1.1, 1.3, 1.1);
@@ -84,20 +88,21 @@ void display (void)
         bwRoad (10,4,0.2);
         glPopMatrix ();
 
-        //  Dog
+/*        //  Dog
         glPushMatrix ();
         bwTranslate (2,1.5,8);
         bwRotate (10, 0, 1, 0);
         bwScale (0.2, 0.2, 0.2);
         bwDog ();  
         glPopMatrix ();
-
+*/
         break;
       
-      case 2:
+/*      case 2:
         //Create a character
         bwDog();
-        break; */
+        break; 
+*/        
    }
    glutSwapBuffers();
 }
