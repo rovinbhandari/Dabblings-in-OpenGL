@@ -11,7 +11,7 @@ GLfloat light_diffuse2[] = {1, 1, 1, 1};
 int opt, nopts = 4;
 
  
-GLint angle = -25;
+GLint angle = 45;
 GLdouble pos = 0;
 
 void keyboard(unsigned char, int, int);
@@ -38,7 +38,8 @@ void display (void)
       case 0:
         glPushMatrix ();
         bwScale (0.8, 0.8, 0.8);
-//        bwRotate (angle, 0, 1, 0);
+        bwTranslate (-3, 0, 0);
+        bwRotate (angle, 0, 1, 0);
         bwHouse ();
         glPopMatrix ();
         break;

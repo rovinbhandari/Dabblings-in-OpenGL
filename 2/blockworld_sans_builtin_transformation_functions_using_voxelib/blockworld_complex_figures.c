@@ -116,11 +116,11 @@ int bwHouse_ (double x, double y, double z, double length)
     vlPutVoxelAt (x, y, z, voxel_size);
   }
 #define Y_EXPR (y - height_cuboid1)
-#define ROOF_X ( (x - (Y_EXPR) >= 0 )\
-              && (x - (Y_EXPR) + (base1 + base2_l - (Y_EXPR))))
+#define ROOF_X ( (x - (Y_EXPR) + SHELTER_DIFF >= 0 )\
+              && (x  <= (base1 + base2_l + SHELTER_DIFF - (Y_EXPR))))
 #define ROOF_Y ( (y >= height_cuboid1) && (y <= height_cuboid1 + height_pyramid))
-#define ROOF_Z ( (z - (Y_EXPR) >= 0 )\
-              && (z - (Y_EXPR) + (base1 + base2_l - (Y_EXPR))))
+#define ROOF_Z ( (z + SHELTER_DIFF >= 0 )\
+              && (z  <= (base1 + SHELTER_DIFF - (Y_EXPR))))
   else if ( (ROOF_X) && (ROOF_Y) && (ROOF_Z) )
   {
     glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, pyramid_texture);
