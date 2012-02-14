@@ -1,4 +1,5 @@
 #include <blockworld.h>
+#include <blockworld_complex_figures.h>
 #include <blockworld_voxel.h>
 #include <GL/glut.h>
 #include <GL/gl.h>
@@ -18,53 +19,33 @@
 
 GLdouble view_angle = 0;
 
-#define VOXEL_LEN_TEST(x,y,z,length,voxel_size,func) \
-do\
-{\
-  if ( length > 2 * voxel_size )\
-  {\
-    GLint i;\
-    GLdouble new_x, new_y, new_z, new_length;\
-    new_length = length / 2;\
-    \
-    for ( i = 0; i < N_CHILDREN; i++)\
-    {\
-        new_x = x + ((i / 4) % 2) * new_length;\
-        new_y = y + ((i / 2) % 2) * new_length;\
-        new_z = z + (      i % 2) * new_length;\
-    \
-        func (new_x, new_y, new_z, new_length);\
-    }\
-    return; \
-  }\
-}\
-while(0)  
-
 #define COLRANDRGB       ((rand() % 501) / 1000.0f + 0.5)    // [0.5, 1.0]
 #define SIZESMOKEPARTICLE      0.01d
-static void bwSmokeParticle()
+#define SIZESMOKECLOUD         0.4d
+void bwSmoke_(GLdouble x, GLdouble y ,GLdouble z, GLdouble length)
 {
-   GLfloat col = COLRANDRGB, textureleaf[] = {col, col, col, 1.0f};
-   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureleaf);
-   bwCube(SIZESMOKEPARTICLE);
+  VOXEL_LEN_TEST (x, y, z, length, SIZESMOKEPARTICLE, bwSmoke_);
+
+  if (   ( x >= 0) && (x <= SIZESMOKECLOUD)
+      && ( y >= 0) && (y <= SIZESMOKECLOUD)
+      && ( z >= 0) && (z <= SIZESMOKECLOUD))
+  {
+    if((rand() % 1000) < 10)
+    {
+        GLfloat col = COLRANDRGB, texturesmoke[] = {col, col, col, 1.0f};
+        glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texturesmoke);
+    	vlPutVoxelAt (x, y, z, length);
+    }
+    
+  }
 }
 
-#define SIZESMOKECLOUD     0.4d
 void bwSmoke()
 {
-   GLdouble i, j, k;
-   for(i = 0.0d; i < SIZESMOKECLOUD; i += SIZESMOKEPARTICLE)
-      for(j = 0.0d; j < SIZESMOKECLOUD; j += SIZESMOKEPARTICLE)
-         for(k = 0.0d; k < SIZESMOKECLOUD; k += SIZESMOKEPARTICLE)
-         {
-            if((rand() % 1000) > 10)               // 1% probabilistic density
-               continue;
-            glPushMatrix();
-            bwTranslate(i, j, k);
-            bwSmokeParticle();
-            glPopMatrix();
-         }
+   vlInit(SIZESMOKEPARTICLE);
+   bwSmoke_(0, 0, 0, SIZESMOKECLOUD);
 }
+
 
 GLdouble base1, base2_l, base2_b;
 GLdouble height_cuboid1, height_cuboid2;
@@ -260,12 +241,12 @@ void bwRoad_ (GLdouble x, GLdouble y ,GLdouble z, GLdouble length)
   
   VOXEL_LEN_TEST (x, y, z, length, block_length, bwRoad_);
 
-  printf ("%g %g %g %g : %g %g %g\n", x, y, z, length, road_length, road_height, road_width);
+  //printf ("%g %g %g %g : %g %g %g\n", x, y, z, length, road_length, road_height, road_width);
   if (   ( x >= 0) && (x <= road_length)
       && ( y >= 0) && (y <= road_height)
       && ( z >= 0) && (z <= road_width))
   {
-    printf ("Rendering at %g %g %g\n");
+    //printf ("Rendering at %g %g %g\n");
     glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, road_texture);
     vlPutVoxelAt (x, y, z, length);
     RESET_VAL ();
