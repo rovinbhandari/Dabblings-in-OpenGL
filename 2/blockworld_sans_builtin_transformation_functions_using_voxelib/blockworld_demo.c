@@ -23,7 +23,7 @@ void display (void)
    static GLdouble eyey = 8;
    static GLdouble eyez = 10;
 
-   opt = 3;
+   opt = 0;
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
