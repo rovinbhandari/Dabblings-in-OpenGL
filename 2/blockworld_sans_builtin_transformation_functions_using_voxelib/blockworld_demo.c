@@ -23,7 +23,8 @@ void display (void)
    static GLdouble eyey = 8;
    static GLdouble eyez = 10;
 
-   opt = 0;
+   opt = 3;
+   
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
@@ -36,9 +37,7 @@ void display (void)
    switch(opt)
    {
       case 0:
-         bwDog();
-         break;
-/*        glPushMatrix ();
+        glPushMatrix ();
         bwScale (0.8, 0.8, 0.8);
         bwTranslate (-3, 0, 0);
         bwRotate (angle, 0, 1, 0);
@@ -48,7 +47,7 @@ void display (void)
         
         bwRoad(10, 2, 0.2);
         break;
-*/
+
 /*      case 1:
         // Create Tree
         bwScale(0.2, 0.2, 0.2);
@@ -91,14 +90,14 @@ void display (void)
         bwRoad (10,4,0.2);
         glPopMatrix ();
 
-/*        //  Dog
+        //  Dog
         glPushMatrix ();
         bwTranslate (2,1.5,8);
         bwRotate (10, 0, 1, 0);
         bwScale (0.2, 0.2, 0.2);
         bwDog ();  
         glPopMatrix ();
-*/
+
         break;
       
 /*      case 2:
