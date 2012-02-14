@@ -1,120 +1,213 @@
 #include <blockworld.h>
+#include <stdio.h>
 
-GLdouble eyex = 6.0;
-GLdouble eyey = 6.0;
-GLdouble eyez = 6.0;
+#define TOLERANCE 0.0001
 
-GLfloat viewangle;
+static GLdouble cuboid_width = 0.1;
+static bwCD __bwCuboidDimensions__ = {0.2d, 02.d, 0.2d};
+static size_t __sizebwCD__ = sizeof(bwCD);
 
-static GLdouble edge = 0.2;
+static GLdouble __bwCuboidVertices__[8][3];
+static GLdouble __bwCuboidNormals__[6][3] =
+   {
+      {-1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {1.0, 0.0, 0.0},
+      {0.0, -1.0, 0.0}, {0.0, 0.0, 1.0}, {0.0, 0.0, -1.0}
+   };
+static GLint __bwCuboidFaces__[6][4] =
+   {
+      {0, 1, 2, 3}, {3, 2, 6, 7}, {7, 6, 5, 4},
+      {4, 5, 1, 0}, {5, 6, 2, 1}, {7, 4, 0, 3}
+   };
 
-static GLboolean bwCmpDouble(GLdouble a, GLdouble b)
+static bwCD* __bwDimensions__(GLdouble l, GLdouble b, GLdouble h);
+static void __bwInit__(bwCD* dims);
+static void __bwCuboid__(void);
+static GLdouble __bwHCF__(GLdouble a, GLdouble b);
+
+void bwCuboid(GLdouble l, GLdouble b, GLdouble h)
 {
-   if ( a <= 1.1 * b || a >= 0.9 * b)
+   __bwInit__(__bwDimensions__(l, b, h));
+   __bwCuboid__();
+}
+
+void bwCube(GLdouble e)
+{
+   bwCuboid(e, e, e);
+}
+
+void bwCuboid2(GLdouble l, GLdouble b, GLdouble h)
+{
+   GLdouble minedge = __bwHCF__(__bwHCF__(l, b), h), i, j, k;
+   for(i = 0.0d; i < l; i += minedge)
+      for(j = 0.0d; j < h; j += minedge)
+         for(k = 0.0d; k < b; k += minedge)
+         {
+            glPushMatrix();
+            glTranslated(i, j, k);
+            bwCube(minedge);
+            glPopMatrix();
+         }
+}
+
+void bwSphere(GLdouble r, GLdouble e)
+{
+   GLdouble max_boundary = r + 2 * e, i, j, k, dist, maxradius, minradius;
+   for(i = -1 * max_boundary * e; i <= max_boundary * e; i += e)
+      for(j = -1 * max_boundary * e; j <= max_boundary * e; j += e)
+         for(k = -1 * max_boundary * e; k <= max_boundary * e; k += e)
+         {
+            dist = sqrt(i * i + j * j + k * k);
+            maxradius = r * e + e / 2;
+            minradius = r * e - e / 2;
+            if(dist > minradius && dist <= maxradius)
+            {
+               glPushMatrix();
+               glTranslated(i, j, k);
+               bwCube(e);
+               glPopMatrix();
+            }
+         }
+}
+
+void bwCylinder(GLdouble r, GLdouble h, GLdouble e)
+{
+   GLdouble max_boundary = r + 2 * e, i, j, k, dist, maxradius, minradius;
+   for(i = -1 * max_boundary * e; i <= max_boundary * e; i += e)
+      for(j = -1 * max_boundary * e; j <= max_boundary * e; j += e)
+         for(k = 0.0d; k <= h * e; k += e)
+         {
+            dist = sqrt(i * i + j * j);
+            maxradius = r * e + e / 2;
+            minradius = r * e - e / 2;
+            if(k > 2 * e && k < (h - 2) * e)
+            {
+               if(dist > minradius && dist <= maxradius)
+               {
+                  glPushMatrix();
+                  glTranslated(i, j, k);
+                  bwCube(e);
+                  glPopMatrix();
+               } 
+            }
+            else
+            {
+               if(dist <= maxradius)
+               {
+                  glPushMatrix();
+                  glTranslated(i, j, k);
+                  bwCube(e);
+                  glPopMatrix();
+               }
+            }
+         }
+}
+
+
+static bwCD* __bwDimensions__(GLdouble l, GLdouble b, GLdouble h)
+{
+   bwCD* x = (bwCD*) malloc(__sizebwCD__);
+   x->length = l;
+   x->breadth = b;
+   x->height = h;
+   return x;
+}
+
+static void __bwInit__(bwCD* dims)
+{
+   memcpy(&__bwCuboidDimensions__, dims, __sizebwCD__);
+   __bwCuboidVertices__[0][0] = 0.0d;
+   __bwCuboidVertices__[0][1] = 0.0d;
+   __bwCuboidVertices__[0][2] = __bwCuboidDimensions__.breadth;
+   __bwCuboidVertices__[1][0] = 0.0d;
+   __bwCuboidVertices__[1][1] = 0.0d;
+   __bwCuboidVertices__[1][2] = 0.0d;
+   __bwCuboidVertices__[2][0] = 0.0d;
+   __bwCuboidVertices__[2][1] = __bwCuboidDimensions__.height;
+   __bwCuboidVertices__[2][2] = 0.0d;
+   __bwCuboidVertices__[3][0] = 0.0d;
+   __bwCuboidVertices__[3][1] = __bwCuboidDimensions__.height;
+   __bwCuboidVertices__[3][2] = __bwCuboidDimensions__.breadth;
+   __bwCuboidVertices__[4][0] = __bwCuboidDimensions__.length;
+   __bwCuboidVertices__[4][1] = 0.0d;
+   __bwCuboidVertices__[4][2] = __bwCuboidDimensions__.breadth;
+   __bwCuboidVertices__[5][0] = __bwCuboidDimensions__.length;
+   __bwCuboidVertices__[5][1] = 0.0d;
+   __bwCuboidVertices__[5][2] = 0.0d;
+   __bwCuboidVertices__[6][0] = __bwCuboidDimensions__.length;
+   __bwCuboidVertices__[6][1] = __bwCuboidDimensions__.height;
+   __bwCuboidVertices__[6][2] = 0.0d;
+   __bwCuboidVertices__[7][0] = __bwCuboidDimensions__.length;
+   __bwCuboidVertices__[7][1] = __bwCuboidDimensions__.height;
+   __bwCuboidVertices__[7][2] = __bwCuboidDimensions__.breadth;
+}
+
+static void __bwCuboid__(void)
+{
+   int i;
+   for(i = 0; i < 6; i++)
+   {
+      glBegin(GL_QUADS);
+      glNormal3dv(__bwCuboidNormals__[i]);
+      glVertex3dv(__bwCuboidVertices__[__bwCuboidFaces__[i][0]]);
+      glVertex3dv(__bwCuboidVertices__[__bwCuboidFaces__[i][1]]);
+      glVertex3dv(__bwCuboidVertices__[__bwCuboidFaces__[i][2]]);
+      glVertex3dv(__bwCuboidVertices__[__bwCuboidFaces__[i][3]]);
+      glEnd();
+   }
+}
+
+static GLdouble __bwHCF__(GLdouble a, GLdouble b)
+{
+   GLdouble t;
+   while(fabs(b - 0.0d) > TOLERANCE)
+   {
+      t = b;
+      b = fmod(a, b);
+      a = t;
+   }
+   return a;
+}
+
+GLboolean bwCompareDouble(GLdouble a, GLdouble b)
+{
+   if(a <= 1.1 * b && a >= 0.9 * b)
       return GL_TRUE;
    else
       return GL_FALSE;
 }
 
-void bwCubeletInit_glut(GLdouble blockedgelength)
+void bwRectangle (GLdouble l, GLdouble b, GLdouble h)
 {
-   edge = blockedgelength;
+  bwCuboid (cuboid_width, b, h );
+ 
+  glPushMatrix ();
+  glTranslated (l - cuboid_width , 0, 0);
+  bwCuboid (cuboid_width, b, h );
+  glPopMatrix  ();
+
+  glPushMatrix ();
+  glTranslated (0 , 0, b - cuboid_width);
+  bwCuboid (l, cuboid_width, h);
+  glPopMatrix  ();
+
+  bwCuboid (l, cuboid_width, h);
+ 
 }
 
-void bwCubelet_glut(void)
+void bwRectangle2 (GLdouble l, GLdouble b, GLdouble h)
 {
-   glutSolidCube(edge);
-}
+  bwCuboid2 (cuboid_width, b, h );
+ 
+  glPushMatrix ();
+  glTranslated (l - cuboid_width , 0, 0);
+  bwCuboid2 (cuboid_width, b, h );
+  glPopMatrix  ();
 
-void bwCuboidHollow_units(GLdouble l, GLdouble b, GLdouble h)
-{
-   GLdouble i, j, k;
-   for(i = 0.0d; i < l * edge; i += edge)
-   {
-      for(j = 0.0d; j < h * edge; j += edge)
-      {
-         for(k = 0.0d; k < b * edge; k += edge)
-         {
-            if( bwCmpDouble (i, (l - 1) * edge) 
-             || bwCmpDouble (j, (h - 1) * edge) 
-             || bwCmpDouble (k, (b - 1) * edge)
-             || bwCmpDouble (i, 0.0d) 
-             || bwCmpDouble (j, 0.0d) 
-             || bwCmpDouble (k, 0.0d) )  // rendering only the visible layer of the cube.
-            {
-               glPushMatrix();
-               bwTranslate(i, j, k);
-               bwCubelet_glut();
-               glPopMatrix();
-            }
-         }
-      }
-   }
-}
+  glPushMatrix ();
+  glTranslated (0 , 0, b - cuboid_width);
+  bwCuboid2 (l, cuboid_width, h);
+  glPopMatrix  ();
 
-void bwCuboidHollow_gllen(GLdouble l, GLdouble b, GLdouble h)
-{
-   bwCuboidHollow_units(l / edge, b / edge, h / edge);
+  bwCuboid2 (l, cuboid_width, h);
+ 
 }
-
-void bwCubeHollow_units(GLdouble units)
-{
-   bwCuboidHollow_units(units, units, units);
-}
-
-void bwCubeHollow_gllen(GLdouble len)
-{
-   bwCubeHollow_units(len / edge);
-}
-
-void bwCubeSolid_gllen(GLdouble len)
-{
-   glutSolidCube(len);
-}
-
-void bwCubeSolid_units(GLdouble units)
-{
-   bwCubeSolid_gllen(units * edge);
-}
-
-void bwCuboidSolid_units(GLdouble l, GLdouble b, GLdouble h)
-{
-   GLdouble tempedge = edge;
-   if(l < b && l < h)
-      edge = l;
-   else if(b < l && b < h)
-      edge = b;
-   else if(b < l && h < b)
-      edge = h;
-   
-   GLdouble i, j, k;
-   for(i = 0.0d; i < l * edge; i += edge)
-   {
-      for(j = 0.0d; j < h * edge; j += edge)
-      {
-         for(k = 0.0d; k < b * edge; k += edge)
-         {
-            if( bwCmpDouble (i, (l - 1) * edge) 
-             || bwCmpDouble (j, (h - 1) * edge) 
-             || bwCmpDouble (k, (b - 1) * edge)
-             || bwCmpDouble (i, 0.0d) 
-             || bwCmpDouble (j, 0.0d) 
-             || bwCmpDouble (k, 0.0d) )  // rendering only the visible layer of the cube.
-            {
-               glPushMatrix();
-               bwTranslate(i, j, k);
-               bwCubeSolid_units(1);
-               glPopMatrix();
-            }
-         }
-      }
-   }
-   
-   edge = tempedge;
-}
-
-void bwCuboidSolid_gllen(GLdouble l, GLdouble b, GLdouble h)
-{
-   bwCuboidSolid_units(l * edge, b * edge, h * edge);
-}
-

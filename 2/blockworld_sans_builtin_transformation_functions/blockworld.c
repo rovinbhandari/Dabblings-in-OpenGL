@@ -48,6 +48,19 @@ void bwScale(GLdouble i, GLdouble j, GLdouble k)
    glMultMatrixd(tm);
 }
 
+static void __bwRotateX__(GLdouble);
+static void __bwRotateY__(GLdouble);
+static void __bwRotateZ__(GLdouble);
+void bwRotated(GLdouble a, GLdouble i, GLdouble j, GLdouble k)
+{
+	if(bwCompareDouble(i, 1.0))
+		__bwRotateX__(a);
+	if(bwCompareDouble(j, 1.0))
+		__bwRotateY__(a);
+	if(bwCompareDouble(k, 1.0))
+		__bwRotateZ__(a);
+}
+
 void bwCuboid(GLdouble l, GLdouble b, GLdouble h)
 {
    __bwInit__(__bwDimensions__(l, b, h));
@@ -236,3 +249,40 @@ void bwRectangle2 (GLdouble l, GLdouble b, GLdouble h)
   bwCuboid2 (l, cuboid_width, h);
  
 }
+
+static void __bwRotateX__(GLdouble a)
+{
+	const GLdouble tm[] =
+            {
+               1, 0, 0, 0,
+               0, cos(a), sin(a), 0,
+               0, -1 * sin(a), cos(a), 0,
+               0, 0, 0, 1
+            };
+	glMultMatrixd(tm);
+}
+
+static void __bwRotateY__(GLdouble a)
+{
+	const GLdouble tm[] =
+            {
+               cos(a), 0, -1 * sin(a), 0,
+               0, 1, 0, 0,
+               sin(a), 0, cos(a), 0,
+               0, 0, 0, 1
+            };
+	glMultMatrixd(tm);
+}
+
+static void __bwRotateZ__(GLdouble a)
+{
+	const GLdouble tm[] =
+            {
+               cos(a), sin(a), 0, 0,
+               -1 * sin(a), cos(a), 0, 0,
+               0, 0, 1, 0,
+               0, 0, 0, 1
+            };
+	glMultMatrixd(tm);
+}
+

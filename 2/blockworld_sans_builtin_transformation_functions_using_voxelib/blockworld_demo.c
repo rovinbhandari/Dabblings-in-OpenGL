@@ -59,7 +59,7 @@ void display (void)
       
 */
       case 3:
-/*        // Create the whole scene
+        // Create the whole scene
        	
         //  Tree
         glPushMatrix ();
@@ -68,8 +68,9 @@ void display (void)
         bwRotate (-45, 0, 1, 0);
         bwTree();
         glPopMatrix ();
-
-*/      //  House
+ vlInit (0.05);
+   
+      //  House
         glPushMatrix ();
         bwTranslate (-10, -3, 1);
         bwScale (1.1, 1.3, 1.1);

@@ -20,7 +20,7 @@ static void bwRoof (GLdouble base_l, GLdouble base_b,
 	while (height - cur_height > 0)
 	{
 		glPushMatrix ();
-		bwTranslate ( -ROOF_EXT + (i * cuboid_height * B_FACTOR) / 2 , cur_height, 0);
+		glTranslated ( -ROOF_EXT + (i * cuboid_height * B_FACTOR) / 2 , cur_height, 0);
 
 		/* Using bwCuboid gives different behavior */
 		if (height - cur_height > cuboid_height)
@@ -56,7 +56,7 @@ void bwSmoke()
             if((rand() % 1000) > 10)               // 1% probabilistic density
                continue;
             glPushMatrix();
-            bwTranslate(i, j, k);
+            glTranslated(i, j, k);
             bwSmokeParticle();
             glPopMatrix();
          }
@@ -103,7 +103,7 @@ void bwHouse (void)
   //bwRectangle (base1, base1, height_cuboid1);
   bwCuboid(base1, base1, height_cuboid1);
   glPushMatrix ();
-  bwTranslate (0, height_cuboid1, 0);
+  glTranslated (0, height_cuboid1, 0);
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, pyramid_texture);
   bwRoof (base1 + base2_l, base1 + 3 * SHELTER_DIFF, height_pyramid, 0.05);
   glPopMatrix ();
@@ -111,7 +111,7 @@ void bwHouse (void)
   // Create the second cuboid
   glPushMatrix ();
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, cuboid2_texture);
-  bwTranslate (base1, 0, 0);
+  glTranslated (base1, 0, 0);
   //bwRectangle (base2_l, base1, height_cuboid2);
   bwCuboid(base2_l, base1, height_cuboid2);
   glPopMatrix ();
@@ -129,7 +129,7 @@ void bwHouse (void)
   // Door knob
   glPushMatrix ();
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, knob_texture);
-  bwTranslate ( base1 / 2 - door_width /3, door_height / 2, z_deviation);
+  glTranslated ( base1 / 2 - door_width /3, door_height / 2, z_deviation);
   bwCube (door_knob_size);
   glPopMatrix ();
 
@@ -187,21 +187,21 @@ void bwHouse (void)
   // Create a chimney
   glPushMatrix ();
   glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, chimney_texture);
-  bwTranslate ((2) * base1, height_cuboid2, base2_l / 3);
+  glTranslated ((2) * base1, height_cuboid2, base2_l / 3);
   bwRectangle2 (chimney_base, chimney_base, chimney_height);
   glPopMatrix ();
   
   // Create Smoke clouds above chimney
   glPushMatrix ();
-  bwTranslate ((2) * base1, height_cuboid2 + chimney_height * 1.2, base2_l / 5);
+  glTranslated ((2) * base1, height_cuboid2 + chimney_height * 1.2, base2_l / 5);
   bwSmoke();
   glPopMatrix ();
   glPushMatrix ();
-  bwTranslate ((2) * base1, height_cuboid2 + chimney_height * 1.3, base2_l / 20);
+  glTranslated ((2) * base1, height_cuboid2 + chimney_height * 1.3, base2_l / 20);
   bwSmoke();
   glPopMatrix ();
   glPushMatrix ();
-  bwTranslate ((2.02) * base1, height_cuboid2 + chimney_height * 1.4, 0);
+  glTranslated ((2.02) * base1, height_cuboid2 + chimney_height * 1.4, 0);
   bwSmoke();
   glPopMatrix ();
 }
@@ -231,7 +231,7 @@ void bwRoadSegment (GLdouble length, GLdouble width, GLdouble height)
   while ( cur_width + cuboid_width <= width )
   {
     glPushMatrix ();
-    bwTranslate (0, 0, cur_width);
+    glTranslated (0, 0, cur_width);
     glMaterialfv (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, road_texture);
     bwCuboid (length, cuboid_width, height);
     glPopMatrix ();
@@ -248,7 +248,7 @@ void bwRoad (GLdouble length, GLdouble width, GLdouble height)
   while ( cur_length < length )
   {
     glPushMatrix ();
-    bwTranslate (cur_length, 0, 0);
+    glTranslated (cur_length, 0, 0);
 //    bwCuboid (layer_length, width, height);
     bwRoadSegment (layer_length, width, height);
     glPopMatrix ();
