@@ -36,7 +36,9 @@ void display (void)
    switch(opt)
    {
       case 0:
-        glPushMatrix ();
+         bwDog();
+         break;
+/*        glPushMatrix ();
         bwScale (0.8, 0.8, 0.8);
         bwTranslate (-3, 0, 0);
         bwRotate (angle, 0, 1, 0);
@@ -46,7 +48,7 @@ void display (void)
         
         bwRoad(10, 2, 0.2);
         break;
-
+*/
 /*      case 1:
         // Create Tree
         bwScale(0.2, 0.2, 0.2);

@@ -1,5 +1,6 @@
 #include <character.h>
 #include <blockworld_complex_figures.h>
+#include <blockworld_voxel.h>
 #include <voxel.h>
 #include <common.h>
 
@@ -128,8 +129,8 @@ void bwDog_ (double x, double y, double z, double length)
    }
    /* Check for legs */
 #define LEG_TEST(a,b,c) (  (x >= a && x <= SIZELEGl + a)\
-                        && (y >= c && y <= SIZELEGh + c)\
-                        && (z >= b && z <= SIZELEGb + b))
+                        && (y >= b && y <= SIZELEGh + b)\
+                        && (z >= c && z <= SIZELEGb + c))
 #define LEG1_TEST LEG_TEST(0, 0, 0)
 #define LEG2_TEST LEG_TEST(0, 0, SIZEBODYb - SIZELEGb)
 #define LEG3_TEST LEG_TEST(SIZEBODYl - SIZELEGl, 0, 0)
@@ -137,7 +138,6 @@ void bwDog_ (double x, double y, double z, double length)
 
    else if ( LEG1_TEST || LEG2_TEST || LEG3_TEST || LEG4_TEST )
    {
-      // TODO : TEXTURE ??
       glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
       vlPutVoxelAt (x, y, z, length);
    }   
@@ -155,12 +155,88 @@ void bwDog_ (double x, double y, double z, double length)
       glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
       vlPutVoxelAt (x, y, z, length);
    }
+#define HEAD_X_SHIFT SIZEBODYl - 0.8
+#define HEAD_Y_SHIFT SIZELEGh + SIZEBODYh - 0.8
+#define HEAD_Z_SHIFT 0
+#define HEAD1_TEST(a,b,c) (   (x >= a && x <= a + SIZEHEADl1)\
+                           && (y >= b && y <= b + SIZEHEADh1)\
+                           && (z >= c && z <= c + SIZEHEADb1))
+
+#define HEAD2_TEST(a,b,c) (   (x >= a && x <= a + SIZEHEADl2)\
+                           && (y >= b + SIZEHEADh1 && y <=b + SIZEHEADh1 + SIZEHEADh2)\
+                           && (z >= c && z <= c + SIZEHEADb2) )
+#define HEAD_TEST   HEAD1_TEST(HEAD_X_SHIFT, HEAD_Y_SHIFT, HEAD_Z_SHIFT)\
+                  ||HEAD2_TEST(HEAD_X_SHIFT, HEAD_Y_SHIFT, HEAD_Z_SHIFT)
+   /* Check for head */
+   else if (HEAD_TEST)
+   {
+      glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+      vlPutVoxelAt (x, y, z, length);
+   }
+#define NOSE_X_TEST(a)  ( (x >= a +SIZEHEADl1 - 4 * SIZENOSE / 5)\
+                     &&   (x <= a + SIZEHEADl1 - 4 * SIZENOSE / 5 + SIZENOSE))
+#define NOSE_Y_TEST(b)  ( (y >= b + SIZEHEADh1 - 4 * SIZENOSE / 5)\
+                     &&   (y <= b + SIZEHEADh1 - 4 * SIZENOSE / 5 + SIZENOSE))
+#define NOSE_Z_TEST(c)  ( (z >= c + (SIZEHEADb1 - SIZENOSE) / 2)\
+                     &&   (z <= c + (SIZEHEADb1 - SIZENOSE) / 2 + SIZENOSE))
+#define NOSE_TEST (NOSE_X_TEST(HEAD_X_SHIFT) && NOSE_Y_TEST(HEAD_Y_SHIFT) && NOSE_Z_TEST(HEAD_Z_SHIFT))                     
+
+   /* Check for nose */
+   else if (NOSE_TEST)
+   {
+      glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
+      vlPutVoxelAt (x, y, z, length);
+   }
+#define EYE_TEST(a,b,c)  (  (x >= a && x <= a + SIZEEYE)\
+                         && (y >= b && y <= b + SIZEEYE)\
+                         && (z >= c && z <= c + SIZEEYE))
+#define EYE1_TEST EYE_TEST(HEAD_X_SHIFT + SIZEHEADl2 - 4 * SIZEEYE / 5,HEAD_Y_SHIFT + SIZEHEADh1 + (SIZEHEADh2 - SIZEEYE) / 2, HEAD_Z_SHIFT + (SIZEHEADb2 - 2 * SIZEEYE) / 4)
+#define EYE2_TEST EYE_TEST (HEAD_X_SHIFT + SIZEHEADl2 - 4 * SIZEEYE / 5, HEAD_Y_SHIFT + SIZEHEADh1 + (SIZEHEADh2 - SIZEEYE) / 2, HEAD_Z_SHIFT + 3 * (SIZEHEADb2 - 2 * SIZEEYE) / 4 + SIZEEYE)                       
+                           
+   /* Check for eyes */
+   else if (EYE1_TEST || EYE2_TEST)
+   {
+      glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture2);
+      vlPutVoxelAt (x, y, z, length);
+   }
+
+#define EAR_CHECK_BASE(a,b,c)  (  (x >= a && x <= a + SIZEEARl)\
+                               && (y >= b && y <= b + SIZEEARh)\
+                               && (z >= c && z <= c + SIZEEARb))
+#define EAR1_CHECK(a,b,c) EAR_CHECK_BASE (0, SIZEHEADh1 + SIZEHEADh2, 0)
+#define EAR2_CHECK(a,b,c) EAR_CHECK_BASE (0, SIZEHEADh1 + SIZEHEADh2, SIZEHEADb2 - SIZEEARb)
+
+#define EAR_CHECK   ((EAR1_CHECK(HEAD_X_SHIFT,HEAD_Y_SHIFT, HEAD_Z_SHIFT)))
+//                  && (EAR2_CHECK(HEAD_X_SHIFT, HEAD_Y_SHIFT, HEAD_Z_SHIFT))))
+
+   /* Check for ears */
+   if ( EAR_CHECK )
+   {
+      printf ("Creating ear\n");
+      glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+      vlPutVoxelAt (x, y, z, length);
+   }
+
+/*   // create the two ears
+   glPushMatrix();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+   bwTranslate(0, SIZEHEADh1 + SIZEHEADh2, 0);
+   bwCuboid(SIZEEARl, SIZEEARb, SIZEEARh);
+   glPopMatrix();
+
+   glPushMatrix();
+   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, texture1);
+   bwTranslate(0, SIZEHEADh1 + SIZEHEADh2, SIZEHEADb2 - SIZEEARb);
+   bwCuboid(SIZEEARl, SIZEEARb, SIZEEARh);
+   glPopMatrix();
+*/
+
 }
 
 void bwDog()
 {
-   voxel_size = 0.5;
-//   bwDog_ (0, 0, 0, max (max (SIZEBODYl + SIZEHEADl + SIZENOSE, SIZEBODYb + SIZEHEADb), SIZEBODYh + SIZELEGh + SIZEEARh))
+   voxel_size = 0.1;
+   bwDog_ (0, 0, 0, max (max (SIZEBODYl + SIZEHEADl1 + SIZENOSE, SIZEBODYb), SIZEBODYh + SIZELEGh + SIZEEARh + SIZEHEADh2));
 /*
    glPushMatrix();
    bwBody();
