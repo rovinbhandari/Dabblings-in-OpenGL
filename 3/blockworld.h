@@ -21,10 +21,5 @@ GLboolean bwCompareDouble(GLdouble, GLdouble);
 
 void bwCube(GLdouble);
 void bwCuboid(GLdouble, GLdouble, GLdouble);
-void bwCuboid2(GLdouble, GLdouble, GLdouble);
-void bwSphere(GLdouble, GLdouble);
-void bwCylinder(GLdouble, GLdouble, GLdouble);
-void bwRectangle  (GLdouble, GLdouble, GLdouble);
-void bwRectangle2 (GLdouble, GLdouble, GLdouble);
 
 #endif
