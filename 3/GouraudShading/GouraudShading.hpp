@@ -23,6 +23,12 @@ class CuboidShading : public Cuboid
 		 */
 		void constructFace (double vertices[][3], double intensities[][3]);
 
+		/* Function to construct a face using the above function. This uses
+		 * a face number. It wraps around the constructFace and 
+		 * calculateIntensity functions. 
+		 */
+		void constructFace (int faceNumber, double lightSource[], double eyePosition[], double intensityAmbient[], double intensitySource[]);
+
 		/* Function to calculate intensity at a point 
 		 * This function takes as argument the position of light and the finalIntensity
 		 * array that is populated with the values. The finalIntensity array is a 

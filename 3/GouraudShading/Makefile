@@ -11,7 +11,7 @@ all: clean $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(BIN)/$(OUTPUT) -lGL -lglut -lGLU -lm -I/usr/X11R6/include -L/usr/X11R6/lib
 
 $(OBJ)/%.opp: $(SRC)/%.cpp
-	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $@
+	$(CC) -g -c $(CFLAGS) $(INCLUDE) $< -o $@
 
 clean:
 	rm -f $(OBJ)/*.opp

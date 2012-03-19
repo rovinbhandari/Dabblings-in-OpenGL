@@ -2,6 +2,7 @@
 #include <GouraudShading.hpp>
 #include <GL/glut.h>
 #include <GL/gl.h>
+#include <cstdio>
 
 GLfloat lightpos[] = {110.f, 16.f, 10.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
@@ -47,7 +48,8 @@ void display (void)
 	double lightSource[]   = {110.f, 16.f, 10.f};
 	double intensitySource[] = {1, 1, 1};
 	
-	cs.calculateIntensity (vertex, avgNormal, lightSource, eyePosition, intensityAmbient, intensitySource, finalIntensity);
+  fprintf (stderr, "About to calc\n");
+  cs.constructFace (1, lightSource, eyePosition, intensityAmbient, intensitySource);
 
 
 	
