@@ -24,6 +24,7 @@ class Cuboid
 		void Scale(double, double, double);
 		void GetNormals(int, double [][3]);
 		void GetVertex(int, double []);
+		void GetVertices(int, int []);
 };
 
 #endif
