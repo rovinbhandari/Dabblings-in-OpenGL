@@ -98,3 +98,8 @@ void Cuboid::GetVertex(int vertex, double vertexvalues[3])
 {
 	memcpy(vertexvalues, Vertices[vertex], 3 * sizeof(double));
 }
+
+void Cuboid::GetVertices(int face, int vertices[3])
+{
+	memcpy(vertices, Faces[face], 4 * sizeof(int));
+}
