@@ -3,8 +3,8 @@ set nu
 set ts=8
 set noexpandtab
 
-e cuboid.cpp
-vs cuboid.hpp
+e Cuboid.cpp
+vs Cuboid.hpp
 tabnew GouraudShading.cpp
 vs GouraudShading.hpp
 tabnew driver.cpp
