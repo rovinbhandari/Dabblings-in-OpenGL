@@ -1,16 +1,16 @@
+# vi: autoindent:nu:ts=8:noexpandtab
 SRC=. 
 OBJ=.
-LIB_OBJ=.
 BIN=.
 CFLAGS=-Wall -g -I./
-OBJECTS= $(OBJ)/Cuboid.opp $(OBJ)/GouraudShading.opp $(OBJ)/driver.opp
+OBJECTS= $(OBJ)/Cuboid.opp $(OBJ)/VectorCalculus.opp $(OBJ)/GouraudShading.opp $(OBJ)/driver.opp
 OUTPUT_FILE=driver.outpp
 CC=g++
 
-all: clean $(OBJECTS) 
-	$(CC) $(CFLAGS) $(LIB_BW) $(OBJECTS) -o $(BIN)/$(OUTPUT_FILE)
+all: $(OBJECTS) 
+	$(CC) $(CFLAGS) $(OBJECTS) -o $(BIN)/$(OUTPUT_FILE)
 
-$(OBJ)/%.o: $(SRC)/%.cpp
+$(OBJ)/%.opp: $(SRC)/%.cpp
 	$(CC) $(CFLAGS) $(INCLUDE) $< -o $@
 
 clean:

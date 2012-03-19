@@ -24,11 +24,9 @@ void avgNormal (int normals[][3], int avgNormal[3])
 	}
 }
 
-/* Function to construct a polygon given the vertices. 
- * This function generates a face given its vertices and the intensities at those 
- * points.
- */
-void constructFace (double vertices[4][3], double intensities[4][3])
+
+
+void constructFace (double vertices[][3], double intensities[][3])
 {
 	glBegin (GL_POLYGON);	
 	glColor3dv  (intensities[0]);
@@ -40,4 +38,25 @@ void constructFace (double vertices[4][3], double intensities[4][3])
 	glColor3dv  (intensities[3]);
 	glVertex3dv (vertices[3]);
 	glEnd ();
+}
+
+void calculateIntensity (double vertex[], double normalVector[], double lightSource[], double eyePosition, double finalIntensity[])
+{
+	// Take dot product of the vector from the lightSource to the vertex
+	// with the normalVector at the vertex.
+	double lightVector[3];
+	double reflectVector[3];
+	
+	int i;
+
+	for ( i = 0; i < 3; i++)
+	{
+		lightVector[i] = lightSource[i] - vertex[i];
+	}
+
+	for (i = 0; i < 3; i++)
+	{
+		// Compute the final intensity.
+		finalIntensity;
+	}
 }
