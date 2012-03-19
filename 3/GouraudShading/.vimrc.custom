@@ -6,6 +6,8 @@ set autoindent
 
 e Cuboid.cpp
 vs Cuboid.hpp
+tabnew VectorCalculus.cpp
+vs VectorCalculus.hpp
 tabnew GouraudShading.cpp
 vs GouraudShading.hpp
 tabnew driver.cpp

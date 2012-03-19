@@ -3,7 +3,7 @@ SRC = .
 OBJ = .
 BIN = .
 CFLAGS = -Wall -I./
-OBJECTS = $(OBJ)/Cuboid.opp $(OBJ)/VectorCalculus.opp $(OBJ)/GouraudShading.opp $(OBJ)/driver.opp
+OBJECTS = $(OBJ)/Cuboid.opp $(OBJ)/VectorCalculation.opp $(OBJ)/GouraudShading.opp $(OBJ)/driver.opp
 OUTPUT = driver.outpp
 CC = g++
 

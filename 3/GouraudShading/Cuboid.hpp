@@ -16,6 +16,7 @@ class Cuboid
 		double Normals[6][3];
 		int Faces[6][4];
 		double Vertices[8][3];
+	
 	public:
 		Cuboid(CD&);
 		void Rotate();
