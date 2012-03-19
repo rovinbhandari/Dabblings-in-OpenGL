@@ -1,5 +1,7 @@
 *.o
 *.out
+*.opp
+*.outpp
 .*.swp
 .*.swo
 *.dump

@@ -1,0 +1,11 @@
+set autoindent
+set nu
+set ts=8
+set noexpandtab
+
+e cuboid.cpp
+vs cuboid.hpp
+tabnew GouraudShading.cpp
+vs GouraudShading.hpp
+tabnew driver.cpp
+tabnew Makefile
