@@ -5,7 +5,7 @@
 
 double dotProduct (double vector1[], double vector2[])
 {
-	double retVal;
+	double retVal = 0;
 	for (int i = 0, retVal = 0; i < 3; i++)
 	{
 		retVal += vector1[i] * vector2[i]; 

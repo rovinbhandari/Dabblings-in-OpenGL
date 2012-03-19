@@ -15,8 +15,23 @@ void constructFace (double vertices[][3], double intensities[][3]);
  * array that is populated with the values. The finalIntensity array is a 
  * 1d vector for RGB valuess.
  */
-void calculateIntensity (double vertex[], double normalVector[] ,double lightSource[], double eyePosition[], double finalIntensity[]);
+void calculateIntensity (double vertex[], double normalVector[] ,double lightSource[], double eyePosition[], double initialIntensity[], double finalIntensity[]);
 
 
+// Intensities using different reflection models.
+void ambientLightIntensity (double initialIntensity[], double finalIntensity[]);
+void specularReflectionIntensity (double initialIntensity[], double reflectionVector[], double viewVector[], double finalIntensity[]);
+void diffusedReflectionIntensity (double initialIntensity[], double normalVector[], double lightUnitVector[], double finalIntensity[]);
+
+
+/* Get functions for coefficients */
+double getAmbientCoefficient  ();
+double getSpecularCoefficient ();
+double getDiffusionCoefficient();
+
+/* Set functions for coefficients */
+void setAmbientCoefficient  (double val);
+void setSpecularCoefficient (double val);
+void setDiffusionCoefficient(double val);
 
 #endif // End of file.

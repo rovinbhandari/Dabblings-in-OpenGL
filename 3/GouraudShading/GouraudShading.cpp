@@ -1,9 +1,46 @@
 // vi: autoindent:nu:ts=8:noexpandtab
 
 #include <GouraudShading.hpp>
+#include <VectorCalculus.hpp>
 #include <cstring>
 #include <GL/glut.h>
 #include <GL/gl.h>
+
+static double K_a = 1.0;
+static double K_s = 1.0;
+static double K_d = 1.0;
+
+/* Functions to get and set the constants */
+double getAmbientCoefficient ()
+{
+	return K_a;
+}
+
+void setAmbientCoefficient (double val)
+{
+	K_a = val;
+}
+
+double getSpecularCoefficient ()
+{
+	return K_s;
+}
+
+void setSpecularCoefficient (double val)
+{
+	K_s = val;
+}
+
+double getDiffusionCoefficient ()
+{
+	return K_a;
+}
+
+void setDiffusionCoefficient (double val)
+{
+	K_d = val;
+}
+
 
 /* Function to calculate the average normal at a point 
  * This function requires two arguments. One is an array of normals and another
@@ -40,12 +77,12 @@ void constructFace (double vertices[][3], double intensities[][3])
 	glEnd ();
 }
 
-void calculateIntensity (double vertex[], double normalVector[], double lightSource[], double eyePosition, double finalIntensity[])
+void calculateIntensity (double vertex[], double normalVector[], double lightSource[], double eyePosition[], double initialIntensity[], double finalIntensity[])
 {
 	// Take dot product of the vector from the lightSource to the vertex
 	// with the normalVector at the vertex.
 	double lightVector[3];
-	double reflectVector[3];
+
 	
 	int i;
 
@@ -54,9 +91,52 @@ void calculateIntensity (double vertex[], double normalVector[], double lightSou
 		lightVector[i] = lightSource[i] - vertex[i];
 	}
 
-	for (i = 0; i < 3; i++)
+	// Find the direction of the 'view' vector using the eyePosition.
+	double viewVector[3];
+
+	for ( i = 0; i < 3; i++)
 	{
-		// Compute the final intensity.
-		finalIntensity;
+		viewVector[i] = eyePosition[i] - vertex[i];
+	}
+
+	// Find the unit vectors.
+	double lightUnitVector[3];
+	double viewUnitVector[3];
+
+	findUnitVector (lightVector, lightUnitVector);
+	findUnitVector (viewVector, viewUnitVector);
+
+	// Compute the reflection vector. 
+	// R = (2N.L)N - L
+	
+	double factor = 2 * dotProduct (normalVector, lightUnitVector);
+	double reflectionVector[3];
+
+	for ( i = 0; i < 3; i++)
+	{
+		reflectionVector[i] = factor * normalVector[i] - lightUnitVector[i];
+	}
+	
+	double tmp[3];
+
+	// Compute intensity due to ambient light
+	ambientLightIntensity (initialIntensity, finalIntensity);
+
+	// Compute intensity due to specular reflection
+	specularReflectionIntensity (initialIntensity, reflectionVector, viewUnitVector, tmp);
+
+	for ( i = 0; i < 3; i++)
+	{
+		finalIntensity[i] += tmp[i];
+	}
+
+	// Compute intensity due to diffused reflection.
+	diffusedReflectionIntensity (initialIntensity, normalVector, lightUnitVector, tmp);
+
+	for ( i = 0; i < 3; i++)
+	{
+		finalIntensity[i] += tmp[i];
 	}
 }
+
+
