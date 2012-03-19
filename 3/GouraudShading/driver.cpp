@@ -30,7 +30,29 @@ void display (void)
    switch(opt)
    {
       case 0:
-        
+ 	CD c = { 4, 4, 4};
+	CuboidShading cs(c);
+
+	double normals[3][3];
+	double avgNormal[3];
+
+	cs.GetNormals(0, normals);
+
+	double vertex[3];
+	cs.GetVertex(0, vertex);
+
+	cs.avgNormal (normals, avgNormal);
+	double eyePosition[]   = {eyex, eyey, eyez};
+	double intensityAmbient[]  = {0.5, 0.5, 0.5};
+	double finalIntensity[3];
+	double lightSource[]   = {110.f, 16.f, 10.f};
+	double intensitySource[] = {1, 1, 1};
+	
+	cs.calculateIntensity (vertex, avgNormal, lightSource, eyePosition, intensityAmbient, intensitySource, finalIntensity);
+
+
+	
+	
         break;
    }
    glutSwapBuffers();

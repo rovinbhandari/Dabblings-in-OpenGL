@@ -22,6 +22,8 @@ class Cuboid
 		void Rotate();
 		void Translate(double, double, double);
 		void Scale(double, double, double);
+		void GetNormals(int, double [][3]);
+		void GetVertex(int, double []);
 };
 
 #endif
