@@ -27,11 +27,13 @@ void diffusedReflectionIntensity (double initialIntensity[], double normalVector
 /* Get functions for coefficients */
 double getAmbientCoefficient  ();
 double getSpecularCoefficient ();
+double getSpecularParameter   ();
 double getDiffusionCoefficient();
 
 /* Set functions for coefficients */
 void setAmbientCoefficient  (double val);
 void setSpecularCoefficient (double val);
+void setSpecularParameter   (double val);
 void setDiffusionCoefficient(double val);
 
 #endif // End of file.

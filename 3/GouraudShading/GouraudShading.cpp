@@ -5,10 +5,18 @@
 #include <cstring>
 #include <GL/glut.h>
 #include <GL/gl.h>
+#include <cmath>
 
+// These are coeffecients for ambient, specular reflection and diffused reflection
+// respectively. They vary from 0 to 1, where 0 means dull and 1 is bright.
 static double K_a = 1.0;
 static double K_s = 1.0;
 static double K_d = 1.0;
+
+// This is the specular reflection parameter.
+// N_s = 0   ->  very dull
+// N_s > 100 ->  very bright
+static double N_s = 1.0;
 
 /* Functions to get and set the constants */
 double getAmbientCoefficient ()
@@ -41,6 +49,15 @@ void setDiffusionCoefficient (double val)
 	K_d = val;
 }
 
+double getSpecularParameter ()
+{
+	return N_s;
+}
+
+void setSpecularParameter (double val)
+{
+	N_s = val;
+}
 
 /* Function to calculate the average normal at a point 
  * This function requires two arguments. One is an array of normals and another
@@ -137,6 +154,42 @@ void calculateIntensity (double vertex[], double normalVector[], double lightSou
 	{
 		finalIntensity[i] += tmp[i];
 	}
+
+	return;
 }
 
+
+void ambientLightIntensity (double initialIntensity[], double finalIntensity[])
+{
+	for ( int i = 0; i < 3; i++)
+	{
+		finalIntensity[i] = K_a * initialIntensity[i];
+	}
+}
+
+void specularReflectionIntensity (double initialIntensity[], double reflectionVector[], double viewVector[], double finalIntensity[])
+{
+	double cosPhi = dotProduct (reflectionVector, viewVector);
+	cosPhi /= (magnitude (reflectionVector) * magnitude (viewVector));
+	cosPhi = pow (cosPhi, N_s);
+
+	for ( int i = 0; i < 3; i++)
+	{
+		finalIntensity[i] = K_s * initialIntensity[i] * cosPhi;
+	}
+
+	return;
+}
+
+void diffusedReflectionIntensity (double initialIntensity[], double normalVector[], double lightUnitVector[], double finalIntensity[])
+{
+	double tmp = dotProduct (lightUnitVector, normalVector);
+	
+	for ( int i = 0; i < 3; i++)
+	{
+		finalIntensity[i] = K_d * initialIntensity[i] * tmp; 
+	}
+
+	return ;
+}
 

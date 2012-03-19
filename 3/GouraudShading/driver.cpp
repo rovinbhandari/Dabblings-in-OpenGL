@@ -1,5 +1,7 @@
 #include <Cuboid.hpp>
 #include <GouraudShading.hpp>
+#include <GL/glut.h>
+#include <GL/gl.h>
 
 GLfloat lightpos[] = {110.f, 16.f, 10.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
@@ -28,7 +30,7 @@ void display (void)
    switch(opt)
    {
       case 0:
-        bwCube(4.0);
+        
         break;
    }
    glutSwapBuffers();
