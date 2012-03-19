@@ -2,6 +2,7 @@ set autoindent
 set nu
 set ts=8
 set noexpandtab
+set autoindent
 
 e Cuboid.cpp
 vs Cuboid.hpp
