@@ -44,7 +44,6 @@ void display (void)
 	cs.avgNormal (normals, avgNormal);
 	double eyePosition[]   = {eyex, eyey, eyez};
 	double intensityAmbient[]  = {0.5, 0.5, 0.5};
-	double finalIntensity[3];
 	double lightSource[]   = {110.f, 16.f, 10.f};
 	double intensitySource[] = {1, 1, 1};
 	

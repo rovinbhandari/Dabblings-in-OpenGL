@@ -87,6 +87,29 @@ void CuboidShading::constructFace (double vertices[][3], double intensities[][3]
 	glEnd ();
 }
 
+void CuboidShading::constructFace ( int faceNumber, double lightSource[], double eyePosition[], double intensityAmbient[], double intensitySource[])
+{
+	double finalIntensity[3];
+	double verticesIndex[4];
+
+	GetVertices (faceNumber, verticesIndex);
+
+	double normals[3][3], vertices[4][3];
+	double averageNormal[3];
+	double finalIntensity[4][3];
+
+	for (int i = 0; i < 4; i++)
+	{
+		GetVertex (verticesIndex[i], vertices[i]);	
+		GetNormals(verticesIndex[i], normals);
+		avgNormal (normals, averageNormal);
+		calculateIntensity (vertices[i], averageNormal, lightSource, eyePosition, intensityAmbient, intensitySource, finalIntensity[i]);
+	}
+
+	constructFace (vertices, finalIntensity);
+	return;
+}
+
 void CuboidShading::calculateIntensity (double vertex[], double normalVector[], double lightSource[], double eyePosition[], double intensityAmbient[], double intensitySource[], double finalIntensity[])
 {
 	// Take dot product of the vector from the lightSource to the vertex
