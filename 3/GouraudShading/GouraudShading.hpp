@@ -28,13 +28,13 @@ class CuboidShading : public Cuboid
 		 * array that is populated with the values. The finalIntensity array is a 
 		 * 1d vector for RGB valuess.
 		 */
-		void calculateIntensity (double vertex[], double normalVector[] ,double lightSource[], double eyePosition[], double initialIntensity[], double finalIntensity[]);
+		void calculateIntensity (double vertex[], double normalVector[] ,double lightSource[], double eyePosition[], double intensityAmbient[], double intensitySource[], double finalIntensity[]);
 
 
 		// Intensities using different reflection models.
-		void ambientLightIntensity (double initialIntensity[], double finalIntensity[]);
-		void specularReflectionIntensity (double initialIntensity[], double reflectionVector[], double viewVector[], double finalIntensity[]);
-		void diffusedReflectionIntensity (double initialIntensity[], double normalVector[], double lightUnitVector[], double finalIntensity[]);
+		void ambientLightIntensity (double intensityAmbient[], double finalIntensity[]);
+		void specularReflectionIntensity (double intensitySource[], double reflectionVector[], double viewVector[], double finalIntensity[]);
+		void diffusedReflectionIntensity (double intensitySource[], double normalVector[], double lightUnitVector[], double finalIntensity[]);
 
 
 		/* Get functions for coefficients */

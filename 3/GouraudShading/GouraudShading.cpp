@@ -58,17 +58,17 @@ void CuboidShading::setSpecularParameter (double val)
  * This function requires two arguments. One is an array of normals and another
  * is the array where the average normal is stored. 
  */
-void CuboidShading::avgNormal (double normals[][3], double avgNormal[3])
+void CuboidShading::avgNormal (double normals[][3], double averageNormal[3])
 {
 	// It is assumed that a cuboid is used. Hence only 3 faces are involved.
 
-	memset (avgNormal, 0, 3);
+	memset (averageNormal, 0, 3);
 
 	for ( int j, i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
 		{
-			avgNormal[j] += (normals[i][j]/3);
+			averageNormal[j] += (normals[i][j]/3);
 		}
 	}
 }
@@ -87,7 +87,7 @@ void CuboidShading::constructFace (double vertices[][3], double intensities[][3]
 	glEnd ();
 }
 
-void CuboidShading::calculateIntensity (double vertex[], double normalVector[], double lightSource[], double eyePosition[], double initialIntensity[], double finalIntensity[])
+void CuboidShading::calculateIntensity (double vertex[], double normalVector[], double lightSource[], double eyePosition[], double intensityAmbient[], double intensitySource[], double finalIntensity[])
 {
 	// Take dot product of the vector from the lightSource to the vertex
 	// with the normalVector at the vertex.
@@ -130,10 +130,10 @@ void CuboidShading::calculateIntensity (double vertex[], double normalVector[], 
 	double tmp[3];
 
 	// Compute intensity due to ambient light
-	ambientLightIntensity (initialIntensity, finalIntensity);
+	ambientLightIntensity (intensityAmbient, finalIntensity);
 
 	// Compute intensity due to specular reflection
-	specularReflectionIntensity (initialIntensity, reflectionVector, viewUnitVector, tmp);
+	specularReflectionIntensity (intensitySource, reflectionVector, viewUnitVector, tmp);
 
 	for ( i = 0; i < 3; i++)
 	{
@@ -141,7 +141,7 @@ void CuboidShading::calculateIntensity (double vertex[], double normalVector[], 
 	}
 
 	// Compute intensity due to diffused reflection.
-	diffusedReflectionIntensity (initialIntensity, normalVector, lightUnitVector, tmp);
+	diffusedReflectionIntensity (intensitySource, normalVector, lightUnitVector, tmp);
 
 	for ( i = 0; i < 3; i++)
 	{
@@ -152,7 +152,7 @@ void CuboidShading::calculateIntensity (double vertex[], double normalVector[], 
 }
 
 
-void CuboidShading::ambientLightIntensity (double initialIntensity[], double finalIntensity[])
+void CuboidShading::ambientLightIntensity (double initialIntensity[3], double finalIntensity[])
 {
 	for ( int i = 0; i < 3; i++)
 	{
@@ -168,7 +168,7 @@ void CuboidShading::specularReflectionIntensity (double initialIntensity[], doub
 
 	for ( int i = 0; i < 3; i++)
 	{
-		finalIntensity[i] = K_s * initialIntensity[i] * cosPhi;
+		finalIntensity[i] = (cosPhi > 0 ) ?  K_s * initialIntensity[i] * cosPhi : 0;
 	}
 
 	return;
@@ -180,7 +180,7 @@ void CuboidShading::diffusedReflectionIntensity (double initialIntensity[], doub
 	
 	for ( int i = 0; i < 3; i++)
 	{
-		finalIntensity[i] = K_d * initialIntensity[i] * tmp; 
+		finalIntensity[i] = (tmp > 0) ? K_d * initialIntensity[i] * tmp : 0; 
 	}
 
 	return ;
