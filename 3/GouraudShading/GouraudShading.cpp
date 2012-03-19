@@ -2,6 +2,8 @@
 
 #include <GouraudShading.hpp>
 #include <cstring>
+#include <GL/glut.h>
+#include <GL/gl.h>
 
 /* Function to calculate the average normal at a point 
  * This function requires two arguments. One is an array of normals and another
@@ -22,4 +24,15 @@ void avgNormal (int normals[][3], int avgNormal[3])
 	}
 }
 
-/* Function to construct a  */
+/* Function to construct a polygon given the vertices. 
+ * This function generates a face given its vertices. 
+ */
+void constructFace (double vertices[4][3], double intensities[4])
+{
+	glBegin (GL_POLYGON);	
+	glVertex3dv (vertices[0]);
+	glVertex3dv (vertices[1]);
+	glVertex3dv (vertices[2]);
+	glVertex3dv (vertices[3]);
+	glEnd ();
+}
