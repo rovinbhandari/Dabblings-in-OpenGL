@@ -1,4 +1,5 @@
-#include <stdio.h>
+#ifndef CUBOID_HPP
+#define CUBOID_HPP
 
 typedef struct CuboidDimensions
 	{
@@ -13,11 +14,13 @@ class Cuboid
 	private:
 		CD Dimensions;
 		double Normals[6][3];
-		double Vertices[8][3];
 		int Faces[6][4];
+		double Vertices[8][3];
 	public:
-		Cuboid(CD*);
+		Cuboid(CD&);
 		void Rotate();
-		void Translate();
-		void Scale();
-}
+		void Translate(double, double, double);
+		void Scale(double, double, double);
+};
+
+#endif

@@ -1,39 +1,54 @@
 #include <Cuboid.hpp>
+#include <cstring>
+#include <cstdio>
+#include <cstdlib>
 
 static size_t __sizeCD__ = sizeof(CD);
+static double CuboidNormals[6][3] = {
+			{-1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {1.0, 0.0, 0.0},
+			{0.0, -1.0, 0.0}, {0.0, 0.0, 1.0}, {0.0, 0.0, -1.0}
+				    };
+static int CuboidFaces[6][4] = {
+			{0, 1, 2, 3}, {3, 2, 6, 7}, {7, 6, 5, 4},
+			{4, 5, 1, 0}, {5, 6, 2, 1}, {7, 4, 0, 3}
+			       };
 
 Cuboid::Cuboid(CD& cd)
 {
 	memcpy(&Dimensions, &cd, __sizeCD__);
-	Normals = {
-			{-1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {1.0, 0.0, 0.0},
-			{0.0, -1.0, 0.0}, {0.0, 0.0, 1.0}, {0.0, 0.0, -1.0}
-		  };
-	Faces = {
-			{0, 1, 2, 3}, {3, 2, 6, 7}, {7, 6, 5, 4},
-			{4, 5, 1, 0}, {5, 6, 2, 1}, {7, 4, 0, 3}
-		};
+	
+	memcpy(Normals, CuboidNormals, 6 * 3 * sizeof(double));
+	
+	memcpy(Faces, CuboidFaces, 6 * 4 * sizeof(int));
+	
 	Vertices[0][0] = 0.0d;
 	Vertices[0][1] = 0.0d;
 	Vertices[0][2] = Dimensions.breadth;
+
 	Vertices[1][0] = 0.0d;
 	Vertices[1][1] = 0.0d;
 	Vertices[1][2] = 0.0d;
+	
 	Vertices[2][0] = 0.0d;
 	Vertices[2][1] = Dimensions.height;
 	Vertices[2][2] = 0.0d;
+	
 	Vertices[3][0] = 0.0d;
 	Vertices[3][1] = Dimensions.height;
 	Vertices[3][2] = Dimensions.breadth;
+	
 	Vertices[4][0] = Dimensions.length;
 	Vertices[4][1] = 0.0d;
 	Vertices[4][2] = Dimensions.breadth;
+	
 	Vertices[5][0] = Dimensions.length;
 	Vertices[5][1] = 0.0d;
 	Vertices[5][2] = 0.0d;
+	
 	Vertices[6][0] = Dimensions.length;
 	Vertices[6][1] = Dimensions.height;
 	Vertices[6][2] = 0.0d;
+	
 	Vertices[7][0] = Dimensions.length;
 	Vertices[7][1] = Dimensions.height;
 	Vertices[7][2] = Dimensions.breadth;
