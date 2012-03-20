@@ -8,7 +8,7 @@
 GLfloat lightpos[] = {5.f, 12.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
 
-int opt, nopts = 3;
+int opt, nopts = 4;
 
 GLdouble eyex = 10;
 GLdouble eyey = 10;
@@ -37,7 +37,7 @@ void display (void)
 
  	CD cd = { 4, 4, 4};
 	double cubeCol[] = {0.8, 0.4, 0};
-	CD cdtrunk = {2, 5.5, 2};
+	CD cdtrunk = {1, 5.5, 1};
 	double coltrunk[] = {0.8, 0.4, 0.2};
 	CD cdleaf = {1.5, 1.5, 1.5};
 	double colleaf[] = {0.1, 0.7, 0.1};
@@ -74,6 +74,22 @@ void display (void)
 		renderCuboid(cdhouse2, 0.3, 0.6, 0.3, 71, -3.7, 3, 0.5, NONE, 0, 0, 0, 0, colhouse2);
 		renderCuboid(cdhouse3, 0.3, 0.6, 0.3, 71, -3, 4, 1, NONE, 0, 0, 0, 0, colhouse2);
 		renderCuboid(cdhouse4, 0.3, 0.6, 0.3, 48, -2.2, -3, 4, NONE, 0, 0, 0, 0, coltrunk);
+	break;
+
+	case 3:
+		renderCuboid(cdtrunk, 0.15, 0.4, 0.3, 84, 4, -1, -1, NONE, 0, 0.7, 0.7, 0.7, coltrunk);
+		renderCuboid(cdleaf, 0.15, 0.4, 0.3, 84, 5, 5, -1, NONE, 0, 0.7, 0.7, 0.7, colleaf);
+		renderCuboid(cdleaf, 0.15, 0.4, 0.3, 84, 4, 5, 0, NONE, 0, 0.7, 0.7, 0.7, colleaf);
+		renderCuboid(cdleaf, 0.15, 0.4, 0.3, 84, 5.5, 5, 0.5, NONE, 0, 0.7, 0.7, 0.7, colleaf);
+		renderCuboid(cdleaf, 0.15, 0.7, 0.3, 84, 4.8, 6.6, -0.5, NONE, 0, 0.7, 0.7, 0.7, colleaf);
+		
+		renderCuboid(cdhouse1, 0.5, 0.6, 0.3, 71, -4, -3, 0, NONE, 0, 0, 0, 0, colhouse1);
+		renderCuboid(cdhouse2, 0.3, 0.6, 0.3, 71, -3.7, 3, 0.5, NONE, 0, 0, 0, 0, colhouse2);
+		renderCuboid(cdhouse3, 0.3, 0.6, 0.3, 71, -3, 4, 1, NONE, 0, 0, 0, 0, colhouse2);
+		renderCuboid(cdhouse4, 0.3, 0.6, 0.3, 48, -2.2, -3, 4, NONE, 0, 0, 0, 0, coltrunk);
+	break;
+
+	default:
 	break;
    }
    glutSwapBuffers();
