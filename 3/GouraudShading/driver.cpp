@@ -26,6 +26,8 @@ double lightSource[3];
 double intensitySource[3];
 void renderCuboid(CD& cd, double ka, double kd, double ks, double ns, double tx, double ty, double tz, int ra, double rA, double sx, double sy, double sz, double col[]);
 
+
+
 void display (void)
 {   
    /* Clear stencile each time */
@@ -171,12 +173,32 @@ void keyboard (unsigned char key, int x, int y)
    }
 }
 
+void Frustum (double left, double right, double bottom, double top, double near, double far)
+{
+  double A = (right + left) / (right - left);
+  double B = (top + bottom) / (top - bottom);
+  double C = - (far + near) / (far - near);
+  double D = -2 * far * near / (far - near);
+
+  double E = 2 * near / (right - left);
+  double F = 2 * near / (top - bottom);
+
+  double matrix[] = {
+                      E, 0, A, 0,
+                      0, F, B, 0,
+                      0, 0, C, D,
+                      0, 0,-1, 0
+                    };
+
+  glMultTransposeMatrixd (matrix);                    
+}
+
 void reshape (int w, int h)
 {
    glViewport (0, 0, (GLsizei) w, (GLsizei) h);
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity ();
-   glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+   Frustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
    glMatrixMode (GL_MODELVIEW);
 }
 
