@@ -14,19 +14,22 @@ GLdouble eyex = 10;
 GLdouble eyey = 10;
 GLdouble eyez = 10;
  
-GLint angle = 45;
+#define PI 3.14d
+
+GLdouble angle = PI / 180.0d * 45.0d;
 GLdouble pos = 0;
 
 void keyboard(unsigned char, int, int);
 void reshape(int, int);
 
-double eyePosition[]   = {eyex, eyey, eyez};
+double eyePosition[3];
 double intensityAmbient[]  = {0.9, 0.9, 0.9};
 double lightSource[3];
 double intensitySource[3];
 void renderCuboid(CD& cd, double ka, double kd, double ks, double ns, double tx, double ty, double tz, int ra, double rA, double sx, double sy, double sz, double col[]);
 
 
+static const double root2 = sqrt (2);
 
 void display (void)
 {   
@@ -34,6 +37,15 @@ void display (void)
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
    
+	eyez = 10 * root2 * cos(angle);
+	eyex = 10 * root2 * sin(angle);
+
+	fprintf(stderr, "eyex = %lf\neyey = %lf\neyez = %lf\n\n", eyex, eyey, eyez);
+
+	eyePosition[0] = eyex;
+	eyePosition[1] = eyey;
+	eyePosition[2] = eyez;
+
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
@@ -166,11 +178,22 @@ void keyboard (unsigned char key, int x, int y)
       case 27 :
          exit (0);
          break;
+
+	case 'a':
+	case 'A':
+		angle += PI / 180.0d * 20.0d;
+		break;
+
+	case 'z':
+	case 'Z':
+		angle -= PI / 180.0d * 20.0d;
+		break;
+
       default:
          opt = (opt + 1) % nopts;
-			glutPostRedisplay();
          break;
    }
+			glutPostRedisplay();
 }
 
 void viewPort (int x, int y, double width, double height)
