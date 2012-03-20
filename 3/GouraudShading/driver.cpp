@@ -52,7 +52,7 @@ void display (void)
 	case 1:
 		renderCuboid(cdtrunk, 0.15, 0.4, 0.3, 84, 4, -1, -1, NONE, 0, 0, 0, 0, coltrunk);
 		
-		renderCuboid(cdleaf, 0.15, 0.4, 0.3, 84, 5, 6, -2, NONE, 0, 0, 0, 0, colleaf);
+		renderCuboid(cdleaf, 0.15, 0.4, 0.3, 84, 5, 5, -2, NONE, 0, 0, 0, 0, colleaf);
 		/*
 		renderCuboid(cdleaf, 0.15, 0.4, 0.3, 84, 4, -1, -1, NONE, 0, 0, 0, 0, colleaf);
 		renderCuboid(cdleaf, 0.15, 0.4, 0.3, 84, 4, -1, -1, NONE, 0, 0, 0, 0, colleaf);
