@@ -66,9 +66,17 @@ void Cuboid::GetColour(double rgb[3])
 	memcpy(rgb, Colour, 3 * sizeof(double));
 }
 
-void Cuboid::Rotate()
+void Cuboid::Rotate(int axis, double angle)
 {
-	return;
+	if(axis == Y)
+		RotateY(angle);
+}
+
+void Cuboid::RotateY(double angle)
+{
+	// modify vertices
+
+	// modify normals
 }
 
 void Cuboid::Translate(double i, double j, double k)
