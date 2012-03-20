@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 #include <GL/gl.h>
 #include <cstdio>
+#include <cmath>
 
 GLfloat lightpos[] = {5.f, 12.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
@@ -42,6 +43,10 @@ void display (void)
 	double colleaf[] = {0.1, 0.7, 0.1};
 	CD cdhouse1 = {5, 6, 4};
 	double colhouse1[] = {0.5, 0.5, 0.35};
+	CD cdhouse2 = {4, 1, 3};
+	double colhouse2[] = {0.7, 0.1, 0.1};
+	CD cdhouse3 = {3, 0.7, 2};
+	CD cdhouse4 = {2, 4, 0.1};
 
    switch(opt)
    {
@@ -65,7 +70,10 @@ void display (void)
 	break;
 
 	case 2:
-		renderCuboid(cdhouse1, 0.5, 0.6, 0.3, 71, -5, -3, -2, NONE, 0, 0, 0, 0, colhouse1);
+		renderCuboid(cdhouse1, 0.5, 0.6, 0.3, 71, -4, -3, 0, NONE, 0, 0, 0, 0, colhouse1);
+		renderCuboid(cdhouse2, 0.3, 0.6, 0.3, 71, -3.7, 3, 0.5, NONE, 0, 0, 0, 0, colhouse2);
+		renderCuboid(cdhouse3, 0.3, 0.6, 0.3, 71, -3, 4, 1, NONE, 0, 0, 0, 0, colhouse2);
+		renderCuboid(cdhouse4, 0.3, 0.6, 0.3, 48, -2.2, -3, 4, NONE, 0, 0, 0, 0, coltrunk);
 	break;
    }
    glutSwapBuffers();
@@ -106,11 +114,11 @@ void renderCuboid(CD& cd, double ka, double kd, double ks, double ns, double tx,
 	cs.setSpecularCoefficient(ks);
 	cs.setSpecularParameter(ns);
 	fprintf(stderr, "***\nK_a = %lf\nK_d = %lf\nK_s = %lf\nN_s = %lf\n\n", cs.getAmbientCoefficient(), cs.getDiffusionCoefficient(), cs.getSpecularCoefficient(), cs.getSpecularParameter());
-	if(tx + ty + tz > EPSILON)
+	if(fabs(tx) + fabs(ty) + fabs(tz) > EPSILON)
 		cs.Translate(tx, ty, tz);
-	if(ra != NONE && rA > EPSILON)
+	if(ra != NONE && fabs(rA) > EPSILON)
 		cs.Rotate(ra, rA);
-	if(sx + sy + sz > EPSILON)
+	if(fabs(sx) + fabs(sy) + fabs(sz) > EPSILON)
 		cs.Scale(sx, sy, sz);
 	cs.SetColour(col);
 
