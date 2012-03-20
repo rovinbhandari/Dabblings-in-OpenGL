@@ -52,6 +52,18 @@ Cuboid::Cuboid(CD& cd)
 	Vertices[7][0] = Dimensions.length;
 	Vertices[7][1] = Dimensions.height;
 	Vertices[7][2] = Dimensions.breadth;
+
+	Colour[0] = Colour[1] = Colour[2] = 1.0;
+}
+
+void Cuboid::SetColour(double rgb[3])
+{
+	memcpy(Colour, rgb, 3 * sizeof(double));
+}
+
+void Cuboid::GetColour(double rgb[3])
+{
+	memcpy(rgb, Colour, 3 * sizeof(double));
 }
 
 void Cuboid::Rotate()

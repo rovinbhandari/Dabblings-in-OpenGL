@@ -16,9 +16,12 @@ class Cuboid
 		double Normals[6][3];
 		int Faces[6][4];
 		double Vertices[8][3];
+		double Colour[3];
 	
 	public:
 		Cuboid(CD&);
+		void SetColour(double []);
+		void GetColour(double []);
 		void Rotate();
 		void Translate(double, double, double);
 		void Scale(double, double, double);

@@ -40,6 +40,8 @@ void display (void)
 	cs.setSpecularParameter(84);
 	fprintf(stderr, "***\nK_a = %lf\nK_d = %lf\nK_s = %lf\nN_s = %lf\n\n", cs.getAmbientCoefficient(), cs.getDiffusionCoefficient(), cs.getSpecularCoefficient(), cs.getSpecularParameter());
 	cs.Translate(1, 2, 3);
+	double cubeCol[] = {0.8, 0.4, 0};
+	cs.SetColour(cubeCol);
 
 	double eyePosition[]   = {eyex, eyey, eyez};
 	double intensityAmbient[]  = {0.9, 0.9, 0.9};

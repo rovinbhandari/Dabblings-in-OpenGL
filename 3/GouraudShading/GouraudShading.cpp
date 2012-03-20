@@ -74,6 +74,15 @@ void CuboidShading::avgNormal (double normals[][3], double averageNormal[3])
 	}
 }
 
+void CuboidShading::setColour(double intensities[4][3])
+{
+	double colour[3];
+	GetColour(colour);
+	for(int i = 0; i < 4; i++)
+		for(int j = 0; j < 3; j++)
+			intensities[i][j] *= colour[j];
+}
+
 void CuboidShading::constructFace (double vertices[][3], double intensities[][3])
 {
   	//fprintf (stderr, "About to construct face.\n");
@@ -118,6 +127,7 @@ void CuboidShading::constructFace ( int faceNumber, double lightSource[], double
 		fprintf(stderr, "\n");
 	}
 	fprintf(stderr, "\n");
+	setColour(finalIntensity);
 	constructFace (vertices, finalIntensity);
 	return;
 }

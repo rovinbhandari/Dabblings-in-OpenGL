@@ -17,6 +17,8 @@ class CuboidShading : public Cuboid
 	public:
 		CuboidShading(CD& cd);
 
+		void setColour(double [][3]);
+
 		/* Function to construct a polygon given the vertices. 
 		 * This function generates a face given its vertices and the intensities at those 
 		 * points.
