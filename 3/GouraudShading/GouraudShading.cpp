@@ -76,7 +76,7 @@ void CuboidShading::avgNormal (double normals[][3], double averageNormal[3])
 
 void CuboidShading::constructFace (double vertices[][3], double intensities[][3])
 {
-  	fprintf (stderr, "About to construct face.\n");
+  	//fprintf (stderr, "About to construct face.\n");
 	glBegin (GL_POLYGON);	
 	glColor3dv  (intensities[0]);
 	glVertex3dv (vertices[0]);
@@ -87,7 +87,7 @@ void CuboidShading::constructFace (double vertices[][3], double intensities[][3]
 	glColor3dv  (intensities[3]);
 	glVertex3dv (vertices[3]);
 	glEnd ();
-  	fprintf (stderr, "Construction Done.\n");
+  	//fprintf (stderr, "Construction Done.\n");
 }
 
 void CuboidShading::constructFace ( int faceNumber, double lightSource[], double eyePosition[], double intensityAmbient[], double intensitySource[])
@@ -100,17 +100,17 @@ void CuboidShading::constructFace ( int faceNumber, double lightSource[], double
 	double averageNormal[3];
 	double finalIntensity[4][3];
 
-  	fprintf (stderr, "Before entering loop.\n");
+  	//fprintf (stderr, "Before entering loop.\n");
 	for (int i = 0; i < 4; i++)
 	{
 		GetVertex (verticesIndex[i], vertices[i]);	
 		GetNormals(verticesIndex[i], normals);
 		avgNormal (normals, averageNormal);
 		calculateIntensity (vertices[i], averageNormal, lightSource, eyePosition, intensityAmbient, intensitySource, finalIntensity[i]);
-		fprintf (stderr, "in loop.\n");
+		//fprintf (stderr, "in loop.\n");
 	}
 
-  	fprintf (stderr, "About to construct face.\n");
+  	//fprintf (stderr, "About to construct face.\n");
 	constructFace (vertices, finalIntensity);
 	return;
 }

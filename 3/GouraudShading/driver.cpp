@@ -4,7 +4,7 @@
 #include <GL/gl.h>
 #include <cstdio>
 
-GLfloat lightpos[] = {110.f, 16.f, 10.f, 1.f};
+GLfloat lightpos[] = {-6.f, 26.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
 
 int opt, nopts = 1;
@@ -34,27 +34,25 @@ void display (void)
 //      glutSolidTorus (3, 6, 8, 100);
  	CD c = { 4, 4, 4};
 	CuboidShading cs(c);
+	cs.setAmbientCoefficient(0.05);
+	cs.setDiffusionCoefficient(0.19);
+	cs.setSpecularCoefficient(0.1);
+	cs.setSpecularParameter(91);
 
-	double normals[3][3];
-	double avgNormal[3];
-
-	cs.GetNormals(0, normals);
-
-	double vertex[3];
-	cs.GetVertex(0, vertex);
-
-	cs.avgNormal (normals, avgNormal);
 	double eyePosition[]   = {eyex, eyey, eyez};
 	double intensityAmbient[]  = {0.5, 0.5, 0.5};
-	double lightSource[]   = {110.f, 16.f, 10.f};
-	double intensitySource[] = {1, 1, 1};
+	double lightSource[3];
+	lightSource[0] = lightpos[0];
+	lightSource[1] = lightpos[1];
+	lightSource[2] = lightpos[2];
+	double intensitySource[3];
+	intensitySource[0] = light_diffuse[0];
+	intensitySource[1] = light_diffuse[1];
+	intensitySource[2] = light_diffuse[2];
 	
-  fprintf (stderr, "About to calc\n");
-  cs.constructFace (0, lightSource, eyePosition, intensityAmbient, intensitySource);
+  	for(int face = 0; face < 6; face++)
+		cs.constructFace (face, lightSource, eyePosition, intensityAmbient, intensitySource);
 
-
-	
-	
         break;
    }
    glutSwapBuffers();
