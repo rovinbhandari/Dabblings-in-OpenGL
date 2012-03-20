@@ -37,7 +37,7 @@ void CuboidShading::setSpecularCoefficient (double val)
 
 double CuboidShading::getDiffusionCoefficient ()
 {
-	return K_a;
+	return K_d;
 }
 
 void CuboidShading::setDiffusionCoefficient (double val)
@@ -77,7 +77,7 @@ void CuboidShading::avgNormal (double normals[][3], double averageNormal[3])
 void CuboidShading::constructFace (double vertices[][3], double intensities[][3])
 {
   	//fprintf (stderr, "About to construct face.\n");
-	glBegin (GL_POLYGON);	
+	glBegin (GL_QUADS);	
 	glColor3dv  (intensities[0]);
 	glVertex3dv (vertices[0]);
 	glColor3dv  (intensities[1]);
@@ -94,7 +94,7 @@ void CuboidShading::constructFace ( int faceNumber, double lightSource[], double
 {
 	int verticesIndex[4];
 
-	GetVertices (faceNumber, verticesIndex);
+	GetVertices(faceNumber, verticesIndex);
 
 	double normals[3][3], vertices[4][3];
 	double averageNormal[3];
@@ -110,7 +110,14 @@ void CuboidShading::constructFace ( int faceNumber, double lightSource[], double
 		//fprintf (stderr, "in loop.\n");
 	}
 
-  	//fprintf (stderr, "About to construct face.\n");
+  	fprintf(stderr, "face : %d\n", faceNumber);
+	for(int i = 0; i < 4; i++)
+	{
+		for(int j = 0; j < 3; j++)
+			fprintf(stderr, "%lf ", finalIntensity[i][j]);
+		fprintf(stderr, "\n");
+	}
+	fprintf(stderr, "\n");
 	constructFace (vertices, finalIntensity);
 	return;
 }

@@ -4,7 +4,7 @@
 #include <GL/gl.h>
 #include <cstdio>
 
-GLfloat lightpos[] = {-4.f, 12.f, 3.f, 1.f};
+GLfloat lightpos[] = {5.f, 12.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
 
 int opt, nopts = 1;
@@ -34,10 +34,11 @@ void display (void)
 //      glutSolidTorus (3, 6, 8, 100);
  	CD c = { 4, 4, 4};
 	CuboidShading cs(c);
-	cs.setAmbientCoefficient(0.99);
-	cs.setDiffusionCoefficient(0.39);
+	cs.setAmbientCoefficient(0.4);
+	cs.setDiffusionCoefficient(0.67);
 	cs.setSpecularCoefficient(0.99);
-	cs.setSpecularParameter(155);
+	cs.setSpecularParameter(84);
+	fprintf(stderr, "***\nK_a = %lf\nK_d = %lf\nK_s = %lf\nN_s = %lf\n\n", cs.getAmbientCoefficient(), cs.getDiffusionCoefficient(), cs.getSpecularCoefficient(), cs.getSpecularParameter());
 	cs.Translate(1, 2, 3);
 
 	double eyePosition[]   = {eyex, eyey, eyez};
@@ -65,10 +66,10 @@ void init(void)
    
    glShadeModel (GL_SMOOTH);
    
-   glLightfv (GL_LIGHT0, GL_POSITION, lightpos);
-   glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-   glEnable(GL_LIGHTING);
-   glEnable(GL_LIGHT0);
+   //glLightfv (GL_LIGHT0, GL_POSITION, lightpos);
+   //glLightfv (GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+   //glEnable(GL_LIGHTING);
+   //glEnable(GL_LIGHT0);
    glEnable(GL_DEPTH_TEST);
 
    
