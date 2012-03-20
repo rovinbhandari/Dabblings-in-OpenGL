@@ -4,13 +4,13 @@
 #include <GL/gl.h>
 #include <cstdio>
 
-GLfloat lightpos[] = {-6.f, 26.f, 3.f, 1.f};
+GLfloat lightpos[] = {-4.f, 12.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
 
 int opt, nopts = 1;
 
 GLdouble eyex = 10;
-GLdouble eyey = 8;
+GLdouble eyey = 10;
 GLdouble eyez = 10;
  
 GLint angle = 45;
@@ -34,13 +34,14 @@ void display (void)
 //      glutSolidTorus (3, 6, 8, 100);
  	CD c = { 4, 4, 4};
 	CuboidShading cs(c);
-	cs.setAmbientCoefficient(0.05);
-	cs.setDiffusionCoefficient(0.19);
-	cs.setSpecularCoefficient(0.1);
-	cs.setSpecularParameter(91);
+	cs.setAmbientCoefficient(0.99);
+	cs.setDiffusionCoefficient(0.39);
+	cs.setSpecularCoefficient(0.99);
+	cs.setSpecularParameter(155);
+	cs.Translate(1, 2, 3);
 
 	double eyePosition[]   = {eyex, eyey, eyez};
-	double intensityAmbient[]  = {0.5, 0.5, 0.5};
+	double intensityAmbient[]  = {0.9, 0.9, 0.9};
 	double lightSource[3];
 	lightSource[0] = lightpos[0];
 	lightSource[1] = lightpos[1];
