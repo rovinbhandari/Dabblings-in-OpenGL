@@ -83,15 +83,14 @@ void Cuboid::GetNormals(int vertex, double normals[][3])
 {
 	int k = 0;
 	for(int i = 0; i < 6; i++)
-	{
 		for(int j = 0; j < 4; j++)
 		{
 			if(Faces[i][j] == vertex)
-				memcpy(normals[k], Normals[i], 3 * sizeof(double));
-			break;
+			{
+        memcpy(normals[k++], Normals[i], 3 * sizeof(double));
+			  break;
+      }
 		}
-		k++;
-	}
 }
 
 void Cuboid::GetVertex(int vertex, double vertexvalues[3])

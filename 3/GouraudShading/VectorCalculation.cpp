@@ -6,17 +6,19 @@
 double dotProduct (double vector1[], double vector2[])
 {
 	double retVal = 0;
-	for (int i = 0, retVal = 0; i < 3; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		retVal += vector1[i] * vector2[i]; 
+		retVal += (vector1[i] * vector2[i]); 
 	}
 
 	return retVal;
 }
 
+#define SQR(x) ((x)*(x))
+
 double magnitude (double vector[])
 {
-	return sqrt ( dotProduct (vector, vector));
+	return sqrt ( SQR(vector[0]) + SQR(vector[1]) + SQR(vector[2]));
 }
 
 void findUnitVector (double vector[], double unitVector[])

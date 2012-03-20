@@ -31,6 +31,7 @@ void display (void)
    switch(opt)
    {
       case 0:
+//      glutSolidTorus (3, 6, 8, 100);
  	CD c = { 4, 4, 4};
 	CuboidShading cs(c);
 
@@ -49,7 +50,7 @@ void display (void)
 	double intensitySource[] = {1, 1, 1};
 	
   fprintf (stderr, "About to calc\n");
-  cs.constructFace (1, lightSource, eyePosition, intensityAmbient, intensitySource);
+  cs.constructFace (0, lightSource, eyePosition, intensityAmbient, intensitySource);
 
 
 	

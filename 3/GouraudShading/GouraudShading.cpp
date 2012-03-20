@@ -11,7 +11,7 @@
 CuboidShading::CuboidShading(CD& cd) : Cuboid (cd)
 {
 	K_a = K_d = K_s = 1.0;
-	N_s = 84;
+	N_s = 1;
 }
 
 /* Functions to get and set the constants */
@@ -63,7 +63,7 @@ void CuboidShading::avgNormal (double normals[][3], double averageNormal[3])
 {
 	// It is assumed that a cuboid is used. Hence only 3 faces are involved.
 
-	memset (averageNormal, 0, 3);
+	memset (averageNormal, 0, 3 * sizeof (double) );
 
 	for ( int j, i = 0; i < 3; i++)
 	{
