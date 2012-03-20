@@ -173,6 +173,30 @@ void keyboard (unsigned char key, int x, int y)
    }
 }
 
+void viewPort (int x, int y, double width, double height)
+{
+  GLfloat xmin, xmax, ymax, ymin, vmax, vmin, umax, umin;
+
+  umin = x;
+  umax = umin + width;
+
+  vmin = y;
+  vmax = vmin + height;
+
+  xmin = 0;
+  ymin = 0;
+  xmax = 900;
+  ymax = 700;
+
+
+  glMatrixMode (GL_PROJECTION);
+  glPushMatrix();
+  glTranslatef (-xmin, -ymin, 0);
+  glScalef ((umax - umin) / (xmax - xmin), (vmax - vmin) / (ymax - ymin), 1);
+  glTranslatef (umin, vmin, 0);
+  glPopMatrix();
+}
+
 void Frustum (double left, double right, double bottom, double top, double near, double far)
 {
   double A = (right + left) / (right - left);
@@ -195,9 +219,11 @@ void Frustum (double left, double right, double bottom, double top, double near,
 
 void reshape (int w, int h)
 {
-   glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+//   glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+   viewPort (0, 0, (GLsizei) w, (GLsizei) h);
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity ();
+//   Frustum (-1.0, 1.0, 1.0, -1.0, 1.5, 20.0);
    Frustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
    glMatrixMode (GL_MODELVIEW);
 }
