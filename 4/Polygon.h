@@ -7,27 +7,6 @@
 
 using std::vector;
 
-class Pt2D
-{
-  public:
-    double x, y;
-    
-    // Constructors
-    Pt2D (double x, double y);
-
-    // Operators
-    bool operator < (const Pt2D& rhs) const;
-    bool operator== (const Pt2D& rhs) const;
-};
-
-class Pt3D
-{
-  public:
-    double x, y, z;
-
-    // Constructors
-    Pt3D (double x, double y, double z);
-};
 
 struct Color
 {
@@ -43,6 +22,13 @@ class Polygon
     // Getter functions
     Color getColor () const;
     vector<Pt3D> getVertices () const;
+    double A() const { return normal.X(); }
+    double B() const { return normal.Y(); }
+    double C() const { return normal.Z(); }
+    double D() const { return Deq; }
+
+    // Set color 
+    void setColor (const Color& color);
 
     // Public methods
     double xmin () const;
@@ -52,6 +38,7 @@ class Polygon
 
   private:
     vector<Pt3D> vertices;
+    double Deq;
     Vector normal;
     Color rgbi;   // For color values.
     double xMax, xMin;

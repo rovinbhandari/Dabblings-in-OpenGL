@@ -8,6 +8,11 @@ Vector::Vector (const double x, const double y, const double z)
 {
 }
 
+Vector::Vector (const Pt3D& point)
+  : x(point.x), y(point.y), z(point.z)
+{
+}
+
 Vector Vector::operator+ (const Vector& rhs) const
 {
   return Vector(x + rhs.x, y + rhs.y, z + rhs.z);
@@ -43,4 +48,5 @@ double Vector::magnitude () const
 {
   return sqrt(*this * *this);
 }
+
 
