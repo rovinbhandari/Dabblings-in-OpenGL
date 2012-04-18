@@ -7,7 +7,7 @@ class Vector
 {
   public:
     // Constructors
-    Vector (double x, double y, double z);
+    Vector (const double x = 0, const double y = 0, const double z = 0);
 
     // Operations on vectors
     Vector operator+ (const Vector& rhs) const;   // Calculates the sum of two vectors
@@ -17,6 +17,8 @@ class Vector
     // Vector multiplied by a real
     Vector operator* (const double& constant) const;  // Multiplication with a real
     friend Vector operator* (const double& constant, const Vector& v);
+    double magnitude () const;
+
 
   private:
     double x, y, z;
