@@ -8,8 +8,11 @@
 
 using std::map;
 using std::list;
+using std::pair;
 
-map<Pt3D,Color> depthBuffer (const Polygon& polygon);
-map<Pt3D,Color> depthBuffer (const list<Polygon>& polygon);
+typedef map<Pt2D,double> DepthBuffer ;
+typedef map<Pt2D,Color> RefreshBuffer;
+
+map<Pt2D,Color> depthBufferMethod (const list<Polygon>& polygon);
 
 #endif	// End of file
