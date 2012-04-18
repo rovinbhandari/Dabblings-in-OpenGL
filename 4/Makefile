@@ -3,10 +3,10 @@ OBJ = obj
 BIN = bin
 CC = g++
 CFLAGS = -Wall -I./
-OBJECTS = $(OBJ)/Vector.o $(OBJ)/Polygon.o $(OBJ)/main.o
+OBJECTS = $(OBJ)/Vector.o $(OBJ)/Polygon.o $(OBJ)/pipelineFunctions.o $(OBJ)/main.o
 
 all: $(OBJECTS)
-	${CC} $^ -g -o ${BIN}/demo.out
+	${CC} $^ -g -o ${BIN}/demo.out -lm
 
 # This is a general rule
 ${OBJ}/%.o : ${SRC}/%.cpp

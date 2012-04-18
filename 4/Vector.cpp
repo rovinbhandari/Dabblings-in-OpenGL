@@ -1,8 +1,9 @@
 // This file contains the definition of the functions in Vector class.
 
 #include <Vector.h>
+#include <cmath>
 
-Vector::Vector (double x, double y, double z)
+Vector::Vector (const double x, const double y, const double z)
   : x(x), y(y), z(z)
 {
 }
@@ -37,3 +38,9 @@ Vector operator* (const double& k, const Vector& v)
 {
   return (v * k);
 }
+
+double Vector::magnitude () const
+{
+  return sqrt(*this * *this);
+}
+
