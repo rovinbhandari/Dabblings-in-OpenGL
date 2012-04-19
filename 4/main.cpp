@@ -9,6 +9,8 @@ using std::list;
 int main (void)
 {
 	vector<Pt3D> vertices;
+  Color c;
+  c.r = c.g = c.b = 0;
 	
 	vertices.push_back(Pt3D());
 	vertices.push_back(Pt3D(1,0,0));
@@ -16,22 +18,34 @@ int main (void)
 	vertices.push_back(Pt3D(0,1,0));
 
 	Polygon t (vertices, Vector (0,0,1));
+  t.setColor (c);
 	std::cerr << "Polygon 1 ready\n";
+
+  c.r = c.g = c.b = 1;
 	vertices.clear();
-	vertices.push_back(Pt3D(0,0,1));
-	vertices.push_back(Pt3D(1,0,1));
-	vertices.push_back(Pt3D(1,1,1));
-	vertices.push_back(Pt3D(0,1,1));
+	vertices.push_back(Pt3D(0,0,-1));
+	vertices.push_back(Pt3D(1,0,-1));
+	vertices.push_back(Pt3D(1,1,-1));
+	vertices.push_back(Pt3D(0,1,-1));
 
 	Polygon u (vertices, Vector(0,0,1));
+  t.setColor (c);
 	std::cerr << "Polygon 2 ready\n";
 
 	list<Polygon> l;
 	l.push_back(t);
 	l.push_back(u);
 
-	depthBufferMethod (l)[Pt2D(0.1, 0.1)];
-	std::cerr << "Buffer\n";
+	map<Pt2D,Color> depth = depthBufferMethod (l);
+  map<Pt2D,Color>::iterator itr;
+  for (itr = depth.begin(); itr != depth.end(); itr++)
+  {
+    std::cerr << itr->first.x  << "," << itr->first.y << "  -- "
+              << itr->second.r << ","
+              << itr->second.g << ","
+              << itr->second.b << "\n";
+  }
+  std::cerr << "Buffer\n";
 
 	return 0;
 }

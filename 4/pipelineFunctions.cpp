@@ -3,8 +3,8 @@
 #include <pipelineFunctions.h>
 #include <iostream>
 
-#define X_INCR 1
-#define Y_INCR 1
+#define X_INCR 0.1
+#define Y_INCR 0.1
 
 /* This function is a part of the depthBuffer function for a list of polygons.
  * This function runs on a polygon and returns a pair of DepthBuffer and 
@@ -27,8 +27,11 @@ pair<DepthBuffer, RefreshBuffer> depthBufferMethod (const Polygon& polygon)
 		{
 			// Since its only one polygon, just insert the values in refresh and depth buffer.
 			z = ( -polygon.A() * x - polygon.B() * y - polygon.D() ) * 1.0 / polygon.C();
-			depth[Pt2D(x,y)]   = z;
-			refresh[Pt2D(x,y)] = polygon.getColor();
+      Pt2D tmpPt(x,y);
+      std::cerr << "x,y -> " << x << "," << y << "  "
+                << "x',y' ->"<< tmpPt.x << "," << tmpPt.y << "\n";
+			depth[tmpPt]   = z;
+			refresh[tmpPt] = polygon.getColor();
 		}
 	}
 	std::cerr << "HERE\n";
