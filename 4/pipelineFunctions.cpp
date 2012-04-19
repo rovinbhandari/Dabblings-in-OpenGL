@@ -49,13 +49,11 @@ map<Pt2D,Color> depthBufferMethod (const list<Polygon>& polygons)
 		std::cerr << "Loop 1\n";
 		// Call the depth buffer function for each polygon.
 		pair<DepthBuffer, RefreshBuffer> tmpPair = depthBufferMethod (*itr);
-		DepthBuffer tmpDepth = tmpPair.first;
-		RefreshBuffer tmpRefresh = tmpPair.second;
 
 		// Update main depth-buffer and refresh buffer.
 		DepthBuffer::iterator itrDepth;
 		RefreshBuffer::iterator itrRefresh;
-		for ( itrDepth = tmpDepth.begin(); itrDepth != tmpDepth.end(); itrDepth++)
+		for ( itrDepth = tmpPair.first.begin(); itrDepth != tmpPair.first.end(); itrDepth++)
 		{
 			DepthBuffer::iterator itrTmp;
 			if ( (itrTmp = depth.find(itrDepth->first)) != depth.end())
@@ -64,14 +62,14 @@ map<Pt2D,Color> depthBufferMethod (const list<Polygon>& polygons)
 				if ( itrDepth->second > itrTmp->second )
 				{
 					itrTmp->second = itrDepth->second;
-					refresh[itrDepth->second] = tmpRefresh[itrDepth->first];
+					refresh[itrDepth->second] = tmpPair.second[itrDepth->first];
 				}
 			}
 			else
 			{
 				// if it is not found in the existing table, add it.
 				depth[itrDepth->first]   = itrDepth->second;
-				refresh[itrDepth->first] = tmpRefresh[itrDepth->second];
+				refresh[itrDepth->first] = tmpPair.second[itrDepth->second];
 			}
 		}
 	}
