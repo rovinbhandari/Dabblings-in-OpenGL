@@ -39,9 +39,13 @@ Pt2D::Pt2D (const double& x, const double& y)
   this->y = y;
 }
 
+/* IMPORTANT : This function plays an important role in the map.
+ * When this didn't work correctly, the map showed only points of the form
+ * (x,x).
+ */
 bool Pt2D::operator < (const Pt2D& rhs) const
 {
-  return (x < rhs.x) ? (y < rhs.y) : (false);
+  return (x < rhs.x) ? true : (x == rhs.x) ? (y < rhs.y) : false;
 }
 
 bool Pt2D::operator == (const Pt2D& rhs) const

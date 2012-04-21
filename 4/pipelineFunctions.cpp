@@ -1,6 +1,7 @@
 /* This file contains the definition of the pipeline transformation functions.*/
 
 #include <pipelineFunctions.h>
+#include <iostream>
 
 #define X_INCR 0.1
 #define Y_INCR 0.1
@@ -24,6 +25,9 @@ Buffers polygonBuffers (const Polygon& polygon)
     for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
     {
       z = computeZ (x, y, polygon);
+      std::cerr << "Color : " << polygon.getColor().r << ","
+                << polygon.getColor().g << ","
+                << polygon.getColor().b << "\n";
       buffers[Pt2D (x,y)] = make_pair (z, polygon.getColor());
     }
   }
@@ -50,6 +54,8 @@ RefreshBuffer depthBufferMethod (const list<Polygon>& polygons)
       if ( (depthBufferItr = depthBuffer.find(pbItr->first)) != 
                                                       depthBuffer.end() )
       {
+        std::cerr << "x : " << pbItr->first.x << " , y : " << pbItr->first.y
+                  << "\n";
         // If the height of the new polygon is greater than that of stored
         // height, refresh the depth and refresh buffer.
         if ( pbItr->second.first > depthBufferItr->second)
