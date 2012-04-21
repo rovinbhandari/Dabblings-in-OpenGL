@@ -1,6 +1,7 @@
 /* This file contains the definitions of the pipeline transformation functions */
 
 #include <pipelineFunctions.h>
+#include <cassert>
 #include <iostream>
 
 #define X_INCR 0.1
@@ -18,20 +19,20 @@ pair<DepthBuffer, RefreshBuffer> depthBufferMethod (const Polygon& polygon)
 
 	double x, y, z;
 
-	// Compute 'z' TODO
-
+  // Since its only one polygon, just insert the values in refresh and depth buffer.
 	for ( x = polygon.xmin(); x < polygon.xmax(); x += X_INCR)
 	{
 		std::cerr << polygon.ymin() << " " << polygon.ymax() << "\n";
 		for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
 		{
-			// Since its only one polygon, just insert the values in refresh and depth buffer.
+      // Compute 'z'
 			z = ( -polygon.A() * x - polygon.B() * y - polygon.D() ) * 1.0 / polygon.C();
       Pt2D tmpPt(x,y);
       std::cerr << "x,y -> " << x << "," << y << "  "
                 << "x',y' ->"<< tmpPt.x << "," << tmpPt.y << "\n";
 			depth[tmpPt]   = z;
 			refresh[tmpPt] = polygon.getColor();
+      assert (depth.find(tmpPt) != depth.end());
 		}
 	}
 	std::cerr << "HERE\n";
@@ -58,18 +59,23 @@ map<Pt2D,Color> depthBufferMethod (const list<Polygon>& polygons)
 			DepthBuffer::iterator itrTmp;
 			if ( (itrTmp = depth.find(itrDepth->first)) != depth.end())
 			{
+        std::cerr << "(" << itrDepth->first.x 
+                  << "," << itrDepth->first.y
+                  << ")" << " -> " << itrDepth->second << "\n";
 				// If found in existing table
 				if ( itrDepth->second > itrTmp->second )
 				{
 					itrTmp->second = itrDepth->second;
-					refresh[itrDepth->second] = tmpPair.second[itrDepth->first];
+          /// XXX XXX XXX XXX
+					refresh[itrDepth->first] = tmpPair.second[itrDepth->first];
+          // XXX XXX XXX XXX
 				}
 			}
 			else
 			{
 				// if it is not found in the existing table, add it.
 				depth[itrDepth->first]   = itrDepth->second;
-				refresh[itrDepth->first] = tmpPair.second[itrDepth->second];
+				refresh[itrDepth->first] = tmpPair.second[itrDepth->first];
 			}
 		}
 	}
