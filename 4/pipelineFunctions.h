@@ -13,6 +13,8 @@ using std::pair;
 typedef map<Pt2D,double> DepthBuffer ;
 typedef map<Pt2D,Color> RefreshBuffer;
 
-map<Pt2D,Color> depthBufferMethod (const list<Polygon>& polygon);
+/* This function requires a list of polygons and it calculates the color 
+ * at 2D points. The function returns a map of Pt2D->Color. */
+RefreshBuffer depthBufferMethod (const list<Polygon>& polygons);
 
 #endif	// End of file
