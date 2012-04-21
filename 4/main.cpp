@@ -10,7 +10,7 @@ int main (void)
 {
 	vector<Pt3D> vertices;
   Color c;
-  c.r = c.g = c.b = 0;
+  c.r = c.g = c.b = 1;
 	
 	vertices.push_back(Pt3D());
 	vertices.push_back(Pt3D(1,0,0));
@@ -21,7 +21,7 @@ int main (void)
   t.setColor (c);
 	std::cerr << "Polygon 1 ready\n";
 
-  c.r = c.g = c.b = 1;
+  c.r = c.g = c.b = 0;
 	vertices.clear();
 	vertices.push_back(Pt3D(0,0,-1));
 	vertices.push_back(Pt3D(1,0,-1));
@@ -29,12 +29,12 @@ int main (void)
 	vertices.push_back(Pt3D(0,1,-1));
 
 	Polygon u (vertices, Vector(0,0,1));
-  t.setColor (c);
+  u.setColor (c);
 	std::cerr << "Polygon 2 ready\n";
 
 	list<Polygon> l;
-	l.push_back(t);
 	l.push_back(u);
+	l.push_back(t);
 
 	map<Pt2D,Color> depth = depthBufferMethod (l);
   map<Pt2D,Color>::iterator itr;

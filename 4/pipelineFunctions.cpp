@@ -1,4 +1,4 @@
-/* This file contains the definitions of the pipeline transformation functions */
+/* This file contains the definition of the pipeline transformation functions.*/
 
 #include <pipelineFunctions.h>
 #include <iostream>
@@ -6,73 +6,72 @@
 #define X_INCR 0.1
 #define Y_INCR 0.1
 
-/* This function is a part of the depthBuffer function for a list of polygons.
- * This function runs on a polygon and returns a pair of DepthBuffer and 
- * RefreshBuffer for that polygon. The result is then incorporated in the 
- * function dealing with a list of polygons.
- */
-pair<DepthBuffer, RefreshBuffer> depthBufferMethod (const Polygon& polygon)
+typedef map<Pt2D, pair<double, Color> >Buffers;
+
+using std::make_pair;
+
+double computeZ (double x, double y, const Polygon& polygon)
 {
-	DepthBuffer depth;
-	RefreshBuffer refresh;
-
-	double x, y, z;
-
-	// Compute 'z' TODO
-
-	for ( x = polygon.xmin(); x < polygon.xmax(); x += X_INCR)
-	{
-		std::cerr << polygon.ymin() << " " << polygon.ymax() << "\n";
-		for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
-		{
-			// Since its only one polygon, just insert the values in refresh and depth buffer.
-			z = ( -polygon.A() * x - polygon.B() * y - polygon.D() ) * 1.0 / polygon.C();
-      Pt2D tmpPt(x,y);
-      std::cerr << "x,y -> " << x << "," << y << "  "
-                << "x',y' ->"<< tmpPt.x << "," << tmpPt.y << "\n";
-			depth[tmpPt]   = z;
-			refresh[tmpPt] = polygon.getColor();
-		}
-	}
-	std::cerr << "HERE\n";
-	return make_pair (depth, refresh);
+  return (-polygon.A() * x - polygon.B() * y - polygon.D()) * 1.0/polygon.C();
 }
 
-map<Pt2D,Color> depthBufferMethod (const list<Polygon>& polygons)
+Buffers polygonBuffers (const Polygon& polygon)
 {
-	list<Polygon>::const_iterator itr;
-	DepthBuffer depth;
-	RefreshBuffer refresh;
+  Buffers buffers;
+  double x, y, z;
 
-	for (itr = polygons.begin(); itr != polygons.end(); itr++)
-	{
-		std::cerr << "Loop 1\n";
-		// Call the depth buffer function for each polygon.
-		pair<DepthBuffer, RefreshBuffer> tmpPair = depthBufferMethod (*itr);
+  for ( x = polygon.xmin(); x < polygon.xmax(); x += X_INCR)
+  {
+    for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
+    {
+      z = computeZ (x, y, polygon);
+      std::cerr << "Color : " << polygon.getColor().r << ","
+                << polygon.getColor().g << ","
+                << polygon.getColor().b << "\n";
+      buffers[Pt2D (x,y)] = make_pair (z, polygon.getColor());
+    }
+  }
+  
+  return buffers;
+}
 
-		// Update main depth-buffer and refresh buffer.
-		DepthBuffer::iterator itrDepth;
-		RefreshBuffer::iterator itrRefresh;
-		for ( itrDepth = tmpPair.first.begin(); itrDepth != tmpPair.first.end(); itrDepth++)
-		{
-			DepthBuffer::iterator itrTmp;
-			if ( (itrTmp = depth.find(itrDepth->first)) != depth.end())
-			{
-				// If found in existing table
-				if ( itrDepth->second > itrTmp->second )
-				{
-					itrTmp->second = itrDepth->second;
-					refresh[itrDepth->second] = tmpPair.second[itrDepth->first];
-				}
-			}
-			else
-			{
-				// if it is not found in the existing table, add it.
-				depth[itrDepth->first]   = itrDepth->second;
-				refresh[itrDepth->first] = tmpPair.second[itrDepth->second];
-			}
-		}
-	}
+RefreshBuffer depthBufferMethod (const list<Polygon>& polygons)
+{
+  RefreshBuffer refreshBuffer;
+  DepthBuffer depthBuffer;
 
-	return refresh;
+  RefreshBuffer::iterator refreshBufferItr;
+  DepthBuffer::iterator depthBufferItr;
+
+  list<Polygon>::const_iterator itr;
+  for (itr = polygons.begin(); itr != polygons.end(); itr++)
+  {
+    const Buffers pBuffers = polygonBuffers(*itr);
+    Buffers::const_iterator pbItr;   // polygon buffers Iterator
+
+    for (pbItr = pBuffers.begin(); pbItr != pBuffers.end(); pbItr++)
+    {
+      if ( (depthBufferItr = depthBuffer.find(pbItr->first)) != 
+                                                      depthBuffer.end() )
+      {
+        std::cerr << "x : " << pbItr->first.x << " , y : " << pbItr->first.y
+                  << "\n";
+        // If the height of the new polygon is greater than that of stored
+        // height, refresh the depth and refresh buffer.
+        if ( pbItr->second.first > depthBufferItr->second)
+        {
+          depthBufferItr->second = pbItr->second.first;
+          refreshBuffer[pbItr->first] = pbItr->second.second;
+        }
+      }
+      else
+      { 
+        // point doesn't already exist in the table. Add it to the table.
+        depthBuffer[pbItr->first] = pbItr->second.first;
+        refreshBuffer[pbItr->first] = pbItr->second.second;
+      }
+    }
+  }
+
+  return refreshBuffer;
 }

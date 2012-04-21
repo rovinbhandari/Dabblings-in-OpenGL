@@ -34,13 +34,18 @@ Polygon::Polygon (const vector<Pt3D>& vertices, const Vector& normal)
 }
 
 Pt2D::Pt2D (const double& x, const double& y)
-  : x(x), y(y)
 {
+  this->x = x;
+  this->y = y;
 }
 
+/* IMPORTANT : This function plays an important role in the map.
+ * When this didn't work correctly, the map showed only points of the form
+ * (x,x).
+ */
 bool Pt2D::operator < (const Pt2D& rhs) const
 {
-  return (x < rhs.x) ? (y < rhs.y) : (false);
+  return (x < rhs.x) ? true : (x == rhs.x) ? (y < rhs.y) : false;
 }
 
 bool Pt2D::operator == (const Pt2D& rhs) const
@@ -69,8 +74,10 @@ double Polygon::ymax () const
 }
 
 Pt3D::Pt3D (const double& x, const double& y, const double& z)
-  : x(x), y(y), z(z)
 {
+  this->x = x;
+  this->y = y;
+  this->z = z;
 }
 
 Color Polygon::getColor () const
