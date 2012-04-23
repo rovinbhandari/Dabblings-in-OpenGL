@@ -3,8 +3,8 @@
 #include <pipelineFunctions.h>
 #include <iostream>
 
-#define X_INCR 0.1
-#define Y_INCR 0.1
+#define X_INCR 0.01
+#define Y_INCR 0.01
 
 typedef map<Pt2D, pair<double, Color> >Buffers;
 
@@ -12,7 +12,7 @@ using std::make_pair;
 
 double computeZ (double x, double y, const Polygon& polygon)
 {
-  return (-polygon.A() * x - polygon.B() * y - polygon.D()) * 1.0/polygon.C();
+  return (-polygon.A() * x - polygon.B() * y + polygon.D()) * 1.0/polygon.C();
 }
 
 Buffers polygonBuffers (const Polygon& polygon)
@@ -25,9 +25,10 @@ Buffers polygonBuffers (const Polygon& polygon)
     for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
     {
       z = computeZ (x, y, polygon);
-      std::cerr << "Color : " << polygon.getColor().r << ","
+      polygon.hasPoint (Pt3D (x,y,z));
+/*      std::cerr << "Color : " << polygon.getColor().r << ","
                 << polygon.getColor().g << ","
-                << polygon.getColor().b << "\n";
+                << polygon.getColor().b << "\n";*/
       buffers[Pt2D (x,y)] = make_pair (z, polygon.getColor());
     }
   }
@@ -54,8 +55,9 @@ RefreshBuffer depthBufferMethod (const list<Polygon>& polygons)
       if ( (depthBufferItr = depthBuffer.find(pbItr->first)) != 
                                                       depthBuffer.end() )
       {
-        std::cerr << "x : " << pbItr->first.x << " , y : " << pbItr->first.y
-                  << "\n";
+/*        std::cerr << "x : " << pbItr->first.x << " , y : " << pbItr->first.y
+                  << " znew : " << depthBufferItr->second << ", zold : " << pbItr->second.first
+                  << "\n";*/
         // If the height of the new polygon is greater than that of stored
         // height, refresh the depth and refresh buffer.
         if ( pbItr->second.first > depthBufferItr->second)

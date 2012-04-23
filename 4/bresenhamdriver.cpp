@@ -1,9 +1,11 @@
 #include <BresenhamAlgorithm.hpp>
+#include <pipelineFunctions.h>
+#include <iostream>
 
 GLfloat lightpos[] = {5.f, 12.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
 
-int opt, nopts = 1;
+int opt, nopts = 2;
 
 GLdouble eyex = 10;
 GLdouble eyey = 10;
@@ -34,6 +36,7 @@ void display (void)
 	eyex = 10 * root2 * sin(angle);
 
 	fprintf(stderr, "eyex = %lf\neyey = %lf\neyez = %lf\n\n", eyex, eyey, eyez);
+  std::cerr << "Case " << opt << "\n";
 
 	eyePosition[0] = eyex;
 	eyePosition[1] = eyey;
@@ -45,12 +48,65 @@ void display (void)
 	Pt2D A(0, 0), B(4, 0);
 	Color C = {32.0d/255, 178.0/255, 0.0, 1.0};
 
-   switch(opt)
+  vector<Pt3D> vertices;
+	vertices.push_back(Pt3D(0,0,1));
+	vertices.push_back(Pt3D(5,0,1));
+	vertices.push_back(Pt3D(2,5,1));
+	vertices.push_back(Pt3D(0,5,1));
+
+  Polygon t (vertices, Vector (0,0,1));
+  
+  vertices.clear();
+	vertices.push_back(Pt3D(0,0,2));
+	vertices.push_back(Pt3D(3,0,2));
+	vertices.push_back(Pt3D(3,3,2));
+	vertices.push_back(Pt3D(0,3,2));
+	Polygon u (vertices, Vector(0,0,1));
+  Color c;
+  list<Polygon> l;
+	map<Pt2D,Color> depth;
+  map<Pt2D,Color>::iterator itr;
+ switch(opt)
    {
       case 0:
 		BresenhamLine(A, B, C);
 
         break;
+      case 1:
+      
+      std::cerr << "IN CASE 1\n";
+      c.r = 1;
+      c.g = 0;
+      c.b = 0;
+	
+	  t.setColor (c);
+	std::cerr << "Polygon 1 ready\n";
+      
+      c.r = 1;
+      c.g = 1;
+      c.b = 1;
+	
+  u.setColor (c);
+	std::cerr << "Polygon 2 ready\n";
+  
+  l.clear();
+	l.push_back(t);
+	l.push_back(u);
+  depth = depthBufferMethod (l);
+	  for (itr = depth.begin(); itr != depth.end(); itr++)
+  {
+      glColor3f (itr->second.r, itr->second.g, itr->second.b);
+      glBegin(GL_POINTS);
+      glVertex2f (itr->first.x, itr->first.y);
+/*      std::cerr << itr->first.x  << "," << itr->first.y << "  -- "
+              << itr->second.r << ","
+              << itr->second.g << ","
+              << itr->second.b << "\n"; 
+*/	    glEnd();
+  }
+    std::cerr << "Done";
+    break;
+ 
 
 	default:
 	break;

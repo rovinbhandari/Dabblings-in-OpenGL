@@ -95,3 +95,13 @@ void Polygon::setColor (const Color& color)
 {
   rgbi = color;
 }
+
+
+bool Polygon::hasPoint (const Pt3D& point)
+{
+  // First check if the point lies on the plane
+  if ( normal.X() * point.x + normal.Y() * point.y + normal.Z() * point.z != Deq )
+    return false;
+  
+  // Check if the point is in the polygon.
+}

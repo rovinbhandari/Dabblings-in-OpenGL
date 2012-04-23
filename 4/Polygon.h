@@ -35,6 +35,7 @@ class Polygon
     double xmax () const;
     double ymin () const;
     double ymax () const;
+    bool contains (const Pt3D& point);
 
   private:
     vector<Pt3D> vertices;

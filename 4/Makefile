@@ -10,6 +10,9 @@ LINK_BRESENHAM = -lGLU -lGL -lglut -lm
 all: $(OBJECTS)
 	${CC} $^ -g -o ${BIN}/demo.out -lm
 
+test: ${OBJECTS_BRESENHAM} $(OBJ)/pipelineFunctions.o
+	${CC} $^ ${LINK_BRESENHAM} -o ${BIN}/bresenhamdriver.out
+
 bresenham: ${OBJECTS_BRESENHAM}
 	${CC} $^ ${LINK_BRESENHAM} -o ${BIN}/bresenhamdriver.out
 
