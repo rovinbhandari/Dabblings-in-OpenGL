@@ -51,7 +51,7 @@ void display (void)
   vector<Pt3D> vertices;
 	vertices.push_back(Pt3D(0,0,1));
 	vertices.push_back(Pt3D(5,0,1));
-	vertices.push_back(Pt3D(2,5,1));
+	vertices.push_back(Pt3D(0,5,1));
 	vertices.push_back(Pt3D(0,5,1));
 
   Polygon t (vertices, Vector (0,0,1));

@@ -25,11 +25,13 @@ Buffers polygonBuffers (const Polygon& polygon)
     for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
     {
       z = computeZ (x, y, polygon);
-      polygon.hasPoint (Pt3D (x,y,z));
+      if (polygon.contains (Pt3D (x,y,z)))
+      {
 /*      std::cerr << "Color : " << polygon.getColor().r << ","
                 << polygon.getColor().g << ","
                 << polygon.getColor().b << "\n";*/
-      buffers[Pt2D (x,y)] = make_pair (z, polygon.getColor());
+        buffers[Pt2D (x,y)] = make_pair (z, polygon.getColor());
+      }
     }
   }
   

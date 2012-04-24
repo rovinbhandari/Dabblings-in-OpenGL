@@ -1,6 +1,7 @@
 // This file contains the definition of the Polygon class
 #include <Polygon.h>
 #include <cfloat>
+#include <iostream>
 
 inline double min (const double& a, const double& b)
 {
@@ -97,11 +98,46 @@ void Polygon::setColor (const Color& color)
 }
 
 
-bool Polygon::hasPoint (const Pt3D& point)
+/* It assumes that p1(x1,y1) & p2(x2,y2) define one line, while p3(x3,y3) and 
+ * p4(x4,y4) defines another. p(x,y) is the point that needs to be checked 
+ * whether it lies between the two lines.
+ */
+bool containedBetweenLines (const Pt3D& p, const Pt3D& p1,
+                        const Pt3D& p2, const Pt3D& p3, const Pt3D& p4)
+{
+  double tmp1 = (p.y - p1.y) * (p1.x - p2.x)  - (p.x - p1.x) * (p1.y - p2.y);
+  double tmp2 = (p.y - p3.y) * (p3.x - p4.x)  - (p.x - p3.x) * (p3.y - p4.y);
+
+  if (tmp1 * tmp2 > 0)
+  {
+    std::cout << "tmp1 = " << tmp1 << ", tmp2 = " << tmp2 << "\n";
+    std::cout <<  "p1.x = " << p1.x  
+              << ",p1.y = " << p1.y 
+              << ",p2.x = " << p2.x 
+              << ",p2.y = " << p2.y 
+              << ",p3.x = " << p3.x 
+              << ",p3.y = " << p3.y 
+              << ",p4.x = " << p4.x 
+              << ",p4.y = " << p4.y << "\n";
+  }
+  return (tmp1 * tmp2 < 0);
+}
+
+bool Polygon::contains (const Pt3D& point) const
 {
   // First check if the point lies on the plane
   if ( normal.X() * point.x + normal.Y() * point.y + normal.Z() * point.z != Deq )
+  {
     return false;
+  }
   
   // Check if the point is in the polygon.
+  /* Check between the pairs of parallel lines only. This assumes that 
+   * points occur in cyclic order only.
+   */
+  return (containedBetweenLines (point, vertices[0], vertices[1], 
+                            vertices[2], vertices[3]) ) ? true :
+                            containedBetweenLines (point, vertices[0],                                                    vertices[2], vertices[1],
+                                            vertices[3]);
+  
 }
