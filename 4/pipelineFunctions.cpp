@@ -132,19 +132,57 @@ Pt3D transform (const Pt3D& p, const Matrixd& transformation)
   return Pt3D (multiplyMatrices (transformation, ptMatrix)[0]);
 }
 
+
 Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
                   const Vector& viewNormal)
 {
+#define MATRIX_SIZE 4
+  
+  // Construct a column vector (matrix) of p.
+  Matrixd ptMatrix;
+  ptMatrix.push_back (vector<double> (1, point.x));
+  ptMatrix.push_back (vector<double> (1, point.y));
+  ptMatrix.push_back (vector<double> (1, point.z));
+  ptMatrix.push_back (vector<double> (1, 1));
+
   // Construct the translation matrix.
   Matrixd translation;
-  vector<double> tmp(4,0);
 
-  // Translate the point.
+  for (int i = 0; i < MATRIX_SIZE; i++)
+  {
+    translation.push_back (vector<double> (MATRIX_SIZE, 0));
+    translation[i][i] = 1;
+  }
+  translation[0][3] = -eyeAt.X();
+  translation[1][3] = -eyeAt.Y();
+  translation[2][3] = -eyeAt.Z();
 
-  // Construct Rotation matrix
+  /* Construct Rotation matrix */
+  // First calculate vectors that are required for the matrix
+  Vector n   = viewNormal.normalized();
+  Vector tmp = up % n; // Cross product
+  Vector u   = tmp / tmp.magnitude();
+  Vector v   = n % u;
+  
+  // Construct the matrix
+  Matrixd rotation;
+  vector <double> t (4,0);
+  // First row
+  t[0] = u.X(); t[1] = u.Y(); t[2] = u.Z();
+  rotation.push_back (t);
+  // Second row
+  t[0] = v.X(); t[1] = v.Y(); t[2] = v.Z();
+  rotation.push_back (t);
+  // Third row
+  t[0] = n.X(); t[1] = n.Y(); t[2] = n.Z();
+  rotation.push_back (t);
+  //Fourth row
+  t[3] = 1;
+  rotation.push_back (t);
 
-  // Multiply the matrices.
-
+  // Multiply the matrices
+  return Pt3D (multiplyMatrices ( multiplyMatrices (rotation, translation),
+                                  ptMatrix)[0]);
 }
 
 string Matrixd2String (const Matrixd& m)

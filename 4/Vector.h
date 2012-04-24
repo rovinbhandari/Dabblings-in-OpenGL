@@ -42,9 +42,13 @@ class Vector
     Vector operator- () const;                    // Unary minus
     Vector operator- (const Vector& rhs) const;   // Calculates the difference
     // Vector multiplied by a real
-    Vector operator* (const double& constant) const;  // Multiplication with a real
+    Vector operator* (const double& constant) const;  // Multiplication with a scalar
+    Vector operator/ (const double& constant) const;  // Division by scalar
     friend Vector operator* (const double& constant, const Vector& v);
     double magnitude () const;
+    Vector normalized () const; // Returns another Vector that is normalized
+    Vector operator% (const Vector& rhs) const; // Cross product. (XXX)
+
 
     // Getters
     double X() const { return x; }

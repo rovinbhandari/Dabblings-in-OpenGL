@@ -63,4 +63,17 @@ double Vector::magnitude () const
   return sqrt(*this * *this);
 }
 
+Vector Vector::operator/ (const double& k) const
+{
+  return Vector ( x / k, y / k, z / k);
+}
 
+Vector Vector::normalized () const
+{
+  return Vector ( *this / magnitude());
+}
+
+Vector Vector::operator % (const Vector& rhs) const
+{
+  return Vector (y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
+}
