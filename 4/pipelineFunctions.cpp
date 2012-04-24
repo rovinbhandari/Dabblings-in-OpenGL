@@ -1,7 +1,7 @@
 /* This file contains the definition of the pipeline transformation functions.*/
 
 #include <pipelineFunctions.h>
-#include <iostream>
+#include <sstream>
 
 #define X_INCR 0.01
 #define Y_INCR 0.01
@@ -9,6 +9,7 @@
 typedef map<Pt2D, pair<double, Color> >Buffers;
 
 using std::make_pair;
+using std::stringstream;
 
 double computeZ (double x, double y, const Polygon& polygon)
 {
@@ -144,4 +145,20 @@ Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
 
   // Multiply the matrices.
 
+}
+
+string Matrixd2String (const Matrixd& m)
+{
+  int i, j;
+  stringstream output;
+  for ( i = 0; i < m.size(); i++)
+  {
+    for ( j = 0; j < m[i].size(); j++)
+    {
+      output << m[i][j] << ( j != m[i].size() - 1 ? "\t" : "");
+    }
+    output << "\n";
+  }
+
+  return output.str();
 }

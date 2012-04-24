@@ -4,11 +4,13 @@
 
 #include <map>
 #include <list>
+#include <string>
 #include <Polygon.h>
 
 using std::map;
 using std::list;
 using std::pair;
+using std::string;
 
 typedef map<Pt2D,double> DepthBuffer ;
 typedef map<Pt2D,Color> RefreshBuffer;
@@ -40,7 +42,7 @@ Pt3D transform (const Pt3D& point, const Matrixd& transformation);
  * i.e. vector<vector<double> > is consistent with a matrix. Each row has 
  * the same number of entries.
  */
-Matrixd mutliplyMatrices (const Matrixd& m1, const Matrixd& m2);
+Matrixd multiplyMatrices (const Matrixd& m1, const Matrixd& m2);
 
 
 /* Function to convert from world co-ordinate system to view co-ordinate.
@@ -49,5 +51,7 @@ Matrixd mutliplyMatrices (const Matrixd& m1, const Matrixd& m2);
  */
 Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
                  const Vector& viewNormal);
+/* Function that converts a Matrixd to a string */
+string Matrixd2String (const Matrixd& m);
 
 #endif	// End of file
