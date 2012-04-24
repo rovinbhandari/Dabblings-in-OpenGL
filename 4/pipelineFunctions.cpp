@@ -127,9 +127,8 @@ Pt3D transform (const Pt3D& p, const Matrixd& transformation)
   ptMatrix.push_back (vector<double> (1, p.z));
   ptMatrix.push_back (vector<double> (1, 1));
 
-  Matrixd output = multiplyMatrices (transformation, ptMatrix);
-
-  return Pt3D (output[0][0], output[1][0], output[2][0]);
+  // Return the point formed after applying the transformation */
+  return Pt3D (multiplyMatrices (transformation, ptMatrix)[0]);
 }
 
 Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
@@ -138,6 +137,8 @@ Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
   // Construct the translation matrix.
   Matrixd translation;
   vector<double> tmp(4,0);
+
+  // Translate the point.
 
   // Construct Rotation matrix
 
