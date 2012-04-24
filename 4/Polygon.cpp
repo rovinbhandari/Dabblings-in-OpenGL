@@ -111,16 +111,19 @@ bool containedBetweenLines (const Pt3D& p, const Pt3D& p1,
   if (tmp1 * tmp2 > 0)
   {
     std::cout << "tmp1 = " << tmp1 << ", tmp2 = " << tmp2 << "\n";
-    std::cout <<  "p1.x = " << p1.x  
-              << ",p1.y = " << p1.y 
-              << ",p2.x = " << p2.x 
-              << ",p2.y = " << p2.y 
-              << ",p3.x = " << p3.x 
-              << ",p3.y = " << p3.y 
-              << ",p4.x = " << p4.x 
-              << ",p4.y = " << p4.y << "\n";
+    std::cout <<   "p1.x = " << p1.x  
+              << ", p1.y = " << p1.y 
+              << ", p2.x = " << p2.x 
+              << ", p2.y = " << p2.y 
+              << ", p3.x = " << p3.x 
+              << ", p3.y = " << p3.y 
+              << ", p4.x = " << p4.x 
+              << ", p4.y = " << p4.y 
+              << ", p.x = "  <<  p.x 
+              << ", p.y = "  <<  p.y 
+              << "\n";
   }
-  return (tmp1 * tmp2 < 0);
+  return (tmp1 * tmp2 <= 0);
 }
 
 bool Polygon::contains (const Pt3D& point) const
@@ -135,9 +138,8 @@ bool Polygon::contains (const Pt3D& point) const
   /* Check between the pairs of parallel lines only. This assumes that 
    * points occur in cyclic order only.
    */
-  return (containedBetweenLines (point, vertices[0], vertices[1], 
-                            vertices[2], vertices[3]) ) ? true :
-                            containedBetweenLines (point, vertices[0],                                                    vertices[2], vertices[1],
-                                            vertices[3]);
-  
-}
+  return (containedBetweenLines (point, vertices[0], vertices[3], 
+                            vertices[1], vertices[2]) ) ?
+                            containedBetweenLines (point, vertices[0],                                                    vertices[1], vertices[3],
+                                            vertices[2]) : false;
+  }
