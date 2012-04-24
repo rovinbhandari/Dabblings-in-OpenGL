@@ -7,7 +7,8 @@
 
 using std::list;
 
-#define MAT_SIZE 3
+#define MAT_SIZE 4
+#define UP_LIM  10
 
 // Function to test Multiplication
 void testMultiplication (void)
@@ -51,7 +52,7 @@ void testMultiplication (void)
   {
     for ( j = 0; j < MAT_SIZE; j++)
     {
-      m2[i][j] = rand() % 10;
+      m2[i][j] = rand() % UP_LIM;
     }
   }
   std::cout << "Product of \n" << Matrixd2String (m1);
@@ -70,6 +71,16 @@ void testMultiplication (void)
     {
       m1[i][j] = rand() % 10;
     }
+  }
+  std::cout << "Product of \n" << Matrixd2String (m1);
+  std::cout << "and \n" << Matrixd2String (m2);
+  std::cout << "Resultant matrix is \n" << Matrixd2String (multiplyMatrices (m1, m2));
+
+  // Since this is a common operation, testing a n x n matrix with n x 1 matrix
+  m2.clear();
+  for (i = 0; i < MAT_SIZE; i++)
+  {
+    m2.push_back (vector<double> (1, rand() % UP_LIM));
   }
   std::cout << "Product of \n" << Matrixd2String (m1);
   std::cout << "and \n" << Matrixd2String (m2);
