@@ -5,12 +5,15 @@ GLfloat light_diffuse[] = {1, 1, 1, 1};
 
 int opt, nopts = 5;
 
-// TODO: add rotation of eye
-
 GLdouble eyex = 10;
 GLdouble eyey = 6;
 GLdouble eyez = 10;
- 
+
+// TODO: extend the 2d rotation of eye to 3d
+#define PI 3.14d
+GLdouble angle = PI / 180.0d * 45.0d;
+const double root2 = sqrt(2);
+
 void keyboard(unsigned char, int, int);
 void reshape(int, int);
 
@@ -20,18 +23,27 @@ static GLfloat textureB1[] = {0.84, 0, 0, 1};
 static GLfloat textureB2[] = {0, 0.84, 0, 1};
 static GLfloat textureB3[] = {0, 0, 0.84, 1};
 
-#define DELTA 0.02
-void renderA(GLboolean makehole)
+#define DELTA 0.002
+GLboolean maketophole, makebothole;
+void renderA()
 {
 	glPushMatrix();
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureA);
 	bwCuboid(5, 5, 3);
-	if(makehole)
+	if(maketophole)
 	{
 		glPushMatrix();
 	   	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureAhole);
-		glTranslated(2, -0.5 * DELTA, 2);
-		bwCuboid(1, 1, 3 + DELTA);
+		glTranslated(2, 3, 2);
+		bwCuboid(1, 1, DELTA);
+		glPopMatrix();
+	}
+	if(makebothole)
+	{
+		glPushMatrix();
+	   	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureAhole);
+		glTranslated(2, -DELTA, 2);
+		bwCuboid(1, 1, DELTA);
 		glPopMatrix();
 	}
 	glPopMatrix();
@@ -41,7 +53,8 @@ void renderB()
 {
 	glPushMatrix();
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, textureB1);
-	bwCuboid(1, 1, 3);
+	glTranslated(0, -DELTA, 0);
+	bwCuboid(1, 1, 3 + DELTA);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -64,10 +77,12 @@ void display (void)
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
    
+	eyez = 10 * root2 * cos(angle);
+	eyex = 10 * root2 * sin(angle);
+
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-	renderA(!((GLboolean) opt));
 
    switch(opt)
    {
@@ -76,32 +91,44 @@ void display (void)
 		glTranslated(6, -3, -1);
 		renderB();
 		glPopMatrix();
+		maketophole = GL_TRUE;
+		makebothole = GL_TRUE;
 	break;
       case 1:
         	glPushMatrix();
 		glTranslated(2, 3, 2);
 		renderB();
 		glPopMatrix();
+		maketophole = GL_FALSE;
+		makebothole = GL_TRUE;
 	break;
       case 2:
         	glPushMatrix();
 		glTranslated(2, 0, 2);
 		renderB();
 		glPopMatrix();
+		maketophole = GL_FALSE;
+		makebothole = GL_FALSE;
 	break;
       case 3:
         	glPushMatrix();
 		glTranslated(2, -3, 2);
 		renderB();
 		glPopMatrix();
+		maketophole = GL_FALSE;
+		makebothole = GL_FALSE;
 	break;
       case 4:
         	glPushMatrix();
 		glTranslated(2, -6, 2);
 		renderB();
 		glPopMatrix();
+		maketophole = GL_FALSE;
+		makebothole = GL_FALSE;
 	break;
    }
+	renderA(GL_TRUE, GL_TRUE);
+
    glutSwapBuffers();
 }
 
@@ -146,13 +173,27 @@ void keyboard (unsigned char key, int x, int y)
       case 27 :
          exit (0);
          break;
-      case 'a' :
-      case 'z' :
+	case 'a':
+	case 'A':
+		angle += PI / 180.0d * 20.0d;
+		break;
+	case 'z':
+	case 'Z':
+		angle -= PI / 180.0d * 20.0d;
+		break;
+	case 's':
+	case 'S':
+		eyey++;
+		break;
+	case 'x':
+	case 'X':
+		eyey--;
+		break;
       default:
          opt = (opt + 1) % nopts;
-		glutPostRedisplay();
          break;
    }
+		glutPostRedisplay();
 }
 
 void reshape (int w, int h)
