@@ -4,6 +4,9 @@
 #define VECTOR_INCLUDED
 
 #include <vector>
+#include <string>
+
+using std::string;
 using std::vector;
 
 class Pt2D
@@ -27,6 +30,9 @@ class Pt3D
     // Constructors
     Pt3D (const double& x = 0, const double& y = 0, const double& z = 0);
     Pt3D (const vector<double>& pt); // Assumes at least three entries
+
+    // Public methods
+    string toString (void);
 };
 
 class Vector

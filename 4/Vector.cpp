@@ -2,6 +2,9 @@
 
 #include <Vector.h>
 #include <cmath>
+#include <sstream>
+
+using std::stringstream;
 
 Vector::Vector (const double x, const double y, const double z)
   : x(x), y(y), z(z)
@@ -76,4 +79,11 @@ Vector Vector::normalized () const
 Vector Vector::operator % (const Vector& rhs) const
 {
   return Vector (y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
+}
+
+string Pt3D::toString (void)
+{
+  stringstream output;
+  output << "(" << x << "," << y << "," << z << ")";
+  return output.str();
 }

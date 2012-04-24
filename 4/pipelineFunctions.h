@@ -49,7 +49,7 @@ Matrixd multiplyMatrices (const Matrixd& m1, const Matrixd& m2);
  * It requires three inputs. The position of the eye, the up direction and
  * the normal of the viewing plane.
  */
-Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
+Pt3D world2view (const Pt3D& point, const Pt3D& eyeAt, const Vector& up,
                  const Vector& viewNormal);
 /* Function that converts a Matrixd to a string */
 string Matrixd2String (const Matrixd& m);

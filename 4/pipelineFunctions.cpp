@@ -2,6 +2,7 @@
 
 #include <pipelineFunctions.h>
 #include <sstream>
+#include <iostream>
 
 #define X_INCR 0.01
 #define Y_INCR 0.01
@@ -132,11 +133,11 @@ Pt3D transform (const Pt3D& p, const Matrixd& transformation)
   return Pt3D (multiplyMatrices (transformation, ptMatrix)[0]);
 }
 
+#define MATRIX_SIZE 4
 
-Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
+Pt3D world2view (const Pt3D& point, const Pt3D& eyeAt, const Vector& up,
                   const Vector& viewNormal)
 {
-#define MATRIX_SIZE 4
   
   // Construct a column vector (matrix) of p.
   Matrixd ptMatrix;
@@ -147,16 +148,17 @@ Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
 
   // Construct the translation matrix.
   Matrixd translation;
-
+  
   for (int i = 0; i < MATRIX_SIZE; i++)
   {
     translation.push_back (vector<double> (MATRIX_SIZE, 0));
     translation[i][i] = 1;
   }
-  translation[0][3] = -eyeAt.X();
-  translation[1][3] = -eyeAt.Y();
-  translation[2][3] = -eyeAt.Z();
+  translation[0][3] = -eyeAt.x;
+  translation[1][3] = -eyeAt.y;
+  translation[2][3] = -eyeAt.z;
 
+  std::cout << Matrixd2String (translation);
   /* Construct Rotation matrix */
   // First calculate vectors that are required for the matrix
   Vector n   = viewNormal.normalized();
@@ -177,8 +179,10 @@ Pt3D world2view (const Pt3D& point, const Vector& eyeAt, const Vector& up,
   t[0] = n.X(); t[1] = n.Y(); t[2] = n.Z();
   rotation.push_back (t);
   //Fourth row
-  t[3] = 1;
+  t[0] = t[1] = t[2] = 0; t[3] = 1;
   rotation.push_back (t);
+
+  std::cout << Matrixd2String (rotation);
 
   // Multiply the matrices
   return Pt3D (multiplyMatrices ( multiplyMatrices (rotation, translation),

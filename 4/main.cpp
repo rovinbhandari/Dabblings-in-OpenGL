@@ -4,6 +4,7 @@
 #include <list>
 #include <cstdlib>  // required for rand() 
 #include <ctime>    // required for time()
+#include <cstdio>
 
 using std::list;
 
@@ -87,9 +88,19 @@ void testMultiplication (void)
   std::cout << "Resultant matrix is \n" << Matrixd2String (multiplyMatrices (m1, m2));
 }
 
+void testWorld2View (void)
+{
+  Pt3D pt (0,0,0), eye (1,1,1);
+  Vector up (0,0,1), view (1,0,0);
+
+  Pt3D t = world2view (pt, eye, up, view);
+  printf ("(%F,%F,%F)\n", t.x, t.y, t.z);
+}
+
 int main (void)
 {
-  testMultiplication ();
+  testWorld2View ();
+//  testMultiplication ();
 /*	vector<Pt3D> vertices;
   Color c;
   c.r = c.g = c.b = 1;
