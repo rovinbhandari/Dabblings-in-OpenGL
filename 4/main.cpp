@@ -97,6 +97,12 @@ void testWorld2View (void)
   printf ("(%f,%f,%f)\n", t.x, t.y, t.z);
 }
 
+void testCuboid (void)
+{
+  Cuboid t (Pt3D (0,0,0));
+}
+
+
 int main (void)
 {
   testWorld2View ();

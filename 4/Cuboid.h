@@ -4,15 +4,20 @@
 
 #include <Polygon.h>
 #include <vector>
+#include <list>
 
 using std::vector;
+using std::list;
 
 class Cuboid 
 {
   public:
-    Cuboid (const Pt3D& centerPoint, const double& length, 
-            const double& breadth, const double& height );
+    // Constructors
+    Cuboid (const Pt3D& centerPoint, const double& length = 1, 
+            const double& breadth = 1, const double& height = 1);
 
+    // Public methods
+    list<Polygon> toPolygonList (void);
   private:
     vector<Polygon> faces;
 };

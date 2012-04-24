@@ -43,3 +43,15 @@ Cuboid::Cuboid (const Pt3D& point, const double& length,
     faces.push_back (Polygon (getFaceVertices (vertices, i), getNormal (i)));
   }
 }
+
+list<Polygon> Cuboid::toPolygonList (void)
+{
+  int i; 
+  list<Polygon> retList;
+  for (i = 0; i < faces.size(); i++)
+  {
+    retList.push_back (faces[i]);
+  }
+
+  return retList;
+}
