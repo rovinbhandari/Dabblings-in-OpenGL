@@ -13,6 +13,20 @@ Vector::Vector (const Pt3D& point)
 {
 }
 
+Pt3D::Pt3D (const double& x, const double& y, const double& z)
+{
+  this->x = x;
+  this->y = y;
+  this->z = z;
+}
+
+Pt3D::Pt3D (const vector<double>& pt)
+{
+  this->x = pt[0];
+  this->y = pt[1];
+  this->z = pt[2];
+}
+
 Vector Vector::operator+ (const Vector& rhs) const
 {
   return Vector(x + rhs.x, y + rhs.y, z + rhs.z);

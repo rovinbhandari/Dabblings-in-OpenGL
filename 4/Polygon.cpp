@@ -74,12 +74,6 @@ double Polygon::ymax () const
   return yMax;
 }
 
-Pt3D::Pt3D (const double& x, const double& y, const double& z)
-{
-  this->x = x;
-  this->y = y;
-  this->z = z;
-}
 
 Color Polygon::getColor () const
 {
@@ -142,4 +136,4 @@ bool Polygon::contains (const Pt3D& point) const
                             vertices[1], vertices[2]) ) ?
                             containedBetweenLines (point, vertices[0],                                                    vertices[1], vertices[3],
                                             vertices[2]) : false;
-  }
+}
