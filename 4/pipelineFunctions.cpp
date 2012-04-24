@@ -163,7 +163,7 @@ Pt3D world2view (const Pt3D& point, const Pt3D& eyeAt, const Vector& up,
   // First calculate vectors that are required for the matrix
   Vector n   = viewNormal.normalized();
   Vector tmp = up % n; // Cross product
-  Vector u   = tmp / tmp.magnitude();
+  Vector u   = (tmp.magnitude() > 0) ? tmp / tmp.magnitude() : tmp;
   Vector v   = n % u;
   
   // Construct the matrix
