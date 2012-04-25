@@ -11,6 +11,9 @@ using std::vector;
 struct Color
 {
   double r, g, b, i;
+  
+  Color (const double& r, const double& g, const double& b)
+  { this->r = r; this->g = g; this->b = b; }
 };
 
 class Polygon

@@ -32,7 +32,7 @@ class Pt3D
     Pt3D (const vector<double>& pt); // Assumes at least three entries
 
     // Public methods
-    string toString (void);
+    string toString (void) const;
 };
 
 class Vector

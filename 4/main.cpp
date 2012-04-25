@@ -5,6 +5,7 @@
 #include <cstdlib>  // required for rand() 
 #include <ctime>    // required for time()
 #include <cstdio>
+#include <Cuboid.h>
 
 using std::list;
 
@@ -100,6 +101,7 @@ void testWorld2View (void)
 void testCuboid (void)
 {
   Cuboid t (Pt3D (0,0,0));
+  list<Polygon> l = t.toPolygonList();
 }
 
 

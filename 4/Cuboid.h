@@ -13,7 +13,7 @@ class Cuboid
 {
   public:
     // Constructors
-    Cuboid (const Pt3D& centerPoint, const double& length = 1, 
+    Cuboid (const Pt3D& point, const double& length = 1, 
             const double& breadth = 1, const double& height = 1);
 
     // Public methods

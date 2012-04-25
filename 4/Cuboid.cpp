@@ -1,5 +1,6 @@
 /* This file defines the class and methods of the Cuboid class. */
 #include <Cuboid.h>
+#include <iostream>
 
 static double CuboidNormals[6][3] = {
 			{-1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {1.0, 0.0, 0.0},
@@ -16,7 +17,9 @@ static vector<Pt3D> getFaceVertices (const vector <Pt3D>& vertices, const int& i
   for (int j = 0; j < 4; j++)
   {
     ret[j] = vertices[CuboidFaces[i][j]];
+    std::cerr << ret[j].toString() << "\n";
   }
+  return ret;
 }
 
 static Vector getNormal (const int& i)
@@ -27,20 +30,25 @@ static Vector getNormal (const int& i)
 Cuboid::Cuboid (const Pt3D& point, const double& length,
                 const double& breadth, const double& height)
 {
+  std::cerr << "In Cuboid()\n";
   // Consider a 1 x 1 x 1 cube symmetrically with one point being 'point'. 
   vector<Pt3D> vertices (8);
-  vertices[0] = Pt3D (0, 0, breadth);
-	vertices[1] = Pt3D (0, 0, 0);	
-	vertices[2] = Pt3D (0, height, 0);
-	vertices[3] = Pt3D (0, height, breadth);
-	vertices[4] = Pt3D (length, 0, breadth);
-	vertices[5] = Pt3D (length, 0, 0);
-	vertices[6] = Pt3D (length, height, 0);	
-	vertices[7] = Pt3D (length, height, breadth);
+  double x = point.x, y = point.y, z = point.z;
+  std::cerr << x << "," << y << "," << z << "\n";
+  vertices[0] = Pt3D (x, y, z + breadth);
+	vertices[1] = Pt3D (x, y, z);	
+	vertices[2] = Pt3D (x, y + height, z);
+	vertices[3] = Pt3D (x, y + height, z + breadth);
+	vertices[4] = Pt3D (x + length, y, z + breadth);
+	vertices[5] = Pt3D (x + length, y, z);
+	vertices[6] = Pt3D (x + length, y + height, z);	
+	vertices[7] = Pt3D (x + length, y + height, z + breadth);
 
   for ( int i = 0; i < 6; i++)
   {
+    std::cerr << "iterating for i = " << i << "\n";
     faces.push_back (Polygon (getFaceVertices (vertices, i), getNormal (i)));
+    faces[i].setColor (Color (1,1,1));
   }
 }
 
@@ -48,10 +56,12 @@ list<Polygon> Cuboid::toPolygonList (void)
 {
   int i; 
   list<Polygon> retList;
+  std::cerr << "Creating List\n";
   for (i = 0; i < faces.size(); i++)
   {
     retList.push_back (faces[i]);
   }
-
+  
+  std::cerr << "Returning List\n";
   return retList;
 }

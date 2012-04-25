@@ -81,7 +81,7 @@ Vector Vector::operator % (const Vector& rhs) const
   return Vector (y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
 }
 
-string Pt3D::toString (void)
+string Pt3D::toString (void) const
 {
   stringstream output;
   output << "(" << x << "," << y << "," << z << ")";

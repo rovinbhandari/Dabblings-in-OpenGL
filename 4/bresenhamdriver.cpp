@@ -1,6 +1,7 @@
 #include <BresenhamAlgorithm.hpp>
 #include <pipelineFunctions.h>
 #include <iostream>
+#include <Cuboid.h>
 
 GLfloat lightpos[] = {5.f, 12.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
@@ -89,9 +90,13 @@ void display (void)
   u.setColor (c);
 	std::cerr << "Polygon 2 ready\n";
   
+  /*
   l.clear();
 	l.push_back(t);
 	l.push_back(u);
+  */
+  l = Cuboid(Pt3D(0,0,0)).toPolygonList ();
+  std::cerr << "size of polygon list " << l.size() << "\n";
   depth = depthBufferMethod (l);
 	  for (itr = depth.begin(); itr != depth.end(); itr++)
   {
