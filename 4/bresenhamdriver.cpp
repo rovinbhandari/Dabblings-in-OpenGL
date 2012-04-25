@@ -8,8 +8,8 @@ GLfloat light_diffuse[] = {1, 1, 1, 1};
 
 int opt, nopts = 2;
 
-GLdouble eyex = 10;
-GLdouble eyey = 10;
+GLdouble eyex = 0;
+GLdouble eyey = 0;
 GLdouble eyez = 10;
  
 #define PI 3.14d
@@ -27,14 +27,38 @@ double intensitySource[3];
 
 static const double root2 = sqrt (2);
 
+void glEnable2D()
+{
+  int vPort[4];
+
+   glGetIntegerv(GL_VIEWPORT, vPort);
+
+   glMatrixMode(GL_PROJECTION);
+   glPushMatrix();
+   glLoadIdentity();
+
+   glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
+   glMatrixMode(GL_MODELVIEW);
+   glPushMatrix();
+   glLoadIdentity();
+}
+
+void glDisable2D()
+{
+   glMatrixMode(GL_PROJECTION);
+   glPopMatrix();   
+   glMatrixMode(GL_MODELVIEW);
+   glPopMatrix(); 
+}
+
 void display (void)
 {   
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
    
-	eyez = 10 * root2 * cos(angle);
-	eyex = 10 * root2 * sin(angle);
+//	eyez = 10 * root2 * cos(angle);
+//	eyex = 10 * root2 * sin(angle);
 
 	fprintf(stderr, "eyex = %lf\neyey = %lf\neyez = %lf\n\n", eyex, eyey, eyez);
   std::cerr << "Case " << opt << "\n";
@@ -46,8 +70,8 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-	Pt2D A(0, 0), B(4, 0);
-	Color C = {32.0d/255, 178.0/255, 0.0, 1.0};
+	Pt2D A(0, 0), B(3, 4);
+	Color C (32.0d/255, 178.0/255, 0.0);
 
   vector<Pt3D> vertices;
 	vertices.push_back(Pt3D(0,0,1));
@@ -95,20 +119,22 @@ void display (void)
 	l.push_back(t);
 	l.push_back(u);
   */
-  l = Cuboid(Pt3D(0,0,0)).toPolygonList ();
+  l = Cuboid(Pt3D(0,0,0), 3, 3, 3).toPolygonList ();
   std::cerr << "size of polygon list " << l.size() << "\n";
   depth = depthBufferMethod (l);
+//    glEnable2D();
 	  for (itr = depth.begin(); itr != depth.end(); itr++)
-  {
+    {
       glColor3f (itr->second.r, itr->second.g, itr->second.b);
       glBegin(GL_POINTS);
       glVertex2f (itr->first.x, itr->first.y);
 /*      std::cerr << itr->first.x  << "," << itr->first.y << "  -- "
               << itr->second.r << ","
               << itr->second.g << ","
-              << itr->second.b << "\n"; 
-*/	    glEnd();
-  }
+              << itr->second.b << "\n"; */
+	    glEnd();
+    }
+//    glDisable2D();
     std::cerr << "Done";
     break;
  
@@ -236,8 +262,9 @@ void reshape (int w, int h)
    viewPort (0, 0, (GLsizei) w, (GLsizei) h);
    glMatrixMode (GL_PROJECTION);
    glLoadIdentity ();
+   glFrustum (-2.0, 2.0, -2.0, 2.0, 1.5, 20.0);
 //   Frustum (-1.0, 1.0, 1.0, -1.0, 1.5, 20.0);
-   Frustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+//   Frustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
    glMatrixMode (GL_MODELVIEW);
 }
 

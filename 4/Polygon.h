@@ -12,7 +12,7 @@ struct Color
 {
   double r, g, b, i;
   
-  Color (const double& r, const double& g, const double& b)
+  Color (const double& r = 0, const double& g = 0, const double& b = 0)
   { this->r = r; this->g = g; this->b = b; }
 };
 
