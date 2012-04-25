@@ -70,7 +70,7 @@ void display (void)
    /* Set eye and viewing direction */
    gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-	Pt2D A(0, 0), B(3, 4);
+	Pt2D A(0, 0), B(3, 3);
 	Color C (32.0d/255, 178.0/255, 0.0);
 
   vector<Pt3D> vertices;

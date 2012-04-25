@@ -3,13 +3,14 @@
 #define TOLERANCE 0.00001
 static bool CompareDoubles(double a, double b)
 {
-	if(fabs(a - b) <= fabs(a) * TOLERANCE
-	   || fabs(a - b) <= fabs(b) * TOLERANCE)
+	if(fabs(a - b) <=  TOLERANCE) {
+/*	   || fabs(a - b) <= fabs(b) * TOLERANCE)*/
 		return true;
+    }
 	return false;
 }
 
-#define INTERVAL1 0.01
+#define INTERVAL1 0.0001
 #define INTERVAL2 0.0001
 
 // m<-1, m=-1 -1<m<0 0<m<1,m=1,m>1,dx=0,dy=0
