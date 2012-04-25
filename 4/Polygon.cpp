@@ -2,6 +2,11 @@
 #include <Polygon.h>
 #include <cfloat>
 #include <iostream>
+#include <cstdio>
+#include <pipelineFunctions.h>
+#include <sstream>
+
+using std::stringstream;
 
 inline double min (const double& a, const double& b)
 {
@@ -136,4 +141,37 @@ bool Polygon::contains (const Pt3D& point) const
                             vertices[1], vertices[2]) ) ?
                             containedBetweenLines (point, vertices[0],                                                    vertices[1], vertices[3],
                                              vertices[2]) : false;
+}
+
+void Polygon::applyViewTransformation (const Pt3D& eyeAt, const Vector& up,
+                                       const Vector& viewNormal)
+{
+  int i;
+  xMin = yMin = DBL_MAX;
+  xMax = yMax = -DBL_MAX;
+  
+  for ( i = 0; i < vertices.size(); i++)
+  {
+    vertices[i] = world2view (vertices[i], eyeAt, up, viewNormal);
+    xMax = max (xMax, vertices[i].x);
+    xMin = min (xMin, vertices[i].x);
+
+    yMax = max (yMax, vertices[i].y);
+    yMin = min (yMin, vertices[i].y);
+  }  
+
+//  fprintf (stderr, "%f, %f :: %f, %f\n", xMax, xMin, yMax, yMin);
+// std::cerr << xMax << "," << xMin << " :: " << yMax << "," << yMin << "\n";
+}
+
+string Polygon::toString (void) const
+{
+  stringstream output;
+  int i;
+  for (i = 0; i < vertices.size(); i++)
+  {
+    output << vertices[i].toString() << "\t";
+  }
+  output << "\n";
+  return output.str();
 }

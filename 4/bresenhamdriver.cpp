@@ -38,6 +38,8 @@ void glEnable2D()
    glLoadIdentity();
 
    glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
+   std::cerr << "vPort : " << vPort[2] << ", " << vPort[3] << "\n";
+   glDisable(GL_DEPTH_TEST);
    glMatrixMode(GL_MODELVIEW);
    glPushMatrix();
    glLoadIdentity();
@@ -68,75 +70,48 @@ void display (void)
 	eyePosition[2] = eyez;
 
    /* Set eye and viewing direction */
-   gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+  gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
 	Pt2D A(0, 0), B(3, 3);
 	Color C (32.0d/255, 178.0/255, 0.0);
 
-  vector<Pt3D> vertices;
-	vertices.push_back(Pt3D(0,0,1));
-	vertices.push_back(Pt3D(4,4,1));
-	vertices.push_back(Pt3D(4,8,1));
-	vertices.push_back(Pt3D(0,4,1));
-
-  Polygon t (vertices, Vector (0,0,1));
-  
-  vertices.clear();
-	vertices.push_back(Pt3D(0,0,2));
-	vertices.push_back(Pt3D(3,0,2));
-	vertices.push_back(Pt3D(3,3,2));
-	vertices.push_back(Pt3D(0,3,2));
-	Polygon u (vertices, Vector(0,0,1));
   Color c;
   list<Polygon> l;
+  Cuboid *cuboid;
 	map<Pt2D,Color> depth;
   map<Pt2D,Color>::iterator itr;
+  Pt3D eye (0, 5, 10);
+  Vector up (0, 1, 0);
+  Vector viewNormal (0, 0, 1);
  switch(opt)
    {
-      case 0:
-		BresenhamLine(A, B, C);
-
-        break;
       case 1:
+    		BresenhamLine(A, B, C);
+        break;
+      case 0:
       
-      std::cerr << "IN CASE 1\n";
-      c.r = 1;
-      c.g = 0;
-      c.b = 0;
-	
-	  t.setColor (c);
-	std::cerr << "Polygon 1 ready\n";
-      
-      c.r = 1;
-      c.g = 1;
-      c.b = 1;
-	
-  u.setColor (c);
-	std::cerr << "Polygon 2 ready\n";
-  
-  /*
-  l.clear();
-	l.push_back(t);
-	l.push_back(u);
-  */
-  l = Cuboid(Pt3D(0,0,0), 3, 3, 3).toPolygonList ();
-  std::cerr << "size of polygon list " << l.size() << "\n";
-  depth = depthBufferMethod (l);
-//    glEnable2D();
-	  for (itr = depth.begin(); itr != depth.end(); itr++)
-    {
-      glColor3f (itr->second.r, itr->second.g, itr->second.b);
-      glBegin(GL_POINTS);
-      glVertex2f (itr->first.x, itr->first.y);
-/*      std::cerr << itr->first.x  << "," << itr->first.y << "  -- "
-              << itr->second.r << ","
-              << itr->second.g << ","
-              << itr->second.b << "\n"; */
-	    glEnd();
-    }
-//    glDisable2D();
-    std::cerr << "Done";
-    break;
+        cuboid = new Cuboid(Pt3D(0, 0 , 0), 3, 3, 3);
+        cuboid->applyViewTransformation (eye, up, viewNormal);
+        l = cuboid->toPolygonList();
+        
+        std::cerr << "size of polygon list " << l.size() << "\n";
+        depth = depthBufferMethod (l);
+//        glEnable2D();
+        for (itr = depth.begin(); itr != depth.end(); itr++)
+        {
+          glColor3f (itr->second.r, itr->second.g, itr->second.b);
+          glBegin(GL_POINTS);
+          glVertex2f (itr->first.x, itr->first.y);
+          std::cerr << itr->first.x  << "," << itr->first.y << "  -- "
+                  << itr->second.r << ","
+                  << itr->second.g << ","
+                  << itr->second.b << "\n"; 
+          glEnd();
+        }
+//        glDisable2D();
+        std::cerr << "Done";
+        delete cuboid;
+        break;
  
 
 	default:

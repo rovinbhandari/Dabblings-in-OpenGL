@@ -18,6 +18,8 @@ class Cuboid
 
     // Public methods
     list<Polygon> toPolygonList (void);
+    void applyViewTransformation (const Pt3D& eyeAt, const Vector& up,
+                                  const Vector& viewNormal);
   private:
     vector<Polygon> faces;
 };

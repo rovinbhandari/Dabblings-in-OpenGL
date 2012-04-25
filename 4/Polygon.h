@@ -39,7 +39,9 @@ class Polygon
     double ymin () const;
     double ymax () const;
     bool contains (const Pt3D& point) const;
-
+    string toString () const;    
+    void applyViewTransformation (const Pt3D& eyeAt, const Vector& up, 
+                                  const Vector& viewNormal);
   private:
     vector<Pt3D> vertices;
     double Deq;

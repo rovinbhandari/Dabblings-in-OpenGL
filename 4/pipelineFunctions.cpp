@@ -4,8 +4,8 @@
 #include <sstream>
 #include <iostream>
 
-#define X_INCR 0.01
-#define Y_INCR 0.01
+#define X_INCR 0.1
+#define Y_INCR 0.1
 
 typedef map<Pt2D, pair<double, Color> >Buffers;
 
@@ -185,8 +185,14 @@ Pt3D world2view (const Pt3D& point, const Pt3D& eyeAt, const Vector& up,
   std::cout << Matrixd2String (rotation);
 
   // Multiply the matrices
-  return Pt3D (multiplyMatrices ( multiplyMatrices (rotation, translation),
-                                  ptMatrix)[0]);
+  Matrixd finalTransformation = multiplyMatrices (rotation, translation);
+  std::cerr << "Final transformation :\n" << Matrixd2String (finalTransformation);
+
+  // Output
+  Matrixd newpt = multiplyMatrices (finalTransformation, ptMatrix);
+  std::cerr << "Final point :\n" << Matrixd2String (newpt);
+
+  return Pt3D (newpt[0][0], newpt[1][0], newpt[2][0]);
 }
 
 string Matrixd2String (const Matrixd& m)

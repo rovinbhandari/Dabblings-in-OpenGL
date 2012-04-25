@@ -91,8 +91,8 @@ void testMultiplication (void)
 
 void testWorld2View (void)
 {
-  Pt3D pt (0,0,0), eye (1,1,1);
-  Vector up (0,0,1), view (1,1,1);
+  Pt3D pt (0,0,0), eye (0,0,10);
+  Vector up (0,1,0), view (0,0,1);
 
   Pt3D t = world2view (pt, eye, up, view);
   printf ("(%f,%f,%f)\n", t.x, t.y, t.z);

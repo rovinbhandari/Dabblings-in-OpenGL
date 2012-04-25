@@ -3,6 +3,7 @@
 #include <Vector.h>
 #include <cmath>
 #include <sstream>
+#include <cstdio>
 
 using std::stringstream;
 
@@ -28,6 +29,8 @@ Pt3D::Pt3D (const vector<double>& pt)
   this->x = pt[0];
   this->y = pt[1];
   this->z = pt[2];
+
+  fprintf (stderr, "%f, %f, %f ", x, y, z);
 }
 
 Vector Vector::operator+ (const Vector& rhs) const

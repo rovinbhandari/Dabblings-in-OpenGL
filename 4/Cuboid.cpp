@@ -48,7 +48,7 @@ Cuboid::Cuboid (const Pt3D& point, const double& length,
   {
     std::cerr << "iterating for i = " << i << "\n";
     faces.push_back (Polygon (getFaceVertices (vertices, i), getNormal (i)));
-    faces[i].setColor (Color (1,1,1));
+    faces[i].setColor (Color (1 - i * 0.1,1 - i * 0.1, 1 - i * 0.1));
   }
 }
 
@@ -64,4 +64,17 @@ list<Polygon> Cuboid::toPolygonList (void)
   
   std::cerr << "Returning List\n";
   return retList;
+}
+
+void Cuboid::applyViewTransformation (const Pt3D& eyeAt, const Vector& up, 
+                              const Vector& viewNormal)
+{
+  vector<Polygon>::iterator itr;
+
+  for (itr = faces.begin(); itr != faces.end(); itr++)
+  {
+    std::cerr << itr->toString();
+    itr->applyViewTransformation (eyeAt, up, viewNormal);
+    std::cerr << itr->toString();
+  }
 }
