@@ -6,7 +6,7 @@
 GLfloat lightpos[] = {5.f, 12.f, 3.f, 1.f};
 GLfloat light_diffuse[] = {1, 1, 1, 1};
 
-int opt, nopts = 2;
+int opt, nopts = 2, val, nvals = 3;
 
 GLdouble eyex = 0;
 GLdouble eyey = 0;
@@ -92,10 +92,26 @@ void display (void)
         break;
       case 0:
       
-        cuboid = new Cuboid(Pt3D(0, 0, 0), 5, 5, 3, Color (0.3, 0.3, 0.2) );
-        cuboid2 = new Cuboid(Pt3D(6, 6, 0), 1, 1, 3, Color (1, 0 , 0));
-        cuboid3 = new Cuboid(Pt3D(6, 3, 0), 1, 1, 3, Color (0, 1 , 0));
-        cuboid4 = new Cuboid(Pt3D(6, 0, 0), 1, 1, 3, Color (0, 0 , 1));
+        cuboid = new Cuboid(Pt3D(-1, 0, 0), 3, 5, 3, Color (1, 1, 0) );
+        switch (val)
+        {
+          case 0:
+            cuboid2 = new Cuboid(Pt3D(0, 6, 0), 1, 1, 3, Color (1, 0 , 0));
+            cuboid3 = new Cuboid(Pt3D(0, 3, 0), 1, 1, 3, Color (0, 1 , 0));
+            cuboid4 = new Cuboid(Pt3D(0, 0, 0), 1, 1, 3, Color (0, 0 , 1));
+            break;
+          case 1:
+            cuboid2 = new Cuboid(Pt3D(0, 3, 0), 1, 1, 3, Color (1, 0 , 0));
+            cuboid3 = new Cuboid(Pt3D(0, 0, 0), 1, 1, 3, Color (0, 1 , 0));
+            cuboid4 = new Cuboid(Pt3D(0, -3, 0), 1, 1, 3, Color (0, 0 , 1));
+            break;
+
+          case 2:
+            cuboid2 = new Cuboid(Pt3D(0, 0, 0), 1, 1, 3, Color (1, 0 , 0));
+            cuboid3 = new Cuboid(Pt3D(0, -3, 0), 1, 1, 3, Color (0, 1 , 0));
+            cuboid4 = new Cuboid(Pt3D(0, -6, 0), 1, 1, 3, Color (0, 0 , 1));
+            break;
+        }
         cuboid->applyViewTransformation (eye, up, viewNormal);
         cuboid2->applyViewTransformation (eye, up, viewNormal);
         cuboid3->applyViewTransformation (eye, up, viewNormal);
@@ -196,7 +212,8 @@ void keyboard (unsigned char key, int x, int y)
 		break;
 
       default:
-         opt = (opt + 1) % nopts;
+//         opt = (opt + 1) % nopts;
+           val = (val + 1) % nvals;
          break;
    }
 			glutPostRedisplay();
