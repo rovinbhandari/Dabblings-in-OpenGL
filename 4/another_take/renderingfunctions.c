@@ -12,8 +12,7 @@ void initDraw()
   int i, j;
   zBuffer=malloc(WxH*sizeof(float));
   for(i=0;i<WxH;i++)	zBuffer[i]=2;
-  j = 0;
-  for(i=0;i<WxH;++i)    data[i]=j;
+  for(i=0;i<WxH;++i)    data[i]=COLBG;
 }   
 
 int testValid(Vertex a)
@@ -160,7 +159,7 @@ void fillTriangle(Colour colour)
       }
     }
   }
-  printf("No_pix: %d\n", no_pix);
+  if(DBG) printf("No_pix: %d\n", no_pix);
 }
 
 void drawTriangle(Triangle t)
@@ -172,17 +171,17 @@ void drawTriangle(Triangle t)
   for(i=0;i<MAX_H;++i){ pointsTable[i][0]=-1; pointsTable[i][2]=-1; }
   cuta=clip(&l1v1, &l1v2);
   if(cuta==2 || !cuta)
-      printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cuta, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l1v1.x, l1v1.y, l1v1.z, l1v2.x, l1v2.y, l1v2.z);
+      if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cuta, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l1v1.x, l1v1.y, l1v1.z, l1v2.x, l1v2.y, l1v2.z);
   if(cuta)
       scanConvert(l1v1, l1v2);
   cutb=clip(&l2v1, &l1v2);
   if(cutb==2 || !cutb)
-      printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutb, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l2v1.x, l2v1.y, l2v1.z, l2v2.x, l2v2.y, l2v2.z);
+      if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutb, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l2v1.x, l2v1.y, l2v1.z, l2v2.x, l2v2.y, l2v2.z);
   if(cutb)
     scanConvert(l2v1, l2v2);
   cutc=clip(&l3v1, &l3v2);
   if(cutc==2 || !cutc)
-      printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutc, t.v1.x, t.v1.y, t.v1.z, t.v1.x, t.v1.y, t.v1.z, l3v1.x, l3v1.y, l3v1.z, l3v2.x, l3v2.y, l3v2.z);
+     if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutc, t.v1.x, t.v1.y, t.v1.z, t.v1.x, t.v1.y, t.v1.z, l3v1.x, l3v1.y, l3v1.z, l3v2.x, l3v2.y, l3v2.z);
   if(cutc)
     scanConvert(l3v1, l3v2);
 //  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
@@ -197,7 +196,7 @@ void drawTriangle(Triangle t)
 void printPointsTable()
 {
   int i;
-  for(i=0;i<MAX_H;++i)	if(pointsTable[i][0]>=0)	printf("%d: %f %f\n", i, pointsTable[i][0], pointsTable[i][2]);
+  for(i=0;i<MAX_H;++i)	if(pointsTable[i][0]>=0)	if(DBG) printf("%d: %f %f\n", i, pointsTable[i][0], pointsTable[i][2]);
 }
 
 //Look at the rectangle from opposite its normal. Choose the top left and top right vertices.

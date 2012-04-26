@@ -17,8 +17,9 @@ int MAX_H, MAX_W;
 int WxH;
 int posB=0;
 GLint rasterPos[4];
-float eyex=0, eyey=0, eyez=10, lookx=0, looky=0, lookz=0, upx=0, upy=1, upz=0;
-float barx=2, bary=0;
+float eyex=0, eyey=0, eyez=16, lookx=0, looky=0, lookz=0, upx=0, upy=1, upz=0;
+float Bx = 2, By = 0, Bz = 0;
+float Ax = -5, Ay = -3, Az = 0;
 unsigned int *data;
 
 void blockWithHole(float x, float y, float z){
@@ -131,8 +132,8 @@ void onDraw()
   initScene();
   setMatrixMode(MODELVIEW); 
   initMatrix();
-  blockWithHole(-5.0,0.0,0.0);
-  blockColoured(barx, bary, 0.0);
+  blockWithHole(Ax, Ay, Az);
+  blockColoured(Bx, By, Bz);
 
  
   /*calcData*/
@@ -156,26 +157,26 @@ void onDraw()
 void moveB(int k){
   switch(k){
     case 0:
-      barx = -5;
-      bary = 6;
+      Bx = -5;
+      By = 6+Ay;
       onDraw();
       break;
     case 1:
-      bary = 3;
+      By = 3+Ay;
       onDraw();
       break;
     case 2:
-      bary = 0;
+      By = 0+Ay;
       onDraw();
       break;
     case 3:
-      bary = -3;
+      By = -3+Ay;
       onDraw();
       break;
     default:
       posB = 0;
-      barx = 2;
-      bary = 0;
+      Bx = 2;
+      By = 0;
       onDraw();
       break;
   }
@@ -197,7 +198,7 @@ void keyPressed(unsigned char x, int i, int j)
               break;
     case 'e': eyey-=0.5;
               break;
-    case ' ': moveB(posB++);
+    case 'n': moveB(posB++);
               break;
   }
   onDraw();
@@ -213,8 +214,8 @@ int main(int argc, char** argv)
   }
   else
   {
-  	MAX_W = 800;
-	MAX_H = 600;
+  	MAX_W = 1200;
+	MAX_H = 750;
   }
   WxH=MAX_W*MAX_H;
   data = (unsigned int *)malloc(WxH*sizeof(unsigned int));
