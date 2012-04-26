@@ -4,11 +4,11 @@ OBJ=.
 BIN=.
 CFLAGS=-Wall -g -I./
 LFLAGS=-lm -lGL -lglut -lGLU -I/usr/X11R6/include -L/usr/X11R6/lib
-OBJECTS=$(OBJ)/general.o $(OBJ)/main.o
+OBJECTS=$(OBJ)/matrix.o $(OBJ)/general.o $(OBJ)/main.o
 OUTPUT_FILE=demo.out
 CC=gcc
 
-all: clean $(OBJECTS) 
+all: $(OBJECTS) 
 	$(CC) $(CFLAGS) $(LFLAGS) $(OBJECTS) -o $(BIN)/$(OUTPUT_FILE)
 
 $(OBJ)/%.o: $(SRC)/%.c
