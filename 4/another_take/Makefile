@@ -4,7 +4,7 @@ OBJ=.
 BIN=.
 CFLAGS=-Wall -g -I./
 LFLAGS=-lm -lGL -lglut -lGLU -I/usr/X11R6/include -L/usr/X11R6/lib
-OBJECTS=$(OBJ)/main.o
+OBJECTS=$(OBJ)/general.o $(OBJ)/main.o
 OUTPUT_FILE=demo.out
 CC=gcc
 
