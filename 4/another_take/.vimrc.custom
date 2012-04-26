@@ -1,0 +1,11 @@
+e commons.h
+tabnew Vertex.c
+vs Vertex.h
+tabnew Triangle.c
+vs Triangle.h
+tabnew matrixmanipulation.c
+vs matrixmanipulation.h
+tabnew renderingfunctions.c
+vs renderingfunctions.h
+tabnew driver.c
+tabnew Makefile

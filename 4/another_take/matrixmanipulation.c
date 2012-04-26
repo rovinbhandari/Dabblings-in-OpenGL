@@ -1,6 +1,4 @@
 #include <matrixmanipulation.h>
-#include <math.h>
-#include <stdlib.h>
 
 MatrixStack *mStack = NULL;
 MatrixStack *pStack = NULL;

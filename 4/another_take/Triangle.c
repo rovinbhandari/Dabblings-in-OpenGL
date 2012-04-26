@@ -1,8 +1,7 @@
-#include <stdlib.h>
 #include <Triangle.h>
 #include <matrixmanipulation.h>
 
-Triangle triangle(Vertex v1, Vertex v2, Vertex v3, int colour)
+Triangle triangle(Vertex v1, Vertex v2, Vertex v3, Colour colour)
 {
   Triangle a;
   a.v1=v1; a.v2=v2; a.v3=v3; a.colour=colour;

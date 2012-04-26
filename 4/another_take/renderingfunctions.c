@@ -1,6 +1,4 @@
 #include <renderingfunctions.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <matrixmanipulation.h>
 
 float *zBuffer;
@@ -128,7 +126,7 @@ void scanConvert(Vertex a, Vertex b)
   
 }
 
-void fillTriangle(int colour)
+void fillTriangle(Colour colour)
 {
   int i, j, no_pix=0;
   float z, dz;
@@ -203,7 +201,7 @@ void printPointsTable()
 }
 
 //Look at the rectangle from opposite its normal. Choose the top left and top right vertices.
-void addRectangle(Vertex a, Vertex b, int colour)
+void addRectangle(Vertex a, Vertex b, Colour colour)
 {
   addTriangle(triangle(a, b, vertex(-a.x, -a.y, -a.z), colour));
   addTriangle(triangle(a, vertex(-a.x, -a.y, -a.z), vertex(-b.x, -b.y, -b.z), colour));

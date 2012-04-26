@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -7,8 +5,8 @@
 #include <GL/glx.h>
 #include <GL/glu.h>
 #include <GL/freeglut.h>
-#include <math.h>
 #include <time.h>
+#include <commons.h>
 #include <Vertex.h>
 #include <matrixmanipulation.h>
 #include <Triangle.h>
@@ -24,59 +22,58 @@ float barx=2, bary=0;
 unsigned int *data;
 
 void blockWithHole(float x, float y, float z){
-  int yellow=127+(127<<8), grey=100+(100<<8)+(100<<16);
   pushMatrix();
     translate(x, y, z);
     pushMatrix();
       translate(2.5, 0.0, 0.0);
-      addRectangle(vertex(0.0, 1.5, 2.5), vertex(0.0, -1.5, 2.5), yellow);
+      addRectangle(vertex(0.0, 1.5, 2.5), vertex(0.0, -1.5, 2.5), YELLOW);
       translate(-5.0, 0.0, 0.0);
-      addRectangle(vertex(0.0, -1.5, 2.5), vertex(0.0, 1.5, 2.5), yellow);
+      addRectangle(vertex(0.0, -1.5, 2.5), vertex(0.0, 1.5, 2.5), YELLOW);
     popMatrix();
     pushMatrix();
       translate(0.5, 0.0, 0.0);
-      addRectangle(vertex(0.0, -1.5, 0.5), vertex(0.0, 1.5, 0.5), grey);
+      addRectangle(vertex(0.0, -1.5, 0.5), vertex(0.0, 1.5, 0.5), GREY);
       translate(-1.0, 0.0, 0.0);
-      addRectangle(vertex(0.0, 1.5, 0.5), vertex(0.0, -1.5, 0.5), grey);
+      addRectangle(vertex(0.0, 1.5, 0.5), vertex(0.0, -1.5, 0.5), GREY);
     popMatrix();
     pushMatrix();
       translate(0.0, 0.0, 2.5);
-      addRectangle(vertex(-2.5, 1.5, 0.0), vertex(-2.5, -1.5, 0.0), yellow);
+      addRectangle(vertex(-2.5, 1.5, 0.0), vertex(-2.5, -1.5, 0.0), YELLOW);
       translate(0.0, 0.0, -5.0);
-      addRectangle(vertex(-2.5, -1.5, 0.0), vertex(-2.5, 1.5, 0.0), yellow);
+      addRectangle(vertex(-2.5, -1.5, 0.0), vertex(-2.5, 1.5, 0.0), YELLOW);
     popMatrix();
     pushMatrix();
       translate(0.0, 0.0, 0.5);
-      addRectangle(vertex(-0.5, -1.5, 0.0), vertex(-0.5, 1.5, 0.0), grey);
+      addRectangle(vertex(-0.5, -1.5, 0.0), vertex(-0.5, 1.5, 0.0), GREY);
       translate(0.0, 0.0, -1.0);
-      addRectangle(vertex(-0.5, 1.5, 0.0), vertex(-0.5, -1.5, 0.0), grey);
+      addRectangle(vertex(-0.5, 1.5, 0.0), vertex(-0.5, -1.5, 0.0), GREY);
     popMatrix();
     pushMatrix();
       translate(1.5, 1.5, 0.0);
-      addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), yellow);
+      addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), YELLOW);
       pushMatrix();
         translate(0.0, -3.0, 0.0);
-        addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), yellow);
+        addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), YELLOW);
       popMatrix();
       translate(-3.0, 0.0, 0.0);
-      addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), yellow);
+      addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), YELLOW);
       pushMatrix();
         translate(0.0, -3.0, 0.0);
-        addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), yellow);
+        addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), YELLOW);
       popMatrix();
     popMatrix();
     pushMatrix();
       translate(0.0, 1.5, 1.5);
-      addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), yellow);
+      addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), YELLOW);
       pushMatrix();
         translate(0.0, -3.0, 0.0);
-        addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), yellow);
+        addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), YELLOW);
       popMatrix();
       translate(0.0, 0.0, -3.0);
-      addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), yellow);
+      addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), YELLOW);
       pushMatrix();
         translate(0.0, -3.0, 0.0);
-        addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), yellow);
+        addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), YELLOW);
       popMatrix();
     popMatrix();
   popMatrix();
@@ -87,38 +84,38 @@ void blockColoured(float x, float y, float z){
     translate(x, y, z);
     translate(-0.5, -3.0, 0.0);
     pushMatrix();
-       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), 127<<8);
+       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), RED);
        translate(1.0, 0.0, 0.0);
-       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), 127<<8);
+       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), RED);
        translate(-0.5, 0.0, -0.5);
-       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), 127<<8);
+       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), RED);
        translate(0.0, 0.0, 1.0);
-       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), 127<<8);
+       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), RED);
     popMatrix();
     translate(0.0, 3.0, 0.0);
     pushMatrix();
-       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), 127<<16);
+       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), BLUE);
        translate(1.0, 0.0, 0.0);
-       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), 127<<16);
+       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), BLUE);
        translate(-0.5, 0.0, -0.5);
-       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), 127<<16);
+       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), BLUE);
        translate(0.0, 0.0, 1.0);
-       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), 127<<16);
+       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), BLUE);
     popMatrix();
     translate(0.0, 3.0, 0.0);
     pushMatrix();
-       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), 127);
+       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), GREEN);
        translate(1.0, 0.0, 0.0);
-       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), 127);
+       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), GREEN);
        translate(-0.5, 0.0, -0.5);
-       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), 127);
+       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), GREEN);
        translate(0.0, 0.0, 1.0);
-       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), 127);
+       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), GREEN);
     popMatrix();
     translate(0.5, 1.5, 0.0);
-    addRectangle(vertex(-0.5, 0.0, -0.5), vertex(-0.5, 0.0, 0.5), 127);
+    addRectangle(vertex(-0.5, 0.0, -0.5), vertex(-0.5, 0.0, 0.5), GREEN);
     translate(0.0, -9.0, 0.0);
-    addRectangle(vertex(-0.5, 0.0, 0.5), vertex(-0.5, 0.0, -0.5), 127<<8);
+    addRectangle(vertex(-0.5, 0.0, 0.5), vertex(-0.5, 0.0, -0.5), RED);
   popMatrix();
 }
 

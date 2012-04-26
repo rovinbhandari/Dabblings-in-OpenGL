@@ -1,5 +1,4 @@
 #include <Vertex.h>
-#include <math.h>
 
 Vertex vertex(float x, float y, float z)
 {

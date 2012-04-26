@@ -1,7 +1,7 @@
 #ifndef MATRIXMANIPULATION_H
 #define MATRIXMANIPULATION_H
 
-#include <stdio.h>
+#include <commons.h>
 #include <Vertex.h>
 
 typedef struct _MatrixStack 

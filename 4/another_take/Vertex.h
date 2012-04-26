@@ -1,6 +1,8 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <commons.h>
+
 typedef struct _Vertex
 {
   float x, y, z;
