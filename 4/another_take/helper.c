@@ -1,4 +1,3 @@
-
 #include <helper.h>
 
 //Look at the rectangle from opposite its normal. Choose the top left and top right vertices.

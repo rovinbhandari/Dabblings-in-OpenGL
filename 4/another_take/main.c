@@ -19,7 +19,7 @@
 float _anglex, _angley, _eyex=0.0, _eyez=2.0;
 int MAX_H, MAX_W;
 int WxH;
-int anim=0;
+int posB=0;
 GLint rasterPos[4];
 float eyex=0, eyey=0, eyez=10, lookx=0, looky=0, lookz=0, upx=0, upy=1, upz=0;
 float barx=2, bary=0;
@@ -158,40 +158,30 @@ void onDraw()
   glFlush();
 }
 
-void animation(int k){
-  struct timespec i;
-  i.tv_sec=0; i.tv_nsec=50000000;
+void moveB(int k){
   switch(k){
     case 0:
-      while(bary<10){
-        nanosleep(&i, NULL);
-        bary+=.2;
-        onDraw();
-      }
-      while(barx>-5){
-        nanosleep(&i, NULL);
-        barx-=.2;
-        onDraw();
-      }
-      while(bary>3){
-        nanosleep(&i, NULL);
-        bary-=.2;
-        onDraw();
-      }
+      barx = -5;
+      bary = 6;
+      onDraw();
       break;
     case 1:
-      while(bary>0){
-        nanosleep(&i, NULL);
-        bary-=.2;
-        onDraw();
-      }
+      bary = 3;
+      onDraw();
       break;
     case 2:
-      while(bary>-3){
-        nanosleep(&i, NULL);
-        bary-=.2;
-        onDraw();
-      }
+      bary = 0;
+      onDraw();
+      break;
+    case 3:
+      bary = -3;
+      onDraw();
+      break;
+    default:
+      posB = 0;
+      barx = 2;
+      bary = 0;
+      onDraw();
       break;
   }
 }
@@ -199,6 +189,7 @@ void animation(int k){
 void keyPressed(unsigned char x, int i, int j)
 {
   switch(x){
+    case 'x': exit(0);
     case 'a': eyex-=0.5;
               break;
     case 'd': eyex+=0.5;
@@ -211,7 +202,7 @@ void keyPressed(unsigned char x, int i, int j)
               break;
     case 'e': eyey-=0.5;
               break;
-    case ' ': animation(anim++);
+    case ' ': moveB(posB++);
               break;
   }
   onDraw();
@@ -220,15 +211,23 @@ void keyPressed(unsigned char x, int i, int j)
 
 int main(int argc, char** argv)
 {
-  MAX_W=atoi(argv[1]);
-  MAX_H=atoi(argv[2]);
+  if(argc > 2)
+  {
+  	MAX_W=atoi(argv[1]);
+  	MAX_H=atoi(argv[2]);
+  }
+  else
+  {
+  	MAX_W = 800;
+	MAX_H = 600;
+  }
   WxH=MAX_W*MAX_H;
   data = (unsigned int *)malloc(WxH*sizeof(unsigned int));
   glutInit(&argc, argv);
   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH );
   glutInitWindowSize(MAX_W,MAX_H);
   glutInitWindowPosition(0,0);
-  glutCreateWindow("OpenGL - Octrees");
+  glutCreateWindow("HSR");
   glutDisplayFunc(onDraw);
   glutKeyboardFunc(keyPressed);
   glutMainLoop();    

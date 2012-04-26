@@ -13,7 +13,8 @@ void initDraw()
   int i, j;
   zBuffer=malloc(WxH*sizeof(float));
   for(i=0;i<WxH;i++)	zBuffer[i]=2;
-  j=127 + (127<<8) + (127<<16);
+  //j=127 + (127<<8) + (127<<16);
+  j = 0;
   for(i=0;i<WxH;++i)    data[i]=j;
 }   
 
