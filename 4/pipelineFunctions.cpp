@@ -21,7 +21,7 @@ Buffers polygonBuffers (const Polygon& polygon)
 {
   Buffers buffers;
   double x, y, z;
-
+  std::cerr << "inside polygonBUFFERS\n";
   for ( x = polygon.xmin(); x < polygon.xmax(); x += X_INCR)
   {
     for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
@@ -29,9 +29,10 @@ Buffers polygonBuffers (const Polygon& polygon)
       z = computeZ (x, y, polygon);
       if (polygon.contains (Pt3D (x,y,z)))
       {
-/*      std::cerr << "Color : " << polygon.getColor().r << ","
+      std::cerr << "Color at " << Pt3D(x,y,z).toString() << ": " 
+                << polygon.getColor().r << ","
                 << polygon.getColor().g << ","
-                << polygon.getColor().b << "\n";*/
+                << polygon.getColor().b << "\n";
         buffers[Pt2D (x,y)] = make_pair (z, polygon.getColor());
       }
     }
@@ -59,9 +60,9 @@ RefreshBuffer depthBufferMethod (const list<Polygon>& polygons)
       if ( (depthBufferItr = depthBuffer.find(pbItr->first)) != 
                                                       depthBuffer.end() )
       {
-/*        std::cerr << "x : " << pbItr->first.x << " , y : " << pbItr->first.y
+        std::cerr << "x : " << pbItr->first.x << " , y : " << pbItr->first.y
                   << " znew : " << depthBufferItr->second << ", zold : " << pbItr->second.first
-                  << "\n";*/
+                  << "\n";
         // If the height of the new polygon is greater than that of stored
         // height, refresh the depth and refresh buffer.
         if ( pbItr->second.first > depthBufferItr->second)

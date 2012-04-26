@@ -13,6 +13,7 @@ GLdouble eyey = 0;
 GLdouble eyez = 10;
  
 #define PI 3.14d
+#define TOLERANCE_COLOR 0.1
 
 GLdouble angle = PI / 180.0d * 45.0d;
 GLdouble pos = 0;
@@ -59,15 +60,13 @@ void display (void)
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
    
-//	eyez = 10 * root2 * cos(angle);
-//	eyex = 10 * root2 * sin(angle);
 
 	fprintf(stderr, "eyex = %lf\neyey = %lf\neyez = %lf\n\n", eyex, eyey, eyez);
   std::cerr << "Case " << opt << "\n";
 
-	eyePosition[0] = eyex;
-	eyePosition[1] = eyey;
-	eyePosition[2] = eyez;
+//	eyePosition[0] = eyex;
+//	eyePosition[1] = eyey;
+//	eyePosition[2] = eyez;
 
    /* Set eye and viewing direction */
   gluLookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
@@ -80,7 +79,9 @@ void display (void)
   Cuboid *cuboid;
 	map<Pt2D,Color> depth;
   map<Pt2D,Color>::iterator itr;
-  Pt3D eye (0, 5, 10);
+//  double eyez = 10 * root2 * cos(angle);
+//	double eyex = 10 * root2 * sin(angle);
+  Pt3D eye (2, 1, 10);
   Vector up (0, 1, 0);
   Vector viewNormal (0, 0, 1);
  switch(opt)
@@ -102,10 +103,10 @@ void display (void)
           glColor3f (itr->second.r, itr->second.g, itr->second.b);
           glBegin(GL_POINTS);
           glVertex2f (itr->first.x, itr->first.y);
-          std::cerr << itr->first.x  << "," << itr->first.y << "  -- "
+/*          std::cerr << itr->first.x  << "," << itr->first.y << "  -- "
                   << itr->second.r << ","
                   << itr->second.g << ","
-                  << itr->second.b << "\n"; 
+                  << itr->second.b << "\n"; */
           glEnd();
         }
 //        glDisable2D();

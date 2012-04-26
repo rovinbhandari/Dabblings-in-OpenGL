@@ -27,6 +27,9 @@ static Vector getNormal (const int& i)
   return Vector (CuboidNormals[i][0], CuboidNormals[i][1], CuboidNormals[i][2]);
 }
 
+static double Colors[][3]= { { 1, 1, 0},{0.8, 0.8, 0.1}, {0.6, 0.6, 0}, 
+                          {0.4, 0.4, 0},{0.2, 0.2, 0}, {0, 0.4, 0.4}};
+
 Cuboid::Cuboid (const Pt3D& point, const double& length,
                 const double& breadth, const double& height)
 {
@@ -48,7 +51,8 @@ Cuboid::Cuboid (const Pt3D& point, const double& length,
   {
     std::cerr << "iterating for i = " << i << "\n";
     faces.push_back (Polygon (getFaceVertices (vertices, i), getNormal (i)));
-    faces[i].setColor (Color (1 - i * 0.1,1 - i * 0.1, 1 - i * 0.1));
+//    faces[i].setColor (Color (1, 1, 1));
+    faces[i].setColor (Color (Colors[i][0], Colors[i][1], Colors[i][2]));
   }
 }
 
