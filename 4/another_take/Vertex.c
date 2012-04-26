@@ -1,10 +1,12 @@
-#include <general.h>
+#include <Vertex.h>
 #include <math.h>
 
 Vertex vertex(float x, float y, float z)
 {
   Vertex a;
-  a.x=x; a.y=y; a.z=z;
+  a.x = x;
+  a.y = y;
+  a.z = z;
   return a;
 }
 

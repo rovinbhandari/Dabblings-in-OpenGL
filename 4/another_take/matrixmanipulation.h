@@ -2,7 +2,7 @@
 #define MATRIX_INCLUDED
 
 #include <stdio.h>
-#include <general.h>
+#include <Vertex.h>
 
 typedef struct _MatrixStack 
 {

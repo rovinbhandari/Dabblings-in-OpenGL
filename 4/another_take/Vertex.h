@@ -14,3 +14,4 @@ float modVertex(Vertex a);
 Vertex normalizeVertex(Vertex a);
 
 #endif // end of file
+

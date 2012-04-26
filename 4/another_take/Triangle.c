@@ -1,6 +1,6 @@
 #include <stdlib.h>
-#include <triangle.h>
-#include <matrix.h>
+#include <Triangle.h>
+#include <matrixmanipulation.h>
 
 Triangle triangle(Vertex v1, Vertex v2, Vertex v3, int colour)
 {

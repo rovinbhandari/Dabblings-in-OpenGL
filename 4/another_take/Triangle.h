@@ -1,7 +1,7 @@
 #ifndef TRIANGLE_INCLUDED
 #define TRIANGLE_INCLUDED
 
-#include <general.h>
+#include <Vertex.h>
 
 typedef struct _Triangle
 {

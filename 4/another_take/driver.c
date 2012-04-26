@@ -1,20 +1,18 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
-#include<X11/X.h>
-#include<X11/Xlib.h>
-#include<GL/gl.h>
-#include<GL/glx.h>
-#include<GL/glu.h>
-#include<GL/freeglut.h>
-#include<math.h>
-#include<time.h>
-#include "general.h"
-#include "matrix.h"
-#include "triangle.h"
-#include "draw.h"
-#include "helper.h"
-#include "view.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <GL/gl.h>
+#include <GL/glx.h>
+#include <GL/glu.h>
+#include <GL/freeglut.h>
+#include <math.h>
+#include <time.h>
+#include <Vertex.h>
+#include <matrixmanipulation.h>
+#include <Triangle.h>
+#include <renderingfunctions.h>
 
 float _anglex, _angley, _eyex=0.0, _eyez=2.0;
 int MAX_H, MAX_W;

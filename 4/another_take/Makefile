@@ -3,7 +3,7 @@ OBJ=.
 BIN=.
 CFLAGS=-Wall -g -I./
 LFLAGS=-lm -lGL -lglut -lGLU -I/usr/X11R6/include -L/usr/X11R6/lib
-OBJECTS= $(OBJ)/helper.o $(OBJ)/draw.o $(OBJ)/triangle.o $(OBJ)/matrix.o $(OBJ)/general.o $(OBJ)/view.o $(OBJ)/main.o
+OBJECTS= $(OBJ)/renderingfunctions.o $(OBJ)/Triangle.o $(OBJ)/matrixmanipulation.o $(OBJ)/Vertex.o $(OBJ)/driver.o
 OUTPUT_FILE=demo.out
 CC=gcc
 
