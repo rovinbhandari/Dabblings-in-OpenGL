@@ -33,6 +33,13 @@ Pt3D::Pt3D (const vector<double>& pt)
   fprintf (stderr, "%f, %f, %f ", x, y, z);
 }
 
+Pt3D::Pt3D (const Vector& pt)
+{
+  x = pt.X();
+  y = pt.Y();
+  z = pt.Z();
+}
+
 Vector Vector::operator+ (const Vector& rhs) const
 {
   return Vector(x + rhs.x, y + rhs.y, z + rhs.z);

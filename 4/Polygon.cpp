@@ -162,6 +162,7 @@ void Polygon::applyViewTransformation (const Pt3D& eyeAt, const Vector& up,
 
 //  fprintf (stderr, "%f, %f :: %f, %f\n", xMax, xMin, yMax, yMin);
 // std::cerr << xMax << "," << xMin << " :: " << yMax << "," << yMin << "\n";
+  normal = Vector (world2view (Pt3D (normal), eyeAt, up, viewNormal));
 }
 
 string Polygon::toString (void) const
