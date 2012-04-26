@@ -59,7 +59,6 @@ void display (void)
    /* Clear stencile each time */
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
    glLoadIdentity ();
-   
 
 	fprintf(stderr, "eyex = %lf\neyey = %lf\neyez = %lf\n\n", eyex, eyey, eyez);
   std::cerr << "Case " << opt << "\n";
@@ -75,13 +74,15 @@ void display (void)
 	Color C (32.0d/255, 178.0/255, 0.0);
 
   Color c;
-  list<Polygon> l;
-  Cuboid *cuboid;
+  list<Polygon> l, ltmp;
+  Cuboid *cuboid, *cuboid2, *cuboid3, *cuboid4;
 	map<Pt2D,Color> depth;
   map<Pt2D,Color>::iterator itr;
 //  double eyez = 10 * root2 * cos(angle);
 //	double eyex = 10 * root2 * sin(angle);
-  Pt3D eye (2, 1, 10);
+  Pt3D eye (0, 0, 10);
+//  eye.x = 10 * root2 * cos(angle);
+//  eye.z = 10 * root2 * sin(angle);
   Vector up (0, 1, 0);
   Vector viewNormal (0, 0, 1);
  switch(opt)
@@ -91,9 +92,21 @@ void display (void)
         break;
       case 0:
       
-        cuboid = new Cuboid(Pt3D(0, 0 , 0), 3, 3, 3);
+        cuboid = new Cuboid(Pt3D(0, 0, 0), 5, 5, 3, Color (0.3, 0.3, 0.2) );
+        cuboid2 = new Cuboid(Pt3D(6, 6, 0), 1, 1, 3, Color (1, 0 , 0));
+        cuboid3 = new Cuboid(Pt3D(6, 3, 0), 1, 1, 3, Color (0, 1 , 0));
+        cuboid4 = new Cuboid(Pt3D(6, 0, 0), 1, 1, 3, Color (0, 0 , 1));
         cuboid->applyViewTransformation (eye, up, viewNormal);
+        cuboid2->applyViewTransformation (eye, up, viewNormal);
+        cuboid3->applyViewTransformation (eye, up, viewNormal);
+        cuboid4->applyViewTransformation (eye, up, viewNormal);
         l = cuboid->toPolygonList();
+        ltmp = cuboid2->toPolygonList();
+        l.insert (l.end(), ltmp.begin(), ltmp.end());
+        ltmp = cuboid3->toPolygonList();
+        l.insert (l.end(), ltmp.begin(), ltmp.end());
+        ltmp = cuboid4->toPolygonList();
+        l.insert (l.end(), ltmp.begin(), ltmp.end());
         
         std::cerr << "size of polygon list " << l.size() << "\n";
         depth = depthBufferMethod (l);
@@ -111,6 +124,7 @@ void display (void)
         }
 //        glDisable2D();
         std::cerr << "Done";
+//        std::cerr << glGet(GL_POINT_SIZE_RANGE);
         delete cuboid;
         break;
  
@@ -173,12 +187,12 @@ void keyboard (unsigned char key, int x, int y)
 
 	case 'a':
 	case 'A':
-		angle += PI / 180.0d * 20.0d;
+		angle += PI / 180.0d * 10.0d;
 		break;
 
 	case 'z':
 	case 'Z':
-		angle -= PI / 180.0d * 20.0d;
+		angle -= PI / 180.0d * 10.0d;
 		break;
 
       default:

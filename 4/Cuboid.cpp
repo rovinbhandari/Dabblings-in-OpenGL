@@ -31,7 +31,7 @@ static double Colors[][3]= { { 1, 1, 0},{0.8, 0.8, 0.1}, {0.6, 0.6, 0},
                           {0.4, 0.4, 0},{0.2, 0.2, 0}, {0, 0.4, 0.4}};
 
 Cuboid::Cuboid (const Pt3D& point, const double& length,
-                const double& breadth, const double& height)
+                const double& breadth, const double& height, const Color& c)
 {
   std::cerr << "In Cuboid()\n";
   // Consider a 1 x 1 x 1 cube symmetrically with one point being 'point'. 
@@ -51,8 +51,8 @@ Cuboid::Cuboid (const Pt3D& point, const double& length,
   {
     std::cerr << "iterating for i = " << i << "\n";
     faces.push_back (Polygon (getFaceVertices (vertices, i), getNormal (i)));
-//    faces[i].setColor (Color (1, 1, 1));
-    faces[i].setColor (Color (Colors[i][0], Colors[i][1], Colors[i][2]));
+    faces[i].setColor (c);
+//    faces[i].setColor (Color (Colors[i][0], Colors[i][1], Colors[i][2]));
   }
 }
 

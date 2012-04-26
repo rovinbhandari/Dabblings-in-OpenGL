@@ -22,11 +22,12 @@ Buffers polygonBuffers (const Polygon& polygon)
   Buffers buffers;
   double x, y, z;
   std::cerr << "inside polygonBUFFERS\n";
-  for ( x = polygon.xmin(); x < polygon.xmax(); x += X_INCR)
+  for ( x = X_INCR * (int) (polygon.xmin() / X_INCR); x < polygon.xmax(); x += X_INCR)
   {
-    for ( y = polygon.ymin(); y < polygon.ymax(); y += Y_INCR)
+    for ( y = Y_INCR * (int) (polygon.ymin() / Y_INCR); y < polygon.ymax(); y += Y_INCR)
     {
       z = computeZ (x, y, polygon);
+      std::cerr << "Checking at " << x << "," << y << "\n";
       if (polygon.contains (Pt3D (x,y,z)))
       {
       std::cerr << "Color at " << Pt3D(x,y,z).toString() << ": " 

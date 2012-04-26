@@ -1,10 +1,13 @@
 // This file contains the definition of the Polygon class
 #include <Polygon.h>
 #include <cfloat>
+#include <cmath>
 #include <iostream>
 #include <cstdio>
 #include <pipelineFunctions.h>
 #include <sstream>
+
+#define DOUBLE_TOLERANCE 0.001
 
 using std::stringstream;
 
@@ -128,7 +131,7 @@ bool containedBetweenLines (const Pt3D& p, const Pt3D& p1,
 bool Polygon::contains (const Pt3D& point) const
 {
   // First check if the point lies on the plane
-  if ( normal.X() * point.x + normal.Y() * point.y + normal.Z() * point.z != Deq )
+  if ( fabs (normal.X() * point.x + normal.Y() * point.y + normal.Z() * point.z - Deq) >= DOUBLE_TOLERANCE )
   {
     return false;
   }
