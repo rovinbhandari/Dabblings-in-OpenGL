@@ -1,5 +1,5 @@
-#ifndef GENERAL_INCLUDED
-#define GENERAL_INCLUDED
+#ifndef VERTEX_H
+#define VERTEX_H
 
 typedef struct _Vertex
 {

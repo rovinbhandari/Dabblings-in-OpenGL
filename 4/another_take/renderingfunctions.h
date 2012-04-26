@@ -1,5 +1,5 @@
-#ifndef DRAW_INCLUDED
-#define DRAW_INCLUDED
+#ifndef RENDERINGFUNCTIONS_H
+#define RENDERINGFUNCTIONS_H
 
 #include <Vertex.h>
 #include <Triangle.h>

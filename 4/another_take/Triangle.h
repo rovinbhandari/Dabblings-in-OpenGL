@@ -1,5 +1,5 @@
-#ifndef TRIANGLE_INCLUDED
-#define TRIANGLE_INCLUDED
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
 
 #include <Vertex.h>
 

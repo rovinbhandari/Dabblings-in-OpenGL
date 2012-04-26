@@ -1,5 +1,5 @@
-#ifndef MATRIX_INCLUDED
-#define MATRIX_INCLUDED
+#ifndef MATRIXMANIPULATION_H
+#define MATRIXMANIPULATION_H
 
 #include <stdio.h>
 #include <Vertex.h>
@@ -30,3 +30,4 @@ Vertex globalVertex(Vertex a);
 Vertex eyeVertex(Vertex a);
 
 #endif // end of file
+
