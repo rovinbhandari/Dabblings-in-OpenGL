@@ -8,26 +8,50 @@ typedef struct _MatrixStack
 {
   float topMatrix[16];
   struct _MatrixStack *prev;
-}MatrixStack;
+} MatrixStack;
 
 
-enum 
+typedef enum 
 {
   MODELVIEW,
   PROJECTION
-};
+} MatrixMode;
 
-void setMatrixMode(int a);
+/* Function that sets MatrixMode. It takes as input a variable of type 
+ * MatrixMode (essentially an int) */
+void setMatrixMode(MatrixMode mode);
+
+/* Function that returns the matrix mode.*/
 int getMatrixMode();
-MatrixStack *initMatrix();
-MatrixStack *pushMatrix();
-MatrixStack *popMatrix();
-MatrixStack *multMatrix(float *matrixB);
-MatrixStack *translate(float x,float y,float z);
-MatrixStack *scale(float x,float y,float z);
-MatrixStack *rotate(float degree,int x, int y,int z);
-Vertex globalVertex(Vertex a);
-Vertex eyeVertex(Vertex a);
+
+/* Function to initialize a matrix. Returns a pointer to the stack */
+MatrixStack *initMatrix ();
+
+/* Function to push a matrix onto the stack.Returns a pointer to the top of 
+ * the stack, which is the same as the pushed matrix.*/
+MatrixStack *pushMatrix ();
+
+/* Function to pop a matrix from the stack. */
+MatrixStack *popMatrix ();
+
+/* Function to multiply a matrix with the top of the stack. */
+MatrixStack *multMatrix (float *matrixB);
+
+/* Function to translate the matrix on the top of the stack. Returns 
+ * a pointer to the top of the stack. */
+MatrixStack *translate (float x,float y,float z);
+
+/* Function to apply scale-transformation on the matrix on the top of the
+ * stack. Returns pointer to the top of the stack. */
+MatrixStack *scale (float x,float y,float z);
+
+/* Function to apply rotate-transformation on the matrix on the top of the 
+ * stack. Returns pointer to the top of the stack. */
+MatrixStack *rotate (float degree,int x, int y,int z);
+
+Vertex globalVertex (Vertex a);
+
+Vertex eyeVertex (Vertex a);
 
 #endif // end of file
 

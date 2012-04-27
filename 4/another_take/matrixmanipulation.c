@@ -1,12 +1,16 @@
 #include <matrixmanipulation.h>
+#include <string.h>
 
-MatrixStack *mStack = NULL;
-MatrixStack *pStack = NULL;
+MatrixStack *mStack = NULL;   // Modelview stack
+MatrixStack *pStack = NULL;   // Projection view stack
 MatrixStack **stack = &mStack;
 
-int matrixMode=MODELVIEW;
+int matrixMode = MODELVIEW;   // Default mode set to Modelview.
 
-float identMatrix[16] = 
+#define SIZEOF_MATRIX sizeof (float) * 16 
+
+/* 4 x 4 Identity matrix (defined as 1D array) */
+float identitymatrix[16] = 
 {
 	1.0, 0.0, 0.0, 0.0,
 	0.0, 1.0, 0.0, 0.0,
@@ -14,9 +18,9 @@ float identMatrix[16] =
 	0.0, 0.0, 0.0, 1.0
 };
 
-void setMatrixMode (int a)
+void setMatrixMode (MatrixMode mode)
 {
-  matrixMode = a;
+  matrixMode = mode;
   stack = (matrixMode == MODELVIEW) ? (&mStack) : (&pStack);
 }
 
@@ -34,15 +38,12 @@ MatrixStack *initMatrix ()
   while(temp = *stack)
   {
     *stack = temp->prev;
-    free(temp);
+    free (temp);
   }
   
   //Add an identity matrix as the top
   *stack = (MatrixStack*) malloc (sizeof (MatrixStack));
-  for(i = 0;i < 16; i++)
-  {
-    (*stack)->topMatrix[i] = identMatrix[i];
-  }
+  memcpy ((*stack)->topMatrix, identitymatrix, SIZEOF_MATRIX);
   (*stack)->prev = NULL;
   return *stack;
 }
@@ -52,10 +53,10 @@ MatrixStack *pushMatrix()
   MatrixStack *temp;
   int i;
   temp = (MatrixStack*) malloc (sizeof (MatrixStack));
-  for(i = 0; i < 16; i++)
-  {
-    temp->topMatrix[i] = (*stack)->topMatrix[i];
-  }
+
+  // Copy the top of the stack
+  memcpy (temp->topMatrix, (*stack)->topMatrix, SIZEOF_MATRIX);
+
   temp->prev = *stack;
   *stack = temp;
   return *stack;
@@ -65,8 +66,10 @@ MatrixStack *popMatrix()
 {
   MatrixStack *temp;
   int i;
+
   if(temp = *stack)
   {
+    // If the stack's not empty. Delete the top most element.
     *stack = (*stack)->prev;
     free (temp);
   } 
