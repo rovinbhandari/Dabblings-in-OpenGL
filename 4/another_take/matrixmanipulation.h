@@ -35,7 +35,7 @@ MatrixStack *pushMatrix ();
 MatrixStack *popMatrix ();
 
 /* Function to multiply a matrix with the top of the stack. */
-MatrixStack *multMatrix (float *matrixB);
+MatrixStack *multMatrix (float *matrix);
 
 /* Function to translate the matrix on the top of the stack. Returns 
  * a pointer to the top of the stack. */

@@ -89,10 +89,12 @@ MatrixStack *multMatrix (float *matrixB)
   {
     for(j = 0; j < 4; j++)
     {
-      matrixC[i * 4 + j] = matrixA[i * 4] * matrixB[j] 
-                           + matrixA[i * 4 + 1] * matrixB[4 + j]
-                           + matrixA[i * 4 + 2] * matrixB[8 + j]
-                           + matrixA[i * 4 + 3] * matrixB[12 + j];
+      matrixC[i * 4 + j] = 0;                         
+      for (k = 0; k < 4; k++)
+      {
+        matrixC[i * 4 + j] += matrixA[i * 4 + k] * matrixB[4 * k + j];
+      }
+
     }
   }
   for(i = 0;i < 16; i++)
