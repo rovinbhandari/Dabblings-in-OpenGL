@@ -1,5 +1,5 @@
-#include <matrixmanipulation.h>
 #include <string.h>
+#include <matrixmanipulation.h>
 
 MatrixStack *mStack = NULL;   // Modelview stack
 MatrixStack *pStack = NULL;   // Projection view stack
@@ -7,8 +7,6 @@ MatrixStack **stack = &mStack;
 
 int matrixMode = MODELVIEW;   // Default mode set to Modelview.
 
-#define SIZEOF_MATRIX sizeof (float) * 16 
-#define index(i,j) i * 4 + j
 
 /* 4 x 4 Identity matrix (defined as 1D array) */
 float identitymatrix[16] = 
