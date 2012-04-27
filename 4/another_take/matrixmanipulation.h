@@ -4,6 +4,9 @@
 #include <commons.h>
 #include <Vertex.h>
 
+#define SIZEOF_MATRIX sizeof (float) * 16 
+#define index(i,j) (i) * 4 + (j)
+
 typedef struct _MatrixStack 
 {
   float topMatrix[16];
@@ -56,4 +59,3 @@ Vertex globalVertex (Vertex a);
 Vertex eyeVertex (Vertex a);
 
 #endif // end of file
-

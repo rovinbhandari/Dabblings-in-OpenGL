@@ -1,4 +1,5 @@
 #include <renderingfunctions.h>
+#include <string.h>
 #include <matrixmanipulation.h>
 
 float *zBuffer;
@@ -7,80 +8,259 @@ int y0min, y0max, y1min, y1max;
 extern int MAX_H, MAX_W, WxH;
 extern unsigned int *data;
 
-void initDraw()
+void initDraw ()
 {
   int i, j;
-  zBuffer=malloc(WxH*sizeof(float));
-  for(i=0;i<WxH;i++)	zBuffer[i]=2;
-  for(i=0;i<WxH;++i)    data[i]=COLBG;
+  zBuffer = malloc (WxH * sizeof (float));
+
+  // Set z-buffer to 2
+  for(i = 0; i < WxH; i++)
+  {
+    zBuffer[i] = 2;
+  }
+ 
+  // Paint the background black
+  memset (data, COLBG, WxH * sizeof (unsigned int));
 }   
 
-int testValid(Vertex a)
+#define iswithin(x,low,up) ((x) <= (up) && (x) >= (low))
+int testValid (Vertex a)
 {
-  if(a.x>=-1 && a.x<=1 && a.y>=-1 && a.y<=1 && a.z>=0 && a.z<=1)
-    return 1;
-  else return 0;
+  return (iswithin(a.x,-1,1) && iswithin(a.y, -1, 1) && iswithin(a.z, 0, 1));
 }
 
-void addToPointsTable(int x, int y, float z)
+void addToPointsTable (int x, int y, float z)
 {
-  if(pointsTable[x][0]<0){
-    pointsTable[x][0]=y; pointsTable[x][1]=z; pointsTable[x][2]=y; pointsTable[x][3]=z;
-  } else {
-    if(pointsTable[x][0]>y){
-      pointsTable[x][0]=y; pointsTable[x][1]=z;
-    } else if(pointsTable[x][2]<y){
-      pointsTable[x][2]=y; pointsTable[x][3]=z;
+  if(pointsTable[x][0] < 0)
+  {
+    pointsTable[x][0] = y;
+    pointsTable[x][1] = z;
+    pointsTable[x][2] = y; 
+    pointsTable[x][3] = z;
+  } 
+  else 
+  {
+    if(pointsTable[x][0] > y)
+    {
+      pointsTable[x][0] = y;
+      pointsTable[x][1] = z;
+    } 
+    else if (pointsTable[x][2] < y)
+    {
+      pointsTable[x][2] = y;
+      pointsTable[x][3] = z;
     }
   }
 }
 
 int clip(Vertex *a, Vertex *b)
 {
-  int reg_a=0, reg_b=0, min=-1, ret=1;
+  int reg_a = 0, reg_b = 0, min = -1, ret = 1;
   float x_check, y_check, z_check, param=0, max_param=1;
-  if(a->x>1)	reg_a+=2;
-  else if(a->x<-1)	reg_a+=1;
-  if(a->y>1)	reg_a+=8;
-  else if(a->y<-1)	reg_a+=4;
-  if(a->z>1)	reg_a+=32;
-  else if(a->z<-1)	reg_a+=16;
-  if(b->x>1)	reg_b+=2;
-  else if(b->x<-1)	reg_b+=1;
-  if(b->y>1)	reg_b+=8;
-  else if(b->y<-1)	reg_b+=4;
-  if(b->z>1)	reg_b+=32;
-  else if(b->z<0)	reg_b+=16;
-  if(reg_a==0 && reg_b==0)	return 1;
-  if((a->x==b->x) && (a->y==b->y) && (a->z==b->z)){ return 0; }
-  if((reg_a^reg_b)!=0)	return 0;
-  if(reg_a!=0){
-    x_check=(reg_a&3)==0?0:(reg_a&3)*2-3; y_check=(reg_a&12)==0?0:(reg_a&12)/2-3; z_check=(reg_a&48)==0?-1:(reg_a&48)/16-1;
-    if(x_check) { param=(x_check-a->x)/(b->x-a->x); if(max_param<param){ max_param=param; min=0; }}
-    if(y_check) { param=(y_check-a->y)/(b->y-a->y); if(max_param<param){ max_param=param; min=1; }}
-    if(z_check+1)       { param=(z_check-a->z)/(b->z-a->z); if(max_param<param){ max_param=param; min=2; }}
-    if(min==0) { if(a->x<x_check){ if(x_check==1) a->x=1+.000001; a->x=-1; } if(a->x>x_check){ if(x_check==-1) a->x=-1-.000001; a->x=1; } }
-    else a->x=max_param*(b->x-a->x) + a->x;
-    if(min==1) { if(a->y<y_check){ if(y_check==1) a->y=1+.000001; a->y=-1; } if(a->y>y_check){ if(y_check==-1) a->y=-1-.000001; a->y=1; } }
-    else a->y=max_param*(b->y-a->y) + a->y;
-    if(min==2) { if(a->z<z_check){ if(z_check==1) a->z=1+.000001; a->z=0; } if(a->z>z_check){ if(z_check==0) a->z=0-.000001; a->z=1; } }
-    else a->z=max_param*(b->z-a->z) + a->z;
-    if(!testValid(*a))  return 0;
+  
+  reg_a += (a->x > 1) ? 2 : (a->x < -1) ? 1 : 0;
+  reg_a += (a->y > 1) ? 8 : (a->y < -1) ? 4 : 0;
+  reg_a += (a->z > 1) ? 32: (a->z < -1) ? 16: 0;
+
+  reg_b += (b->x > 1) ? 2 : (b->x < -1) ? 1 : 0;
+  reg_b += (b->y > 1) ? 8 : (b->y < -1) ? 4 : 0;
+  reg_b += (b->z > 1) ? 32: (b->z < 0 ) ? 16: 0;  // Verify.
+  
+  if(reg_a == 0 && reg_b == 0)
+  {
+    return 1;
+  }
+  
+  if((a->x == b->x) && (a->y == b->y) && (a->z == b->z))
+  { 
+    return 0; 
+  }
+  
+  if ( (reg_a ^ reg_b) != 0)
+  {
+    return 0;
+  }
+  
+  if (reg_a!=0)
+  {
+    x_check = (reg_a & 3)  == 0 ? 0  : (reg_a & 3) * 2 - 3;
+    y_check = (reg_a & 12) == 0 ? 0  : (reg_a & 12) / 2 - 3;
+    z_check = (reg_a & 48) == 0 ? -1 : (reg_a & 48) / 16 - 1;
+    
+    if (x_check) 
+    { 
+      param = (x_check - a->x) / (b->x - a->x); 
+      if(max_param < param)
+      { 
+        max_param = param; 
+        min = 0;
+      }
+    }
+    
+    if (y_check) 
+    { 
+      param = (y_check - a->y) / (b->y - a->y); 
+      if (max_param < param)
+      {
+        max_param = param; 
+        min = 1; 
+      }
+    }
+    
+    if (z_check+1)
+    { 
+      param = (z_check - a->z) / (b->z - a->z);
+      if (max_param < param)
+      {
+        max_param = param; 
+        min = 2; 
+      }
+    }
+    
+    if (min == 0)
+    { 
+      if (a->x < x_check)
+      { 
+        if(x_check == 1) a->x=1+.000001; a->x=-1; 
+      } 
+      
+      if (a->x>x_check)
+      { 
+        if(x_check==-1) a->x=-1-.000001; a->x=1; 
+      } 
+    }
+    else 
+    {
+      a->x = max_param * (b->x - a->x) + a->x;
+    }
+    
+    if (min == 1) 
+    { 
+      if (a->y < y_check)
+      { 
+        if(y_check == 1) a->y=1+.000001; a->y=-1;
+      }
+      if (a->y > y_check)
+      { 
+        if(y_check==-1) a->y=-1-.000001; a->y=1; 
+      }
+    }
+    else 
+    {
+      a->y = max_param * (b->y-a->y) + a->y;
+    }
+    
+    if (min == 2)
+    { 
+      if (a->z < z_check) 
+      {
+        if(z_check == 1) a->z=1+.000001; a->z=0; 
+      } 
+      if (a->z > z_check)
+      { 
+        if(z_check==0) a->z=0-.000001; a->z=1; 
+      } 
+    }
+    else 
+    {
+      a->z = max_param * (b->z - a->z) + a->z;
+    }
+    if(!testValid(*a))
+    {
+      return 0;
+    }
     ret=2;
   }
-  param=0; max_param=1; min=-1;
-  if(reg_b!=0){
-    x_check=(reg_b&3)==0?0:(reg_b&3)*2-3; y_check=(reg_b&12)==0?0:(reg_b&12)/2-3; z_check=(reg_b&48)==0?-1:(reg_b&48)/16-1;
-    if(x_check) { param=(x_check-b->x)/(a->x-b->x); if(max_param<param){ max_param=param; min=0; }}
-    if(y_check) { param=(y_check-b->y)/(a->y-b->y); if(max_param<param){ max_param=param; min=1; }}
-    if(z_check+1)       { param=(z_check-b->z)/(a->z-b->z); if(max_param<param){ max_param=param; min=2; }}
-    if(min==0) { if(b->x<x_check){ if(x_check==1) b->x=1+.000001; b->x=-1; } if(b->x>x_check){ if(x_check==-1) b->x=-1-.000001; b->x=1; } }
-    else b->x=max_param*(a->x-b->x) + b->x;
-    if(min==1) { if(b->y<y_check){ if(y_check==1) b->y=1+.000001; b->y=-1; } if(b->y>y_check){ if(y_check==-1) b->y=-1-.000001; b->y=1; } }
-    else b->y=max_param*(a->y-b->y) + b->y;
-    if(min==2) { if(b->z<z_check){ if(z_check==1) b->z=1+.000001; b->z=0; } if(b->z>z_check){ if(z_check==0) b->z=0-.000001; b->z=1; } }
-    else b->z=max_param*(a->z-b->z)+b->z;
-    if(!testValid(*b))  return 0;
+  
+  param = 0;
+  max_param = 1; 
+  min = -1;
+
+  if (reg_b != 0)
+  {
+    x_check = (reg_b & 3) == 0  ?  0 : (reg_b & 3) * 2 - 3;
+    y_check = (reg_b & 12) == 0 ?  0 : (reg_b & 12) / 2 - 3;
+    z_check = (reg_b & 48) == 0 ? -1 : (reg_b & 48) / 16 - 1;
+
+    if (x_check)
+    { 
+      param = (x_check - b->x) / (a->x - b->x);
+      if (max_param < param)
+      {
+        max_param = param;
+        min = 0;
+      }
+    }
+    if (y_check)
+    { 
+      param = (y_check - b->y) / (a->y - b->y);
+      if (max_param < param)
+      {
+        max_param = param;
+        min = 1; 
+      }
+    }
+    
+    if (z_check + 1)
+    { 
+      param = (z_check - b->z) / (a->z - b->z); 
+      if (max_param < param)
+      { 
+        max_param = param;
+        min = 2; 
+      }
+    }
+    
+    if (min == 0) 
+    { 
+      if(b->x < x_check)
+      {
+        if(x_check == 1) b->x=1+.000001; b->x=-1; 
+      }
+      if  (b->x > x_check) 
+      { 
+        if (x_check == -1) b->x=-1-.000001; b->x=1; 
+      }
+    }
+    else 
+    {
+      b->x = max_param * (a->x - b->x) + b->x;
+    }
+    
+    if (min == 1) 
+    {
+      if (b->y < y_check)
+      { 
+        if (y_check == 1) b->y=1+.000001; b->y=-1; 
+      }
+      if (b->y > y_check)
+      { 
+        if (y_check==-1) b->y=-1-.000001; b->y=1; 
+      }
+    }
+    else
+    {
+      b->y = max_param * (a->y - b->y) + b->y;
+    }
+    if (min == 2) 
+    {
+      if (b->z < z_check)
+      {
+        if (z_check == 1) b->z = 1 + .000001; b->z = 0; 
+      } 
+      if (b->z > z_check)
+      {
+        if (z_check == 0) b->z = 0 - .000001; b->z = 1; 
+      }
+    }
+    else
+    {
+      b->z = max_param * (a->z-b->z) + b->z;
+    }
+    if(!testValid(*b)) 
+    {
+      return 0;
+    }
     ret=2;
   }
   return ret;
@@ -196,7 +376,14 @@ void drawTriangle(Triangle t)
 void printPointsTable()
 {
   int i;
-  for(i=0;i<MAX_H;++i)	if(pointsTable[i][0]>=0)	if(DBG) printf("%d: %f %f\n", i, pointsTable[i][0], pointsTable[i][2]);
+  for(i = 0; i < MAX_H; ++i)
+  {
+    if (pointsTable[i][0] >= 0)
+    {
+      if(DBG) 
+        printf("%d: %f %f\n", i, pointsTable[i][0], pointsTable[i][2]);
+    }
+  }
 }
 
 //Look at the rectangle from opposite its normal. Choose the top left and top right vertices.
@@ -218,34 +405,62 @@ void renderScene()
   drawTriangles();
 }
 
-void setViewer(Vertex eye, Vertex lookAt, Vertex up)
+void setViewer (Vertex eye, Vertex lookAt, Vertex up)
 {
-  Vertex f = subVertex(lookAt, eye), s, u;
-  float m[16];
-  int i=getMatrixMode();
-  f=normalizeVertex(f);
-  up=normalizeVertex(up);
-  s=crossProduct(f,up);
-  u=crossProduct(s,f);
-  m[0]=s.x; m[1]=u.x; m[2]=f.x; m[3]=0;
-  m[4]=s.y; m[5]=u.y; m[6]=f.y; m[7]=0;
-  m[8]=s.z; m[9]=u.z; m[10]=f.z; m[11]=0;
-  m[12]=-dotProduct(eye, s); m[13]=-dotProduct(eye, u); m[14]=-dotProduct(eye, f); m[15]=1;
+  Vertex f = subVertex (lookAt, eye), s, u;
+  float matrix[16];
+  MatrixMode mode = getMatrixMode();
+
+  f = normalizeVertex(f);
+  up = normalizeVertex(up);
+  s = crossProduct(f,up);
+  u = crossProduct(s,f);
+
+  // Set matrix elements.
+  matrix[index (0,0)] = s.x; 
+  matrix[index (0,1)] = u.x;
+  matrix[index (0,2)] = f.x;
+  matrix[index (0,3)] = 0;
+  matrix[index (1,0)] = s.y;
+  matrix[index (1,1)] = u.y;
+  matrix[index (1,2)] = f.y;
+  matrix[index (1,3)] = 0;
+  matrix[index (2,0)] = s.z;
+  matrix[index (2,1)] = u.z;
+  matrix[index (2,2)] = f.z; 
+  matrix[index (2,3)] =0;
+  matrix[index (3,0)] = -dotProduct (eye, s); 
+  matrix[index (3,1)] = -dotProduct (eye, u); 
+  matrix[index (3,2)] = -dotProduct (eye, f); 
+  matrix[index (3,3)] = 1;
+
   setMatrixMode(PROJECTION);
-  multMatrix(m);
-  setMatrixMode(i);
+  multMatrix(matrix);
+  setMatrixMode(mode);
 }
 
-void setFrustum(float w, float h, float n, float f)
+void setFrustum(float width, float height, float near, float far)
 {
-  float m[16];
-  int i=getMatrixMode();
-  m[0]=2*n/w; m[1]=0; m[2]=0; m[3]=0;
-  m[4]=0; m[5]=2*n/h; m[6]=0; m[7]=0;
-  m[8]=0; m[9]=0; m[10]=f/(f-n); m[11]=1;
-  m[12]=0; m[13]=0; m[14]=-n*f/(f-n); m[15]=0;
+  float matrix[16];
+  int i = getMatrixMode();
+ 
+  // Set all elements to zero.
+  memset (matrix, 0, SIZEOF_MATRIX);
+
+  // Set particular elements.
+  matrix[index (0,0)] = 2 * near / width; 
+  matrix[index (1,1)] = 2 * near / height;
+  matrix[index (2,2)] = far / (far - near);
+  matrix[index (2,3)] = 1;
+  matrix[index (3,2)] = - near * far / (far - near);
+ 
+  // Set matrix mode to Projection.
   setMatrixMode(PROJECTION);
-  multMatrix(m);
+
+  // Multiply matrix.
+  multMatrix(matrix);
+
+  // Reset matrix mode back to initial value.
   setMatrixMode(i);
 }
 
