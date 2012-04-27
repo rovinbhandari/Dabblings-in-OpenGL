@@ -8,6 +8,7 @@ MatrixStack **stack = &mStack;
 int matrixMode = MODELVIEW;   // Default mode set to Modelview.
 
 #define SIZEOF_MATRIX sizeof (float) * 16 
+#define index(i,j) i * 4 + j
 
 /* 4 x 4 Identity matrix (defined as 1D array) */
 float identitymatrix[16] = 
@@ -89,51 +90,59 @@ MatrixStack *multMatrix (float *matrixB)
   {
     for(j = 0; j < 4; j++)
     {
+      // Fill the (i,j)th element of the matrix.
       matrixC[i * 4 + j] = 0;                         
       for (k = 0; k < 4; k++)
       {
-        matrixC[i * 4 + j] += matrixA[i * 4 + k] * matrixB[4 * k + j];
+        matrixC[index (i,j)] += matrixA[index (i,k)] * matrixB[index (k,j)];
       }
 
     }
   }
-  for(i = 0;i < 16; i++)
-  {
-    matrixA[i] = matrixC[i];
-  }
+  
+  memcpy (matrixA, matrixC, SIZEOF_MATRIX);
   return *stack;
 }
 
 MatrixStack *translate(float x, float y, float z)
 {
-  float m[16];
+  float matrix[16];
   int i;
- 
-  for(i = 0;i < 16; i++)
+  
+  // Set all matrix elements to zero
+  memset (matrix, 0, SIZEOF_MATRIX);
+
+  // Set elements in the last column.
+  matrix[index (3,0)] = x;
+  matrix[index (3,1)] = y;
+  matrix[index (3,2)] = z;
+
+  // Set diagonal elements.
+  for (i = 0; i < 4; i++)
   {
-    m[i] = 0;
+    matrix[index (i,i)] = 1;
   }
-  m[12] = x;
-  m[13] = y;
-  m[14] = z;
-  m[0] = m[5] = m[10] = m[15] = 1;
-  return multMatrix (m);
+
+  // Multiply the matrix with that on the top of the stack.
+  return multMatrix (matrix);
 }
 
 MatrixStack *scale(float x, float y, float z)
 {
-  float m[16];
+  float matrix[16];
   int i;
  
-  for(i = 0; i < 16; i++)
-  {
-    m[i] = 0;
-  }
-  m[0] = x;
-  m[5] = y;
-  m[10] = z;
-  m[15] = 1;
-  return multMatrix (m);
+  // Set all elements to zero.
+  memset (matrix, 0, SIZEOF_MATRIX);
+
+  // Set the diagonal elements
+  matrix[0] = x;
+  matrix[5] = y;
+  matrix[10] = z;
+  matrix[15] = 1;
+
+  // Multiply the matrix with that on the top of the stack.
+  return multMatrix (matrix);
 }
 
 MatrixStack *rotate(float degree, int x, int y, int z)
@@ -172,7 +181,9 @@ MatrixStack *rotate(float degree, int x, int y, int z)
     m[5] = cos (angle);
     m[10] = 1.0;
   }
-  multMatrix (m);
+
+  // Multiply the matrix with that on the top of the stack.
+  return multMatrix (m);
 }
 
 Vertex globalVertex (Vertex a)
