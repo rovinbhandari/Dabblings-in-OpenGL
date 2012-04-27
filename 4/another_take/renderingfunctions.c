@@ -7,80 +7,309 @@ int y0min, y0max, y1min, y1max;
 extern int MAX_H, MAX_W, WxH;
 extern unsigned int *data;
 
-void initDraw()
+void initDraw ()
 {
   int i, j;
-  zBuffer=malloc(WxH*sizeof(float));
-  for(i=0;i<WxH;i++)	zBuffer[i]=2;
-  for(i=0;i<WxH;++i)    data[i]=COLBG;
+  zBuffer = malloc(WxH*sizeof(float));
+  for(i = 0; i < WxH; i++)
+  {
+    zBuffer[i]=2;
+  }
+  
+  for(i = 0; i < WxH; ++i)  
+  {
+    data[i]=COLBG;
+  }
 }   
 
-int testValid(Vertex a)
+int testValid (Vertex a)
 {
-  if(a.x>=-1 && a.x<=1 && a.y>=-1 && a.y<=1 && a.z>=0 && a.z<=1)
+  if(a.x >= -1 && a.x <= 1 && a.y >= -1 && a.y <= 1 && a.z >=0 && a.z <=1)
     return 1;
-  else return 0;
+  else
+    return 0;
 }
 
-void addToPointsTable(int x, int y, float z)
+void addToPointsTable (int x, int y, float z)
 {
-  if(pointsTable[x][0]<0){
-    pointsTable[x][0]=y; pointsTable[x][1]=z; pointsTable[x][2]=y; pointsTable[x][3]=z;
-  } else {
-    if(pointsTable[x][0]>y){
-      pointsTable[x][0]=y; pointsTable[x][1]=z;
-    } else if(pointsTable[x][2]<y){
-      pointsTable[x][2]=y; pointsTable[x][3]=z;
+  if(pointsTable[x][0] < 0)
+  {
+    pointsTable[x][0] = y;
+    pointsTable[x][1] = z;
+    pointsTable[x][2] = y; 
+    pointsTable[x][3] = z;
+  } 
+  else 
+  {
+    if(pointsTable[x][0] > y)
+    {
+      pointsTable[x][0] = y;
+      pointsTable[x][1] = z;
+    } 
+    else if (pointsTable[x][2] < y)
+    {
+      pointsTable[x][2] = y;
+      pointsTable[x][3] = z;
     }
   }
 }
 
 int clip(Vertex *a, Vertex *b)
 {
-  int reg_a=0, reg_b=0, min=-1, ret=1;
+  int reg_a = 0, reg_b = 0, min = -1, ret = 1;
   float x_check, y_check, z_check, param=0, max_param=1;
-  if(a->x>1)	reg_a+=2;
-  else if(a->x<-1)	reg_a+=1;
-  if(a->y>1)	reg_a+=8;
-  else if(a->y<-1)	reg_a+=4;
-  if(a->z>1)	reg_a+=32;
-  else if(a->z<-1)	reg_a+=16;
-  if(b->x>1)	reg_b+=2;
-  else if(b->x<-1)	reg_b+=1;
-  if(b->y>1)	reg_b+=8;
-  else if(b->y<-1)	reg_b+=4;
-  if(b->z>1)	reg_b+=32;
-  else if(b->z<0)	reg_b+=16;
-  if(reg_a==0 && reg_b==0)	return 1;
-  if((a->x==b->x) && (a->y==b->y) && (a->z==b->z)){ return 0; }
-  if((reg_a^reg_b)!=0)	return 0;
-  if(reg_a!=0){
-    x_check=(reg_a&3)==0?0:(reg_a&3)*2-3; y_check=(reg_a&12)==0?0:(reg_a&12)/2-3; z_check=(reg_a&48)==0?-1:(reg_a&48)/16-1;
-    if(x_check) { param=(x_check-a->x)/(b->x-a->x); if(max_param<param){ max_param=param; min=0; }}
-    if(y_check) { param=(y_check-a->y)/(b->y-a->y); if(max_param<param){ max_param=param; min=1; }}
-    if(z_check+1)       { param=(z_check-a->z)/(b->z-a->z); if(max_param<param){ max_param=param; min=2; }}
-    if(min==0) { if(a->x<x_check){ if(x_check==1) a->x=1+.000001; a->x=-1; } if(a->x>x_check){ if(x_check==-1) a->x=-1-.000001; a->x=1; } }
-    else a->x=max_param*(b->x-a->x) + a->x;
-    if(min==1) { if(a->y<y_check){ if(y_check==1) a->y=1+.000001; a->y=-1; } if(a->y>y_check){ if(y_check==-1) a->y=-1-.000001; a->y=1; } }
-    else a->y=max_param*(b->y-a->y) + a->y;
-    if(min==2) { if(a->z<z_check){ if(z_check==1) a->z=1+.000001; a->z=0; } if(a->z>z_check){ if(z_check==0) a->z=0-.000001; a->z=1; } }
-    else a->z=max_param*(b->z-a->z) + a->z;
-    if(!testValid(*a))  return 0;
+  
+  reg_a += (a->x > 1) ? 2 : (a->x < -1) ? 1 : 0;
+/*
+  if (a->x > 1)
+  {
+    reg_a += 2;
+  }
+  else if(a->x < -1)
+  {
+    reg_a += 1;
+  }
+*/
+  if(a->y > 1)
+  {
+    reg_a += 8;
+  }
+  else if(a->y < -1)
+  {
+    reg_a += 4;
+  }
+  
+  if(a->z>1)
+  {
+    reg_a+=32;
+  }
+  else if(a->z<-1)	
+  {
+    reg_a+=16;
+  }
+  
+  if(b->x>1)
+  {
+    reg_b+=2;
+  }
+  else if(b->x<-1)	
+  {
+    reg_b+=1;
+  }
+  
+  if(b->y>1)
+  {
+    reg_b+=8;
+  }
+  else if(b->y<-1)
+  {
+    reg_b+=4;
+  }
+  
+  if(b->z>1)
+  {
+    reg_b+=32;
+  }
+  else if(b->z<0)
+  {
+    reg_b+=16;
+  }
+  
+  if(reg_a==0 && reg_b==0)
+  {
+    return 1;
+  }
+  
+  if((a->x==b->x) && (a->y==b->y) && (a->z==b->z))
+  { 
+    return 0; 
+  }
+  
+  if ( (reg_a ^ reg_b) != 0)
+  {
+    return 0;
+  }
+  
+  if (reg_a!=0)
+  {
+    x_check = (reg_a & 3)  == 0 ? 0  : (reg_a & 3) * 2 - 3;
+    y_check = (reg_a & 12) == 0 ? 0  : (reg_a & 12) / 2 - 3;
+    z_check = (reg_a & 48) == 0 ? -1 : (reg_a & 48) / 16 - 1;
+    
+    if (x_check) 
+    { 
+      param = (x_check - a->x) / (b->x - a->x); 
+      if(max_param < param)
+      { 
+        max_param = param; 
+        min = 0;
+      }
+    }
+    
+    if (y_check) 
+    { 
+      param = (y_check - a->y) / (b->y - a->y); 
+      if (max_param < param)
+      {
+        max_param = param; 
+        min = 1; 
+      }
+    }
+    
+    if (z_check+1)
+    { 
+      param = (z_check - a->z) / (b->z - a->z);
+      if (max_param < param)
+      {
+        max_param = param; 
+        min = 2; 
+      }
+    }
+    
+    if (min == 0)
+    { 
+      if (a->x < x_check)
+      { 
+        if(x_check == 1) a->x=1+.000001; a->x=-1; 
+      } 
+      
+      if (a->x>x_check)
+      { 
+        if(x_check==-1) a->x=-1-.000001; a->x=1; 
+      } 
+    }
+    else 
+    {
+      a->x = max_param * (b->x - a->x) + a->x;
+    }
+    
+    if (min == 1) 
+    { 
+      if (a->y < y_check)
+      { 
+        if(y_check == 1) a->y=1+.000001; a->y=-1;
+      }
+      if (a->y > y_check)
+      { 
+        if(y_check==-1) a->y=-1-.000001; a->y=1; 
+      }
+    }
+    else 
+    {
+      a->y = max_param * (b->y-a->y) + a->y;
+    }
+    
+    if (min == 2)
+    { 
+      if (a->z < z_check) 
+      {
+        if(z_check == 1) a->z=1+.000001; a->z=0; 
+      } 
+      if (a->z > z_check)
+      { 
+        if(z_check==0) a->z=0-.000001; a->z=1; 
+      } 
+    }
+    else 
+    {
+      a->z = max_param * (b->z - a->z) + a->z;
+    }
+    if(!testValid(*a))
+    {
+      return 0;
+    }
     ret=2;
   }
-  param=0; max_param=1; min=-1;
-  if(reg_b!=0){
-    x_check=(reg_b&3)==0?0:(reg_b&3)*2-3; y_check=(reg_b&12)==0?0:(reg_b&12)/2-3; z_check=(reg_b&48)==0?-1:(reg_b&48)/16-1;
-    if(x_check) { param=(x_check-b->x)/(a->x-b->x); if(max_param<param){ max_param=param; min=0; }}
-    if(y_check) { param=(y_check-b->y)/(a->y-b->y); if(max_param<param){ max_param=param; min=1; }}
-    if(z_check+1)       { param=(z_check-b->z)/(a->z-b->z); if(max_param<param){ max_param=param; min=2; }}
-    if(min==0) { if(b->x<x_check){ if(x_check==1) b->x=1+.000001; b->x=-1; } if(b->x>x_check){ if(x_check==-1) b->x=-1-.000001; b->x=1; } }
-    else b->x=max_param*(a->x-b->x) + b->x;
-    if(min==1) { if(b->y<y_check){ if(y_check==1) b->y=1+.000001; b->y=-1; } if(b->y>y_check){ if(y_check==-1) b->y=-1-.000001; b->y=1; } }
-    else b->y=max_param*(a->y-b->y) + b->y;
-    if(min==2) { if(b->z<z_check){ if(z_check==1) b->z=1+.000001; b->z=0; } if(b->z>z_check){ if(z_check==0) b->z=0-.000001; b->z=1; } }
-    else b->z=max_param*(a->z-b->z)+b->z;
-    if(!testValid(*b))  return 0;
+  
+  param = 0;
+  max_param = 1; 
+  min = -1;
+
+  if (reg_b != 0)
+  {
+    x_check = (reg_b & 3) == 0  ?  0 : (reg_b & 3) * 2 - 3;
+    y_check = (reg_b & 12) == 0 ?  0 : (reg_b & 12) / 2 - 3;
+    z_check = (reg_b & 48) == 0 ? -1 : (reg_b & 48) / 16 - 1;
+
+    if (x_check)
+    { 
+      param = (x_check - b->x) / (a->x - b->x);
+      if (max_param < param)
+      {
+        max_param = param;
+        min = 0;
+      }
+    }
+    if (y_check)
+    { 
+      param = (y_check - b->y) / (a->y - b->y);
+      if (max_param < param)
+      {
+        max_param = param;
+        min = 1; 
+      }
+    }
+    
+    if (z_check + 1)
+    { 
+      param = (z_check - b->z) / (a->z - b->z); 
+      if (max_param < param)
+      { 
+        max_param = param;
+        min = 2; 
+      }
+    }
+    
+    if (min == 0) 
+    { 
+      if(b->x < x_check)
+      {
+        if(x_check == 1) b->x=1+.000001; b->x=-1; 
+      }
+      if  (b->x > x_check) 
+      { 
+        if (x_check == -1) b->x=-1-.000001; b->x=1; 
+      }
+    }
+    else 
+    {
+      b->x = max_param * (a->x - b->x) + b->x;
+    }
+    
+    if (min == 1) 
+    {
+      if (b->y < y_check)
+      { 
+        if (y_check == 1) b->y=1+.000001; b->y=-1; 
+      }
+      if (b->y > y_check)
+      { 
+        if (y_check==-1) b->y=-1-.000001; b->y=1; 
+      }
+    }
+    else
+    {
+      b->y = max_param * (a->y - b->y) + b->y;
+    }
+    if (min == 2) 
+    {
+      if (b->z < z_check)
+      {
+        if (z_check == 1) b->z=1+.000001; b->z=0; 
+      } 
+      if (b->z > z_check)
+      {
+        if (z_check == 0) b->z=0-.000001; b->z=1; 
+      }
+    }
+    else
+    {
+      b->z=max_param*(a->z-b->z)+b->z;
+    }
+    if(!testValid(*b)) 
+    {
+      return 0;
+    }
     ret=2;
   }
   return ret;
