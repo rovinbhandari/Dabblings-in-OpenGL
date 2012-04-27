@@ -268,38 +268,157 @@ int clip(Vertex *a, Vertex *b)
 
 void scanConvert(Vertex a, Vertex b)
 {
-  int tx1=((a.x+1)*(MAX_W-1))/2, tx2=((b.x+1)*(MAX_W-1))/2, ty1=((a.y+1)*(MAX_H-1))/2, ty2=((b.y+1)*(MAX_H-1))/2;
+  int tx1 = ((a.x + 1) * (MAX_W -1 )) / 2; 
+  int tx2 = ((b.x + 1) * (MAX_W - 1)) / 2; 
+  int ty1 = ((a.y + 1) * (MAX_H - 1)) / 2;
+  int ty2 = ((b.y + 1) * (MAX_H - 1)) / 2;
+
   int x1, x2, y1, y2;
   int dx, dy, err=0, incr;
-  float m=(tx2==tx1)?100:(float)(ty2-ty1)/(float)(tx2-tx1), tz1=a.z, tz2=b.z, z1, z2, dz;
-  if(m>1 || m<-1){
-    if(ty1<ty2){ y1=ty1; y2=ty2; x1=tx1; x2=tx2; z1=tz1; z2=tz2; }
-    else{ y1=ty2; y2=ty1; x1=tx2; x2=tx1; z1=tz2; z2=tz1; }
-  } else {
-    if(tx1<tx2){ x1=tx1; x2=tx2; y1=ty1; y2=ty2; z1=tz1; z2=tz2; }
-    else{ x1=tx2; x2=tx1; y1=ty2; y2=ty1; z1=tz2; z2=tz1; }
-  }
-  if(x1==0){ if(y0min==-1){ y0min=y1; y0max=y1; } else { y0min=(y1<y0min)?y1:y0min; y0max=(y1>y0max)?y1:y0max; } }
-  if(x2==0){ if(y0min==-1){ y0min=y2; y0max=y2; } else { y0min=(y2<y0min)?y2:y0min; y0max=(y2>y0max)?y2:y0max; } }
-  if(x1==MAX_W-1){ if(y1min==-1){ y1min=x1; y1max=x1; } else { y1min=(y1<y1min)?y1:y1min; y1max=(y1>y1max)?y1:y1max; } }
-  if(x2==MAX_W-1){ if(y1min==-1){ y1min=x2; y1max=x2; } else { y1min=(y2<y1min)?y2:y1min; y1max=(y2>y1max)?y2:y1max; } }
-  dx=abs(x2-x1); dy=abs(y2-y1); err=0;
-  //printf("%d %d %f, %d %d %f, %d, %d\n", x1, y1, z1, x2, y2, z2, dx, dy);
-  if(m<=1 && m>=-1){
-    incr=m>0?1:-1; dz=(z2-z1)/dx;
-    for(;x1<=x2;++x1){
-      addToPointsTable(x1, y1, z1);
-      if(2*(err+dy)<dx)	err=err+dy;
-      else { y1+=incr; err=err+dy-dx; }
-      z1+=dz;
+  float m = (tx2 == tx1) ? 100 : (float) (ty2 - ty1) / (float) (tx2 - tx1), 
+  float tz1 = a.z, tz2 = b.z, z1, z2, dz;
+
+  if(m >1 || m < -1)
+  {
+    if(ty1 < ty2)
+    { 
+      y1 = ty1; 
+      y2 = ty2;
+      x1 = tx1;
+      x2 = tx2;
+      z1 = tz1;
+      z2 = tz2;
     }
-  } else {
-    incr=m>0?1:-1; dz=(z2-z1)/dy;
-    for(;y1<=y2;++y1){
+    else
+    {
+      y1 = ty2;
+      y2 = ty1;
+      x1 = tx2;
+      x2 = tx1;
+      z1 = tz2;
+      z2 = tz1;
+    }
+  } 
+  else 
+  {
+    if(tx1 < tx2)
+    { 
+      x1 = tx1;
+      x2 = tx2;
+      y1 = ty1;
+      y2 = ty2; 
+      z1 = tz1;
+      z2 = tz2; 
+    }
+    else
+    { 
+      x1 = tx2;
+      x2 = tx1;
+      y1 = ty2;
+      y2 = ty1;
+      z1 = tz2;
+      z2 = tz1;
+    }
+  }
+  
+  if (x1 == 0)
+  {
+    if (y0min == -1)
+    { 
+      y0min = y1;
+      y0max = y1;
+    }
+    else
+    { 
+      y0min = (y1 < y0min) ? y1 : y0min;
+      y0max = (y1 > y0max) ? y1 : y0max; 
+    } 
+  }
+  
+  if (x2 == 0)
+  { 
+    if (y0min == -1)
+    {
+      y0min = y2;
+      y0max = y2;
+    }
+    else
+    { 
+      y0min = (y2 < y0min) ? y2 : y0min;
+      y0max = (y2 > y0max) ? y2 : y0max; 
+    }
+  }
+  
+  if (x1 == MAX_W - 1)
+  {
+    if (y1min == -1)
+    {
+      y1min = x1;
+      y1max = x1;
+    }
+    else
+    { 
+      y1min = (y1 < y1min) ? y1 : y1min; 
+      y1max = (y1 > y1max) ? y1 : y1max;
+    }
+  }
+  
+  if (x2 == MAX_W - 1)
+  {
+    if (y1min == -1)
+    {
+      y1min = x2;
+      y1max = x2;
+    }
+    else
+    { 
+      y1min = (y2 < y1min) ? y2 : y1min; 
+      y1max = (y2 > y1max) ? y2 : y1max;
+    }
+  }
+  
+  dx = abs (x2 - x1);
+  dy = abs (y2 - y1);
+  err = 0;
+  //printf("%d %d %f, %d %d %f, %d, %d\n", x1, y1, z1, x2, y2, z2, dx, dy);
+  
+  if (m <= 1 && m >= -1)
+  {
+    incr = m > 0 ? 1 : -1;
+    dz = (z2 - z1) / dx;
+    
+    for( ; x1 <= x2; ++x1)
+    {
       addToPointsTable(x1, y1, z1);
-      if(2*(err+dx)<dy) err=err+dx;
-      else { x1+=incr; err=err+dx-dy; }
-      z1+=dz;
+      if( 2 * (err + dy) < dx)
+      {
+        err = err + dy;
+      }
+      else 
+      { 
+        y1 += incr; 
+        err = err + dy - dx; 
+      }
+      z1 += dz;
+    }
+  } 
+  else 
+  {
+    incr = m > 0 ? 1 : -1;
+    dz = (z2 - z1) / dy;
+    for( ; y1 <= y2; ++y1)
+    {
+      addToPointsTable(x1, y1, z1);
+      if(2 * (err + dx) < dy) 
+      {
+        err=err+dx;
+      }
+      else
+      {
+        x1 += incr;
+        err = err + dx - dy; 
+      }
+      z1 += dz;
     }
   }
   
