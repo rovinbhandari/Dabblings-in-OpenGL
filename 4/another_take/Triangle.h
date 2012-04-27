@@ -9,13 +9,13 @@ typedef struct _Triangle
   Vertex v1, v2, v3;
   Vertex normal;
   Colour colour;
-}Triangle;
+} Triangle;
 
 typedef struct _TriangleList
 {
   Triangle t;
   struct _TriangleList *next;
-}TriangleList;
+} TriangleList;
 
 Triangle triangle(Vertex v1, Vertex v2, Vertex v3, Colour colour);
 void freeTriangleList(TriangleList *a);

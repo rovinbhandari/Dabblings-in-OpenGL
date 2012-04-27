@@ -49,8 +49,10 @@ MatrixStack *scale (float x,float y,float z);
  * stack. Returns pointer to the top of the stack. */
 MatrixStack *rotate (float degree,int x, int y,int z);
 
+/* Function to convert a vertex to global co-ordinates. */
 Vertex globalVertex (Vertex a);
 
+/* Function to convert a vertex to eye co-ordinates. */
 Vertex eyeVertex (Vertex a);
 
 #endif // end of file

@@ -33,7 +33,6 @@ int getMatrixMode ()
 MatrixStack *initMatrix ()
 {
   MatrixStack *temp;
-  int i;
 
   //Free any previous stack memory
   while(temp = *stack)
@@ -52,7 +51,6 @@ MatrixStack *initMatrix ()
 MatrixStack *pushMatrix()
 {
   MatrixStack *temp;
-  int i;
   temp = (MatrixStack*) malloc (sizeof (MatrixStack));
 
   // Copy the top of the stack
@@ -66,7 +64,6 @@ MatrixStack *pushMatrix()
 MatrixStack *popMatrix()
 {
   MatrixStack *temp;
-  int i;
 
   if(temp = *stack)
   {
@@ -130,16 +127,15 @@ MatrixStack *translate(float x, float y, float z)
 MatrixStack *scale(float x, float y, float z)
 {
   float matrix[16];
-  int i;
  
   // Set all elements to zero.
   memset (matrix, 0, SIZEOF_MATRIX);
 
   // Set the diagonal elements
-  matrix[0] = x;
-  matrix[5] = y;
-  matrix[10] = z;
-  matrix[15] = 1;
+  matrix[index (0,0)] = x;
+  matrix[index (1,1)] = y;
+  matrix[index (2,2)] = z;
+  matrix[index (3,3)] = 1;
 
   // Multiply the matrix with that on the top of the stack.
   return multMatrix (matrix);
@@ -147,67 +143,79 @@ MatrixStack *scale(float x, float y, float z)
 
 MatrixStack *rotate(float degree, int x, int y, int z)
 {
-  float m[16];
+  float matrix[16];
   float angle = degree * 3.1416 / 180;
-  int i;
  
-  for(i = 0; i < 15; i++)
-  {
-    m[i] = 0;
-  }
-  m[15] = 1.0;
+  // Set elements to zero.
+  memset (matrix, 0, SIZEOF_MATRIX);
+  matrix[15] = 1.0;
 
   if (x)
   {
-    m[0] = 1.0;
-    m[5] = cos (angle); 
-    m[6] = sin (angle); 
-    m[9] = -sin (angle); 
-    m[10] = cos (angle);
+    matrix[index (0,0)] = 1.0;
+    matrix[index (1,1)] = cos (angle); 
+    matrix[index (1,2)] = sin (angle); 
+    matrix[index (2,1)] = -sin (angle); 
+    matrix[index (2,2)] = cos (angle);
   }
   else if (y) 
   {
-    m[0] = cos (angle); 
-    m[2] = -sin (angle); 
-    m[5] = 1.0;
-    m[8] = sin (angle);
-    m[10] = cos (angle);
+    matrix[index (0,0)] = cos (angle); 
+    matrix[index (0,2)] = -sin (angle); 
+    matrix[index (1,1)] = 1.0;
+    matrix[index (2,0)] = sin (angle);
+    matrix[index (2,2)] = cos (angle);
   } 
   else if (z) 
   {
-    m[0] = cos (angle); 
-    m[1] = sin (angle);
-    m[4] = -sin (angle); 
-    m[5] = cos (angle);
-    m[10] = 1.0;
+    matrix[index (0,0)] = cos (angle); 
+    matrix[index (0,1)] = sin (angle);
+    matrix[index (1,0)] = -sin (angle); 
+    matrix[index (1,1)] = cos (angle);
+    matrix[index (2,2)] = 1.0;
   }
 
   // Multiply the matrix with that on the top of the stack.
-  return multMatrix (m);
+  return multMatrix (matrix);
 }
 
 Vertex globalVertex (Vertex a)
 {
-  float *m = mStack->topMatrix;
+  float *matrix = mStack->topMatrix;
   float w;
-  w = a.x * m[3] + a.y * m[7] + a.z * m[11] + m[15];
-  if (w == 0)	w = 1;
-  return vertex ((a.x * m[0] + a.y * m[4] + a.z * m[8] + m[12]) / w,
-                 (a.x * m[1] + a.y * m[5] + a.z * m[9] + m[13]) / w, 
-                 (a.x * m[2] + a.y * m[6] + a.z * m[10] + m[14]) / w);
+  w = a.x * matrix[index(0,3)] + a.y * matrix[index(1,3)] + 
+      a.z * matrix[index(2,3)] + matrix[index(3,3)];
+
+  if (w == 0)
+  {
+    w = 1;
+  }
+
+  return vertex ((a.x * matrix[index(0,0)] + a.y * matrix[index(1,0)] +
+                  a.z * matrix[index(2,0)] + matrix[index(3,0)]) / w,
+                 (a.x * matrix[index(0,1)] + a.y * matrix[index(1,1)] + 
+                  a.z * matrix[index(2,1)] + matrix[index(3,1)]) / w, 
+                 (a.x * matrix[index(0,2)] + a.y * matrix[index(1,2)] +
+                  a.z * matrix[index(2,2)] + matrix[index(3,2)]) / w);
 }
   
 Vertex eyeVertex (Vertex a)
 {
-  float *m = pStack->topMatrix;
+  float *matrix = pStack->topMatrix;
   float w;
-  w=a.x * m[3] + a.y * m[7] + a.z * m[11] + m[15];
-  if(w==0)
+  w = a.x * matrix[index(0,3)] + a.y * matrix[index(1,3)] + 
+      a.z * matrix[index(2,3)] + matrix[index(3,3)];
+
+  if(w == 0)
   {
     w = 1;
   }
-  return vertex((a.x * m[0] + a.y * m[4] + a.z * m[8] + m[12]) / w,
-                (a.x * m[1] + a.y * m[5] + a.z * m[9] + m[13]) / w, 
-                (a.x * m[2] + a.y * m[6] + a.z * m[10] + m[14]) / w);
+
+  return vertex((a.x * matrix[index(0,0)] + a.y * matrix[index(1,0)] + 
+                 a.z * matrix[index(2,0)] + matrix[index(3,0)]) / w,
+                (a.x * matrix[index(0,1)] + a.y * matrix[index(1,1)] +
+                 a.z * matrix[index(2,1)] + matrix[index(3,1)]) / w, 
+                (a.x * matrix[index(0,2)] + a.y * matrix[index(1,2)] +
+                 a.z * matrix[index(2,2)] + matrix[index(3,2)]) / w);
 }
 
