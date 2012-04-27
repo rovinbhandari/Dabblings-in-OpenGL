@@ -14,32 +14,36 @@ float identMatrix[16] =
 	0.0, 0.0, 0.0, 1.0
 };
 
-void setMatrixMode(int a)
+void setMatrixMode (int a)
 {
-  matrixMode=a;
-  stack=(matrixMode==MODELVIEW)?(&mStack):(&pStack);
+  matrixMode = a;
+  stack = (matrixMode == MODELVIEW) ? (&mStack) : (&pStack);
 }
 
-int getMatrixMode()
+int getMatrixMode ()
 {
   return matrixMode;
 }
 
-MatrixStack *initMatrix()
+MatrixStack *initMatrix ()
 {
   MatrixStack *temp;
   int i;
+
   //Free any previous stack memory
-  while(temp=*stack){
-    *stack=temp->prev;
+  while(temp = *stack)
+  {
+    *stack = temp->prev;
     free(temp);
   }
+  
   //Add an identity matrix as the top
-  *stack=(MatrixStack *)malloc(sizeof(MatrixStack));
-  for(i=0;i<16;i++){
-    (*stack)->topMatrix[i]=identMatrix[i];
+  *stack = (MatrixStack*) malloc (sizeof (MatrixStack));
+  for(i = 0;i < 16; i++)
+  {
+    (*stack)->topMatrix[i] = identMatrix[i];
   }
-  (*stack)->prev=NULL;
+  (*stack)->prev = NULL;
   return *stack;
 }
 
@@ -47,12 +51,13 @@ MatrixStack *pushMatrix()
 {
   MatrixStack *temp;
   int i;
-  temp=(MatrixStack *)malloc(sizeof(MatrixStack));
-  for(i=0;i<16;i++){
-    temp->topMatrix[i]=(*stack)->topMatrix[i];
+  temp = (MatrixStack*) malloc (sizeof (MatrixStack));
+  for(i = 0; i < 16; i++)
+  {
+    temp->topMatrix[i] = (*stack)->topMatrix[i];
   }
-  temp->prev=*stack;
-  *stack=temp;
+  temp->prev = *stack;
+  *stack = temp;
   return *stack;
 }
 
@@ -60,26 +65,36 @@ MatrixStack *popMatrix()
 {
   MatrixStack *temp;
   int i;
-  if(temp=*stack){
-    *stack=(*stack)->prev;
-    free(temp);
-  } else {
-    printf("Matrix not initialized.\n");
+  if(temp = *stack)
+  {
+    *stack = (*stack)->prev;
+    free (temp);
+  } 
+  else 
+  {
+    printf ("Matrix not initialized.\n");
   }
   return NULL;
 }
 
-MatrixStack *multMatrix(float *matrixB)
+MatrixStack *multMatrix (float *matrixB)
 {
   int i, j, k;
-  float matrixC[16], *matrixA=(*stack)->topMatrix;
-  for(i=0;i<4;i++){
-    for(j=0;j<4;j++){
-      matrixC[i*4+j]=matrixA[i*4]*matrixB[j] + matrixA[i*4+1]*matrixB[4+j] + matrixA[i*4+2]*matrixB[8+j] +matrixA[i*4+3]*matrixB[12+j];
+  float matrixC[16], *matrixA = (*stack)->topMatrix;
+
+  for(i=0;i<4;i++)
+  {
+    for(j=0;j<4;j++)
+    {
+      matrixC[i * 4 + j] = matrixA[i * 4] * matrixB[j] 
+                           + matrixA[i * 4 + 1] * matrixB[4 + j]
+                           + matrixA[i * 4 + 2] * matrixB[8 + j]
+                           + matrixA[i * 4 + 3] * matrixB[12 + j];
     }
   }
-  for(i=0;i<16;i++){
-    matrixA[i]=matrixC[i];
+  for(i=0;i<16;i++)
+  {
+    matrixA[i] = matrixC[i];
   }
   return *stack;
 }
