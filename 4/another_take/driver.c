@@ -21,6 +21,7 @@ float eyex=0, eyey=0, eyez=16, lookx=0, looky=0, lookz=0, upx=0, upy=1, upz=0;
 float Bx = 2, By = 0, Bz = 0;
 float Ax = -5, Ay = -3, Az = 0;
 unsigned int *data;
+Boolean Aactsasclippingwindow = FALSE;
 
 void blockWithHole(float x, float y, float z){
   pushMatrix();
@@ -80,43 +81,65 @@ void blockWithHole(float x, float y, float z){
   popMatrix();
 } 
 
+#define Bpart(X)	do	\
+			{	\
+				pushMatrix();	\
+					addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), X);	\
+					translate(1.0, 0.0, 0.0);	\
+					addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), X);	\
+					translate(-0.5, 0.0, -0.5);	\
+					addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), X);		\
+					translate(0.0, 0.0, 1.0);	\
+					addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), X);		\
+				popMatrix();	\
+			}	\
+			while(0)
+#define Bredcap		do	\
+			{	\
+				addRectangle(vertex(-0.5, 0.0, 0.5), vertex(-0.5, 0.0, -0.5), RED);	\
+			}	\
+			while(0)
+#define Bgreencap	do	\
+			{	\
+				addRectangle(vertex(-0.5, 0.0, -0.5), vertex(-0.5, 0.0, 0.5), GREEN);	\
+			}	\
+			while(0)
 void blockColoured(float x, float y, float z){
+  if(Aactsasclippingwindow && (posB == 0 || posB == 1))
+  	return;
   pushMatrix();
     translate(x, y, z);
-    translate(-0.5, -3.0, 0.0);
-    pushMatrix();
-       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), RED);
-       translate(1.0, 0.0, 0.0);
-       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), RED);
-       translate(-0.5, 0.0, -0.5);
-       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), RED);
-       translate(0.0, 0.0, 1.0);
-       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), RED);
-    popMatrix();
-    translate(0.0, 3.0, 0.0);
-    pushMatrix();
-       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), BLUE);
-       translate(1.0, 0.0, 0.0);
-       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), BLUE);
-       translate(-0.5, 0.0, -0.5);
-       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), BLUE);
-       translate(0.0, 0.0, 1.0);
-       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), BLUE);
-    popMatrix();
-    translate(0.0, 3.0, 0.0);
-    pushMatrix();
-       addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), GREEN);
-       translate(1.0, 0.0, 0.0);
-       addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), GREEN);
-       translate(-0.5, 0.0, -0.5);
-       addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), GREEN);
-       translate(0.0, 0.0, 1.0);
-       addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), GREEN);
-    popMatrix();
-    translate(0.5, 1.5, 0.0);
-    addRectangle(vertex(-0.5, 0.0, -0.5), vertex(-0.5, 0.0, 0.5), GREEN);
-    translate(0.0, -9.0, 0.0);
-    addRectangle(vertex(-0.5, 0.0, 0.5), vertex(-0.5, 0.0, -0.5), RED);
+    if(Aactsasclippingwindow)
+    {
+	if(posB == 2)
+	{
+		translate(-0.5, -3.0, 0.0);
+		Bpart(RED);
+	}
+	else if(posB == 3)
+	{
+		translate(-0.5, 0.0, 0.0);
+		Bpart(BLUE);
+	}
+    	else if(posB == 4)
+	{
+		translate(-0.5, 3.0, 0.0);
+		Bpart(GREEN);
+	}
+    }
+    else
+    {
+	translate(-0.5, -3.0, 0.0);
+	Bpart(RED);
+	translate(0.0, 3.0, 0.0);
+	Bpart(BLUE);
+	translate(0.0, 3.0, 0.0);
+    	Bpart(GREEN);
+	translate(0.5, 1.5, 0.0);
+	Bgreencap;
+	translate(0.0, -9.0, 0.0);
+	Bredcap;
+    }
   popMatrix();
 }
 
@@ -132,7 +155,8 @@ void onDraw()
   initScene();
   setMatrixMode(MODELVIEW); 
   initMatrix();
-  blockWithHole(Ax, Ay, Az);
+  if(!Aactsasclippingwindow)
+	blockWithHole(Ax, Ay, Az);
   blockColoured(Bx, By, Bz);
 
  
@@ -158,19 +182,19 @@ void moveB(int k){
   switch(k){
     case 0:
       Bx = -5;
-      By = 6+Ay;
+      By = 6 + Ay;
       onDraw();
       break;
     case 1:
-      By = 3+Ay;
+      By = 3 + Ay;
       onDraw();
       break;
     case 2:
-      By = 0+Ay;
+      By = 0 + Ay;
       onDraw();
       break;
     case 3:
-      By = -3+Ay;
+      By = -3 + Ay;
       onDraw();
       break;
     default:
@@ -186,6 +210,8 @@ void keyPressed(unsigned char x, int i, int j)
 {
   switch(x){
     case 'x': exit(0);
+    case 'z': Aactsasclippingwindow = !Aactsasclippingwindow;
+              break;
     case 'a': eyex-=0.5;
               break;
     case 'd': eyex+=0.5;

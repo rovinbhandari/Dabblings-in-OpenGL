@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+typedef unsigned short int Boolean;
+#define TRUE	1
+#define FALSE	0
+
 typedef unsigned int Colour;
 #define RED	(127 << 8)
 #define GREEN	(127)
@@ -14,7 +18,7 @@ typedef unsigned int Colour;
 #define BLACK	(0)
 #define COLBG	(BLACK)
 
-#define DBG 0
+#define DBG FALSE
 
 #endif // end of file
 
