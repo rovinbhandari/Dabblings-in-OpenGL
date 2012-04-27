@@ -60,60 +60,12 @@ int clip(Vertex *a, Vertex *b)
   float x_check, y_check, z_check, param=0, max_param=1;
   
   reg_a += (a->x > 1) ? 2 : (a->x < -1) ? 1 : 0;
-/*
-  if (a->x > 1)
-  {
-    reg_a += 2;
-  }
-  else if(a->x < -1)
-  {
-    reg_a += 1;
-  }
-*/
-  if(a->y > 1)
-  {
-    reg_a += 8;
-  }
-  else if(a->y < -1)
-  {
-    reg_a += 4;
-  }
-  
-  if(a->z>1)
-  {
-    reg_a+=32;
-  }
-  else if(a->z<-1)	
-  {
-    reg_a+=16;
-  }
-  
-  if(b->x>1)
-  {
-    reg_b+=2;
-  }
-  else if(b->x<-1)	
-  {
-    reg_b+=1;
-  }
-  
-  if(b->y>1)
-  {
-    reg_b+=8;
-  }
-  else if(b->y<-1)
-  {
-    reg_b+=4;
-  }
-  
-  if(b->z>1)
-  {
-    reg_b+=32;
-  }
-  else if(b->z<0)
-  {
-    reg_b+=16;
-  }
+  reg_a += (a->y > 1) ? 8 : (a->y < -1) ? 4 : 0;
+  reg_a += (a->z > 1) ? 32: (a->z < -1) ? 16: 0;
+
+  reg_b += (b->x > 1) ? 2 : (b->x < -1) ? 1 : 0;
+  reg_b += (b->y > 1) ? 8 : (b->y < -1) ? 4 : 0;
+  reg_b += (b->z > 1) ? 32: (b->z < 0 ) ? 16: 0;  // Verify.
   
   if(reg_a==0 && reg_b==0)
   {
