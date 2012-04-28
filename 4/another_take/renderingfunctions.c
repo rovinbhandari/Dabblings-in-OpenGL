@@ -142,9 +142,9 @@ int clip(Vertex *a, Vertex *b)
         }
       } 
       
-      if (a->x>x_check)
+      if (a->x > x_check)
       { 
-        if(x_check==-1) 
+        if(x_check == -1) 
         {
           a->x = -1 - DELTA; 
           a->x = 1; 
@@ -194,7 +194,7 @@ int clip(Vertex *a, Vertex *b)
       { 
         if(z_check == 0) 
         {
-          a->z = 0 - DELTA; 
+          a->z = - DELTA; 
           a->z = 1; 
         }
       } 
@@ -534,13 +534,6 @@ void drawTriangle(Triangle t)
   }
   
   cuta = clip (&l1v1, &l1v2);
-  if(cuta == 2 || !cuta)
-  {
-    if(DBG) 
-    {
-        printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cuta, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l1v1.x, l1v1.y, l1v1.z, l1v2.x, l1v2.y, l1v2.z);
-    }
-  }
   
   if(cuta)
   {
@@ -549,38 +542,19 @@ void drawTriangle(Triangle t)
 
   cutb = clip(&l2v1, &l1v2);
   
-  if(cutb == 2 || !cutb)
-  {
-    if(DBG)
-    {
-      printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutb, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l2v1.x, l2v1.y, l2v1.z, l2v2.x, l2v2.y, l2v2.z);
-    }
-  }
   if(cutb)
   {
     scanConvert(l2v1, l2v2);
   }
   
   cutc = clip(&l3v1, &l3v2);
-  if (cutc == 2 || !cutc)
-  {
-    if(DBG)
-    {
-      printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutc, t.v1.x, t.v1.y, t.v1.z, t.v1.x, t.v1.y, t.v1.z, l3v1.x, l3v1.y, l3v1.z, l3v2.x, l3v2.y, l3v2.z);
-    }
-  }
   
   if (cutc)
   {
     scanConvert(l3v1, l3v2);
   }
-//  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
-//  glFlush();
-//  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
-//  glFlush();
+
   fillTriangle (t.colour);
-//  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
-//  glFlush();
 }
 
 void printPointsTable()
@@ -597,6 +571,7 @@ void printPointsTable()
 }
 
 //Look at the rectangle from opposite its normal. Choose the top left and top right vertices.
+// Rectangle uses the center of the co-ordinate system (local). 
 void addRectangle(Vertex a, Vertex b, Colour colour)
 {
   addTriangle(triangle(a, b, vertex(-a.x, -a.y, -a.z), colour));
@@ -638,18 +613,18 @@ void setViewer (Vertex eye, Vertex lookAt, Vertex up)
   matrix[index (2,0)] = s.z;
   matrix[index (2,1)] = u.z;
   matrix[index (2,2)] = f.z; 
-  matrix[index (2,3)] =0;
-  matrix[index (3,0)] = -dotProduct (eye, s); 
-  matrix[index (3,1)] = -dotProduct (eye, u); 
-  matrix[index (3,2)] = -dotProduct (eye, f); 
+  matrix[index (2,3)] = 0;
+  matrix[index (3,0)] = - dotProduct (eye, s); 
+  matrix[index (3,1)] = - dotProduct (eye, u); 
+  matrix[index (3,2)] = - dotProduct (eye, f); 
   matrix[index (3,3)] = 1;
 
-  setMatrixMode(PROJECTION);
-  multMatrix(matrix);
-  setMatrixMode(mode);
+  setMatrixMode (PROJECTION);
+  multMatrix (matrix);
+  setMatrixMode (mode);
 }
 
-void setFrustum(float width, float height, float near, float far)
+void setFrustum (float width, float height, float near, float far)
 {
   float matrix[16];
   int i = getMatrixMode();

@@ -1,11 +1,7 @@
-#include <stdbool.h>
-#include <X11/X.h>
-#include <X11/Xlib.h>
 #include <GL/gl.h>
 #include <GL/glx.h>
 #include <GL/glu.h>
 #include <GL/freeglut.h>
-#include <time.h>
 #include <commons.h>
 #include <Vertex.h>
 #include <matrixmanipulation.h>
@@ -17,7 +13,8 @@ int MAX_H, MAX_W;
 int WxH;
 int posB=0;
 GLint rasterPos[4];
-float eyex=0, eyey=0, eyez=16, lookx=0, looky=0, lookz=0, upx=0, upy=1, upz=0;
+float eyex = 0, eyey = 0, eyez = 16, lookx = 0, looky = 0, lookz = 0, upx = 0, 
+      upy = 1, upz = 0;
 float Bx = 2, By = 0, Bz = 0;
 float Ax = -5, Ay = -3, Az = 0;
 unsigned int *data;
@@ -111,34 +108,34 @@ void drawB(float x, float y, float z){
     translate(x, y, z);
     if(Aisclippingwindow)
     {
-	if(posB == 2)
-	{
-		translate(-0.5, -3.0, 0.0);
-		Bpart(RED);
-	}
-	else if(posB == 3)
-	{
-		translate(-0.5, 0.0, 0.0);
-		Bpart(BLUE);
-	}
-    	else if(posB == 4)
-	{
-		translate(-0.5, 3.0, 0.0);
-		Bpart(GREEN);
-	}
+      if(posB == 2)
+      {
+        translate(-0.5, -3.0, 0.0);
+        Bpart(RED);
+      }
+      else if(posB == 3)
+      {
+        translate(-0.5, 0.0, 0.0);
+        Bpart(BLUE);
+      }
+          else if(posB == 4)
+      {
+        translate(-0.5, 3.0, 0.0);
+        Bpart(GREEN);
+      }
     }
     else
     {
-	translate(-0.5, -3.0, 0.0);
-	Bpart(RED);
-	translate(0.0, 3.0, 0.0);
-	Bpart(BLUE);
-	translate(0.0, 3.0, 0.0);
-    	Bpart(GREEN);
-	translate(0.5, 1.5, 0.0);
-	Bgreencap;
-	translate(0.0, -9.0, 0.0);
-	Bredcap;
+      translate(-0.5, -3.0, 0.0);
+      Bpart(RED);
+      translate(0.0, 3.0, 0.0);
+      Bpart(BLUE);
+      translate(0.0, 3.0, 0.0);
+      Bpart(GREEN);
+      translate(0.5, 1.5, 0.0);
+      Bgreencap;
+      translate(0.0, -9.0, 0.0);
+      Bredcap;
     }
   removeFromStack();
 }
