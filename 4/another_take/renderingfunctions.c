@@ -275,7 +275,7 @@ void scanConvert(Vertex a, Vertex b)
 
   int x1, x2, y1, y2;
   int dx, dy, err=0, incr;
-  float m = (tx2 == tx1) ? 100 : (float) (ty2 - ty1) / (float) (tx2 - tx1), 
+  float m = (tx2 == tx1) ? 100 : (float) (ty2 - ty1) / (float) (tx2 - tx1);
   float tz1 = a.z, tz2 = b.z, z1, z2, dz;
 
   if(m >1 || m < -1)
@@ -463,31 +463,68 @@ void fillTriangle(Colour colour)
 
 void drawTriangle(Triangle t)
 {
-  Vertex l1v1=t.v1, l1v2=t.v2, l2v1=t.v2, l2v2=t.v3, l3v1=t.v3, l3v2=t.v1;
+  Vertex l1v1 = t.v1, l1v2 = t.v2, l2v1 = t.v2;
+  Vertex l2v2 = t.v3, l3v1 = t.v3, l3v2 = t.v1;
   int i, cuta, cutb, cutc;
-  if(!pointsTable) pointsTable = malloc(4*MAX_H*sizeof(float));
-  y0min=-1; y0max=-1; y1min=-1; y1max=-1;
-  for(i=0;i<MAX_H;++i){ pointsTable[i][0]=-1; pointsTable[i][2]=-1; }
-  cuta=clip(&l1v1, &l1v2);
-  if(cuta==2 || !cuta)
-      if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cuta, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l1v1.x, l1v1.y, l1v1.z, l1v2.x, l1v2.y, l1v2.z);
+
+  if (!pointsTable) 
+  {
+    pointsTable = malloc (4 * MAX_H * sizeof(float));
+  }
+
+  y0min = -1; y0max = -1; y1min = -1; y1max = -1;
+  for(i = 0; i < MAX_H; ++i)
+  {
+    pointsTable[i][0] = -1;
+    pointsTable[i][2] = -1;
+  }
+  
+  cuta = clip (&l1v1, &l1v2);
+  if(cuta == 2 || !cuta)
+  {
+    if(DBG) 
+    {
+        printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cuta, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l1v1.x, l1v1.y, l1v1.z, l1v2.x, l1v2.y, l1v2.z);
+    }
+  }
+  
   if(cuta)
-      scanConvert(l1v1, l1v2);
-  cutb=clip(&l2v1, &l1v2);
-  if(cutb==2 || !cutb)
-      if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutb, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l2v1.x, l2v1.y, l2v1.z, l2v2.x, l2v2.y, l2v2.z);
+  {
+    scanConvert(l1v1, l1v2);
+  }
+
+  cutb = clip(&l2v1, &l1v2);
+  
+  if(cutb == 2 || !cutb)
+  {
+    if(DBG)
+    {
+      printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutb, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l2v1.x, l2v1.y, l2v1.z, l2v2.x, l2v2.y, l2v2.z);
+    }
+  }
   if(cutb)
+  {
     scanConvert(l2v1, l2v2);
-  cutc=clip(&l3v1, &l3v2);
-  if(cutc==2 || !cutc)
-     if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutc, t.v1.x, t.v1.y, t.v1.z, t.v1.x, t.v1.y, t.v1.z, l3v1.x, l3v1.y, l3v1.z, l3v2.x, l3v2.y, l3v2.z);
-  if(cutc)
+  }
+  
+  cutc = clip(&l3v1, &l3v2);
+  if (cutc == 2 || !cutc)
+  {
+    if(DBG)
+    {
+      printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutc, t.v1.x, t.v1.y, t.v1.z, t.v1.x, t.v1.y, t.v1.z, l3v1.x, l3v1.y, l3v1.z, l3v2.x, l3v2.y, l3v2.z);
+    }
+  }
+  
+  if (cutc)
+  {
     scanConvert(l3v1, l3v2);
+  }
 //  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
 //  glFlush();
 //  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
 //  glFlush();
-  fillTriangle(t.colour);
+  fillTriangle (t.colour);
 //  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
 //  glFlush();
 }
