@@ -23,7 +23,7 @@ float Ax = -5, Ay = -3, Az = 0;
 unsigned int *data;
 Boolean Aisclippingwindow = FALSE;
 
-void blockWithHole(float x, float y, float z){
+void drawA(float x, float y, float z){
   addToStack();
     translate(x, y, z);
     addToStack();
@@ -156,21 +156,8 @@ void onDraw()
   setMatrixMode(MODELVIEW); 
   initMatrix();
   if(!Aisclippingwindow)
-	blockWithHole(Ax, Ay, Az);
+	drawA(Ax, Ay, Az);
   drawB(Bx, By, Bz);
-
- 
-  /*calcData*/
-  /*
-    For each polygon,
-      Go to next triangle if current polygon doesn't face viewer O(1)
-      Calculate pixel values of vertices of the triangle O(1)
-      clip triangle  //unless you model your scene such that no part ever goes outside the viewport (commentception) O(1)
-      For each triangle, O(m*n)
-        Add x,y,z position of scan conversion pixels to temp per-polygon table (indexed on y position with min and max x values)
-        Also store a min and max x for y=0, y=MAX_Y-1. Add the x,y values for the points in between to the temp table
-        Copy temp table to data table with the points between min and max x values filled (in case of conlict, min z value only) O(m*n)
-  */
 
   /*drawPixels*/
   renderScene();

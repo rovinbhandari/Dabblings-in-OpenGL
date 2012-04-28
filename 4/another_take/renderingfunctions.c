@@ -354,6 +354,7 @@ void scanConvert(Vertex a, Vertex b)
   } 
   else 
   {
+    // |m| < 1
     if(tx1 < tx2)
     { 
       x1 = tx1;
