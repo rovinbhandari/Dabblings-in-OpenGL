@@ -2,6 +2,8 @@
 #include <string.h>
 #include <matrixmanipulation.h>
 
+#define DELTA .000001
+
 float *zBuffer;
 float (*pointsTable)[4];
 int y0min, y0max, y1min, y1max;
@@ -53,39 +55,51 @@ void addToPointsTable (int x, int y, float z)
   }
 }
 
+#define LEFT    1
+#define RIGHT   2
+#define BOTTOM  4
+#define TOP     8
+#define FRONT   16
+#define BACK    32
+
+#define OUTSIDE 0
+#define INSIDE  1
+#define CLIPPED 2
+
 int clip(Vertex *a, Vertex *b)
 {
   int reg_a = 0, reg_b = 0, min = -1, ret = 1;
-  float x_check, y_check, z_check, param=0, max_param=1;
+  float x_check, y_check, z_check, param=0, max_param = 0;
   
-  reg_a += (a->x > 1) ? 2 : (a->x < -1) ? 1 : 0;
-  reg_a += (a->y > 1) ? 8 : (a->y < -1) ? 4 : 0;
-  reg_a += (a->z > 1) ? 32: (a->z < -1) ? 16: 0;
+  // Generate bitmasks for reg_a and reg_b
+  reg_a |= (a->x > 1) ? RIGHT : (a->x < -1) ? LEFT   : 0;
+  reg_a |= (a->y > 1) ? TOP   : (a->y < -1) ? BOTTOM : 0;
+  reg_a |= (a->z > 1) ? BACK  : (a->z < -1) ? FRONT  : 0;
 
-  reg_b += (b->x > 1) ? 2 : (b->x < -1) ? 1 : 0;
-  reg_b += (b->y > 1) ? 8 : (b->y < -1) ? 4 : 0;
-  reg_b += (b->z > 1) ? 32: (b->z < 0 ) ? 16: 0;  // Verify.
+  reg_b |= (b->x > 1) ? RIGHT : (b->x < -1) ? LEFT   : 0;
+  reg_b |= (b->y > 1) ? TOP   : (b->y < -1) ? BOTTOM : 0;
+  reg_b |= (b->z > 1) ? BACK  : (b->z <  0) ? FRONT  : 0; 
   
-  if(reg_a == 0 && reg_b == 0)
+  if( reg_a == 0 && reg_b == 0)
   {
-    return 1;
+    return INSIDE;
   }
   
   if((a->x == b->x) && (a->y == b->y) && (a->z == b->z))
   { 
-    return 0; 
+    return OUTSIDE; 
   }
   
   if ( (reg_a ^ reg_b) != 0)
   {
-    return 0;
+    return OUTSIDE;
   }
   
   if (reg_a!=0)
   {
-    x_check = (reg_a & 3)  == 0 ? 0  : (reg_a & 3) * 2 - 3;
-    y_check = (reg_a & 12) == 0 ? 0  : (reg_a & 12) / 2 - 3;
-    z_check = (reg_a & 48) == 0 ? -1 : (reg_a & 48) / 16 - 1;
+    x_check = (reg_a & LEFT)   ? -1 : (reg_a & RIGHT) ? 1 : 0;
+    y_check = (reg_a & BOTTOM) ? -1 : (reg_a & TOP) ? 1   : 0; 
+    z_check = (reg_a & BACK)   ?  1 : (reg_a & FRONT) ? 0 : -1; 
     
     if (x_check) 
     { 
@@ -107,7 +121,7 @@ int clip(Vertex *a, Vertex *b)
       }
     }
     
-    if (z_check+1)
+    if (z_check + 1)
     { 
       param = (z_check - a->z) / (b->z - a->z);
       if (max_param < param)
@@ -121,12 +135,20 @@ int clip(Vertex *a, Vertex *b)
     { 
       if (a->x < x_check)
       { 
-        if(x_check == 1) a->x=1+.000001; a->x=-1; 
+        if(x_check == 1) 
+        {
+          a->x = 1 + DELTA;
+          a->x = -1; 
+        }
       } 
       
-      if (a->x>x_check)
+      if (a->x > x_check)
       { 
-        if(x_check==-1) a->x=-1-.000001; a->x=1; 
+        if(x_check == -1) 
+        {
+          a->x = -1 - DELTA; 
+          a->x = 1; 
+        }
       } 
     }
     else 
@@ -138,11 +160,19 @@ int clip(Vertex *a, Vertex *b)
     { 
       if (a->y < y_check)
       { 
-        if(y_check == 1) a->y=1+.000001; a->y=-1;
+        if(y_check == 1) 
+        {
+          a->y = 1 + DELTA;
+          a->y = -1;
+        }
       }
       if (a->y > y_check)
       { 
-        if(y_check==-1) a->y=-1-.000001; a->y=1; 
+        if(y_check==-1) 
+        {
+          a->y = -1 - DELTA; 
+          a->y = 1; 
+        }
       }
     }
     else 
@@ -154,11 +184,19 @@ int clip(Vertex *a, Vertex *b)
     { 
       if (a->z < z_check) 
       {
-        if(z_check == 1) a->z=1+.000001; a->z=0; 
+        if(z_check == 1)
+        {
+          a->z = 1 + DELTA; 
+          a->z = 0; 
+        }
       } 
       if (a->z > z_check)
       { 
-        if(z_check==0) a->z=0-.000001; a->z=1; 
+        if(z_check == 0) 
+        {
+          a->z = - DELTA; 
+          a->z = 1; 
+        }
       } 
     }
     else 
@@ -167,9 +205,9 @@ int clip(Vertex *a, Vertex *b)
     }
     if(!testValid(*a))
     {
-      return 0;
+      return OUTSIDE;
     }
-    ret=2;
+    ret = CLIPPED;
   }
   
   param = 0;
@@ -178,9 +216,9 @@ int clip(Vertex *a, Vertex *b)
 
   if (reg_b != 0)
   {
-    x_check = (reg_b & 3) == 0  ?  0 : (reg_b & 3) * 2 - 3;
-    y_check = (reg_b & 12) == 0 ?  0 : (reg_b & 12) / 2 - 3;
-    z_check = (reg_b & 48) == 0 ? -1 : (reg_b & 48) / 16 - 1;
+    x_check = (reg_b & LEFT)   ? -1 : (reg_b & RIGHT) ? 1 : 0;
+    y_check = (reg_b & BOTTOM) ? -1 : (reg_b & TOP) ?   1 : 0; 
+    z_check = (reg_b & BACK)   ?  1 : (reg_b & FRONT) ? 0 : -1; 
 
     if (x_check)
     { 
@@ -215,11 +253,11 @@ int clip(Vertex *a, Vertex *b)
     { 
       if(b->x < x_check)
       {
-        if(x_check == 1) b->x=1+.000001; b->x=-1; 
+        if(x_check == 1) b->x=1+DELTA; b->x=-1; 
       }
       if  (b->x > x_check) 
       { 
-        if (x_check == -1) b->x=-1-.000001; b->x=1; 
+        if (x_check == -1) b->x=-1-DELTA; b->x=1; 
       }
     }
     else 
@@ -231,11 +269,19 @@ int clip(Vertex *a, Vertex *b)
     {
       if (b->y < y_check)
       { 
-        if (y_check == 1) b->y=1+.000001; b->y=-1; 
+        if (y_check == 1) 
+        {
+          b->y = 1 + DELTA;
+          b->y = -1; 
+        }
       }
       if (b->y > y_check)
       { 
-        if (y_check==-1) b->y=-1-.000001; b->y=1; 
+        if (y_check==-1) 
+        {
+          b->y = -1 - DELTA;
+          b->y = 1;
+        }
       }
     }
     else
@@ -246,11 +292,18 @@ int clip(Vertex *a, Vertex *b)
     {
       if (b->z < z_check)
       {
-        if (z_check == 1) b->z = 1 + .000001; b->z = 0; 
+        if (z_check == 1)
+        {
+          b->z = 1 + DELTA; b->z = 0; 
+        }
       } 
       if (b->z > z_check)
       {
-        if (z_check == 0) b->z = 0 - .000001; b->z = 1; 
+        if (z_check == 0)
+        {
+          b->z = 0 - DELTA;
+          b->z = 1; 
+        }
       }
     }
     else
@@ -259,47 +312,167 @@ int clip(Vertex *a, Vertex *b)
     }
     if(!testValid(*b)) 
     {
-      return 0;
+      return OUTSIDE;
     }
-    ret=2;
+    ret = CLIPPED;
   }
   return ret;
 }
 
 void scanConvert(Vertex a, Vertex b)
 {
-  int tx1=((a.x+1)*(MAX_W-1))/2, tx2=((b.x+1)*(MAX_W-1))/2, ty1=((a.y+1)*(MAX_H-1))/2, ty2=((b.y+1)*(MAX_H-1))/2;
+  int tx1 = ((a.x + 1) * (MAX_W -1 )) / 2; 
+  int tx2 = ((b.x + 1) * (MAX_W - 1)) / 2; 
+  int ty1 = ((a.y + 1) * (MAX_H - 1)) / 2;
+  int ty2 = ((b.y + 1) * (MAX_H - 1)) / 2;
+
   int x1, x2, y1, y2;
   int dx, dy, err=0, incr;
-  float m=(tx2==tx1)?100:(float)(ty2-ty1)/(float)(tx2-tx1), tz1=a.z, tz2=b.z, z1, z2, dz;
-  if(m>1 || m<-1){
-    if(ty1<ty2){ y1=ty1; y2=ty2; x1=tx1; x2=tx2; z1=tz1; z2=tz2; }
-    else{ y1=ty2; y2=ty1; x1=tx2; x2=tx1; z1=tz2; z2=tz1; }
-  } else {
-    if(tx1<tx2){ x1=tx1; x2=tx2; y1=ty1; y2=ty2; z1=tz1; z2=tz2; }
-    else{ x1=tx2; x2=tx1; y1=ty2; y2=ty1; z1=tz2; z2=tz1; }
-  }
-  if(x1==0){ if(y0min==-1){ y0min=y1; y0max=y1; } else { y0min=(y1<y0min)?y1:y0min; y0max=(y1>y0max)?y1:y0max; } }
-  if(x2==0){ if(y0min==-1){ y0min=y2; y0max=y2; } else { y0min=(y2<y0min)?y2:y0min; y0max=(y2>y0max)?y2:y0max; } }
-  if(x1==MAX_W-1){ if(y1min==-1){ y1min=x1; y1max=x1; } else { y1min=(y1<y1min)?y1:y1min; y1max=(y1>y1max)?y1:y1max; } }
-  if(x2==MAX_W-1){ if(y1min==-1){ y1min=x2; y1max=x2; } else { y1min=(y2<y1min)?y2:y1min; y1max=(y2>y1max)?y2:y1max; } }
-  dx=abs(x2-x1); dy=abs(y2-y1); err=0;
-  //printf("%d %d %f, %d %d %f, %d, %d\n", x1, y1, z1, x2, y2, z2, dx, dy);
-  if(m<=1 && m>=-1){
-    incr=m>0?1:-1; dz=(z2-z1)/dx;
-    for(;x1<=x2;++x1){
-      addToPointsTable(x1, y1, z1);
-      if(2*(err+dy)<dx)	err=err+dy;
-      else { y1+=incr; err=err+dy-dx; }
-      z1+=dz;
+  float m = (tx2 == tx1) ? 100 : (float) (ty2 - ty1) / (float) (tx2 - tx1);
+  float tz1 = a.z, tz2 = b.z, z1, z2, dz;
+
+  if(m >1 || m < -1)
+  {
+    if(ty1 < ty2)
+    { 
+      y1 = ty1; 
+      y2 = ty2;
+      x1 = tx1;
+      x2 = tx2;
+      z1 = tz1;
+      z2 = tz2;
     }
-  } else {
-    incr=m>0?1:-1; dz=(z2-z1)/dy;
-    for(;y1<=y2;++y1){
+    else
+    {
+      y1 = ty2;
+      y2 = ty1;
+      x1 = tx2;
+      x2 = tx1;
+      z1 = tz2;
+      z2 = tz1;
+    }
+  } 
+  else 
+  {
+    // |m| < 1
+    if(tx1 < tx2)
+    { 
+      x1 = tx1;
+      x2 = tx2;
+      y1 = ty1;
+      y2 = ty2; 
+      z1 = tz1;
+      z2 = tz2; 
+    }
+    else
+    { 
+      x1 = tx2;
+      x2 = tx1;
+      y1 = ty2;
+      y2 = ty1;
+      z1 = tz2;
+      z2 = tz1;
+    }
+  }
+  
+  if (x1 == 0)
+  {
+    if (y0min == -1)
+    { 
+      y0min = y1;
+      y0max = y1;
+    }
+    else
+    { 
+      y0min = (y1 < y0min) ? y1 : y0min;
+      y0max = (y1 > y0max) ? y1 : y0max; 
+    } 
+  }
+  
+  if (x2 == 0)
+  { 
+    if (y0min == -1)
+    {
+      y0min = y2;
+      y0max = y2;
+    }
+    else
+    { 
+      y0min = (y2 < y0min) ? y2 : y0min;
+      y0max = (y2 > y0max) ? y2 : y0max; 
+    }
+  }
+  
+  if (x1 == MAX_W - 1)
+  {
+    if (y1min == -1)
+    {
+      y1min = x1;
+      y1max = x1;
+    }
+    else
+    { 
+      y1min = (y1 < y1min) ? y1 : y1min; 
+      y1max = (y1 > y1max) ? y1 : y1max;
+    }
+  }
+  
+  if (x2 == MAX_W - 1)
+  {
+    if (y1min == -1)
+    {
+      y1min = x2;
+      y1max = x2;
+    }
+    else
+    { 
+      y1min = (y2 < y1min) ? y2 : y1min; 
+      y1max = (y2 > y1max) ? y2 : y1max;
+    }
+  }
+  
+  dx = abs (x2 - x1);
+  dy = abs (y2 - y1);
+  err = 0;
+  //printf("%d %d %f, %d %d %f, %d, %d\n", x1, y1, z1, x2, y2, z2, dx, dy);
+  
+  if (m <= 1 && m >= -1)
+  {
+    incr = m > 0 ? 1 : -1;
+    dz = (z2 - z1) / dx;
+    
+    for( ; x1 <= x2; ++x1)
+    {
       addToPointsTable(x1, y1, z1);
-      if(2*(err+dx)<dy) err=err+dx;
-      else { x1+=incr; err=err+dx-dy; }
-      z1+=dz;
+      if( 2 * (err + dy) < dx)
+      {
+        err = err + dy;
+      }
+      else 
+      { 
+        y1 += incr; 
+        err = err + dy - dx; 
+      }
+      z1 += dz;
+    }
+  } 
+  else 
+  {
+    incr = m > 0 ? 1 : -1;
+    dz = (z2 - z1) / dy;
+    for( ; y1 <= y2; ++y1)
+    {
+      addToPointsTable(x1, y1, z1);
+      if(2 * (err + dx) < dy) 
+      {
+        err=err+dx;
+      }
+      else
+      {
+        x1 += incr;
+        err = err + dx - dy; 
+      }
+      z1 += dz;
     }
   }
   
@@ -344,33 +517,44 @@ void fillTriangle(Colour colour)
 
 void drawTriangle(Triangle t)
 {
-  Vertex l1v1=t.v1, l1v2=t.v2, l2v1=t.v2, l2v2=t.v3, l3v1=t.v3, l3v2=t.v1;
+  Vertex l1v1 = t.v1, l1v2 = t.v2, l2v1 = t.v2;
+  Vertex l2v2 = t.v3, l3v1 = t.v3, l3v2 = t.v1;
   int i, cuta, cutb, cutc;
-  if(!pointsTable) pointsTable = malloc(4*MAX_H*sizeof(float));
-  y0min=-1; y0max=-1; y1min=-1; y1max=-1;
-  for(i=0;i<MAX_H;++i){ pointsTable[i][0]=-1; pointsTable[i][2]=-1; }
-  cuta=clip(&l1v1, &l1v2);
-  if(cuta==2 || !cuta)
-      if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cuta, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l1v1.x, l1v1.y, l1v1.z, l1v2.x, l1v2.y, l1v2.z);
+
+  if (!pointsTable) 
+  {
+    pointsTable = malloc (4 * MAX_H * sizeof(float));
+  }
+
+  y0min = -1; y0max = -1; y1min = -1; y1max = -1;
+  for(i = 0; i < MAX_H; ++i)
+  {
+    pointsTable[i][0] = -1;
+    pointsTable[i][2] = -1;
+  }
+  
+  cuta = clip (&l1v1, &l1v2);
+  
   if(cuta)
-      scanConvert(l1v1, l1v2);
-  cutb=clip(&l2v1, &l1v2);
-  if(cutb==2 || !cutb)
-      if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutb, t.v1.x, t.v1.y, t.v1.z, t.v2.x, t.v2.y, t.v2.z, l2v1.x, l2v1.y, l2v1.z, l2v2.x, l2v2.y, l2v2.z);
+  {
+    scanConvert(l1v1, l1v2);
+  }
+
+  cutb = clip(&l2v1, &l1v2);
+  
   if(cutb)
+  {
     scanConvert(l2v1, l2v2);
-  cutc=clip(&l3v1, &l3v2);
-  if(cutc==2 || !cutc)
-     if(DBG) printf("Clipped (%d): %f %f %f, %f %f %f => %f %f %f, %f %f %f\n", cutc, t.v1.x, t.v1.y, t.v1.z, t.v1.x, t.v1.y, t.v1.z, l3v1.x, l3v1.y, l3v1.z, l3v2.x, l3v2.y, l3v2.z);
-  if(cutc)
+  }
+  
+  cutc = clip(&l3v1, &l3v2);
+  
+  if (cutc)
+  {
     scanConvert(l3v1, l3v2);
-//  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
-//  glFlush();
-//  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
-//  glFlush();
-  fillTriangle(t.colour);
-//  glDrawPixels(MAX_W, MAX_H, GL_RGBA, GL_BYTE, data);
-//  glFlush();
+  }
+
+  fillTriangle (t.colour);
 }
 
 void printPointsTable()
@@ -387,6 +571,7 @@ void printPointsTable()
 }
 
 //Look at the rectangle from opposite its normal. Choose the top left and top right vertices.
+// Rectangle uses the center of the co-ordinate system (local). 
 void addRectangle(Vertex a, Vertex b, Colour colour)
 {
   addTriangle(triangle(a, b, vertex(-a.x, -a.y, -a.z), colour));
@@ -428,18 +613,18 @@ void setViewer (Vertex eye, Vertex lookAt, Vertex up)
   matrix[index (2,0)] = s.z;
   matrix[index (2,1)] = u.z;
   matrix[index (2,2)] = f.z; 
-  matrix[index (2,3)] =0;
-  matrix[index (3,0)] = -dotProduct (eye, s); 
-  matrix[index (3,1)] = -dotProduct (eye, u); 
-  matrix[index (3,2)] = -dotProduct (eye, f); 
+  matrix[index (2,3)] = 0;
+  matrix[index (3,0)] = - dotProduct (eye, s); 
+  matrix[index (3,1)] = - dotProduct (eye, u); 
+  matrix[index (3,2)] = - dotProduct (eye, f); 
   matrix[index (3,3)] = 1;
 
-  setMatrixMode(PROJECTION);
-  multMatrix(matrix);
-  setMatrixMode(mode);
+  setMatrixMode (PROJECTION);
+  multMatrix (matrix);
+  setMatrixMode (mode);
 }
 
-void setFrustum(float width, float height, float near, float far)
+void setFrustum (float width, float height, float near, float far)
 {
   float matrix[16];
   int i = getMatrixMode();

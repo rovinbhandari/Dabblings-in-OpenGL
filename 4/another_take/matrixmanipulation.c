@@ -46,7 +46,7 @@ MatrixStack *initMatrix ()
   return *stack;
 }
 
-MatrixStack *pushMatrix()
+MatrixStack *addToStack()
 {
   MatrixStack *temp;
   temp = (MatrixStack*) malloc (sizeof (MatrixStack));
@@ -59,7 +59,7 @@ MatrixStack *pushMatrix()
   return *stack;
 }
 
-MatrixStack *popMatrix()
+MatrixStack *removeFromStack()
 {
   MatrixStack *temp;
 

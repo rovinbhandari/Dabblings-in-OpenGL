@@ -1,11 +1,7 @@
-#include <stdbool.h>
-#include <X11/X.h>
-#include <X11/Xlib.h>
 #include <GL/gl.h>
 #include <GL/glx.h>
 #include <GL/glu.h>
 #include <GL/freeglut.h>
-#include <time.h>
 #include <commons.h>
 #include <Vertex.h>
 #include <matrixmanipulation.h>
@@ -17,73 +13,74 @@ int MAX_H, MAX_W;
 int WxH;
 int posB=0;
 GLint rasterPos[4];
-float eyex=0, eyey=0, eyez=16, lookx=0, looky=0, lookz=0, upx=0, upy=1, upz=0;
+float eyex = 0, eyey = 0, eyez = 16, lookx = 0, looky = 0, lookz = 0, upx = 0, 
+      upy = 1, upz = 0;
 float Bx = 2, By = 0, Bz = 0;
 float Ax = -5, Ay = -3, Az = 0;
 unsigned int *data;
-Boolean Aactsasclippingwindow = FALSE;
+Boolean Aisclippingwindow = FALSE;
 
-void blockWithHole(float x, float y, float z){
-  pushMatrix();
+void drawA(float x, float y, float z){
+  addToStack();
     translate(x, y, z);
-    pushMatrix();
+    addToStack();
       translate(2.5, 0.0, 0.0);
       addRectangle(vertex(0.0, 1.5, 2.5), vertex(0.0, -1.5, 2.5), YELLOW);
       translate(-5.0, 0.0, 0.0);
       addRectangle(vertex(0.0, -1.5, 2.5), vertex(0.0, 1.5, 2.5), YELLOW);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(0.5, 0.0, 0.0);
       addRectangle(vertex(0.0, -1.5, 0.5), vertex(0.0, 1.5, 0.5), GREY);
       translate(-1.0, 0.0, 0.0);
       addRectangle(vertex(0.0, 1.5, 0.5), vertex(0.0, -1.5, 0.5), GREY);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(0.0, 0.0, 2.5);
       addRectangle(vertex(-2.5, 1.5, 0.0), vertex(-2.5, -1.5, 0.0), YELLOW);
       translate(0.0, 0.0, -5.0);
       addRectangle(vertex(-2.5, -1.5, 0.0), vertex(-2.5, 1.5, 0.0), YELLOW);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(0.0, 0.0, 0.5);
       addRectangle(vertex(-0.5, -1.5, 0.0), vertex(-0.5, 1.5, 0.0), GREY);
       translate(0.0, 0.0, -1.0);
       addRectangle(vertex(-0.5, 1.5, 0.0), vertex(-0.5, -1.5, 0.0), GREY);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(1.5, 1.5, 0.0);
       addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), YELLOW);
-      popMatrix();
+      removeFromStack();
       translate(-3.0, 0.0, 0.0);
       addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), YELLOW);
-      popMatrix();
-    popMatrix();
-    pushMatrix();
+      removeFromStack();
+    removeFromStack();
+    addToStack();
       translate(0.0, 1.5, 1.5);
       addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), YELLOW);
-      popMatrix();
+      removeFromStack();
       translate(0.0, 0.0, -3.0);
       addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), YELLOW);
-      popMatrix();
-    popMatrix();
-  popMatrix();
+      removeFromStack();
+    removeFromStack();
+  removeFromStack();
 } 
 
 #define Bpart(X)	do	\
 			{	\
-				pushMatrix();	\
+				addToStack();	\
 					addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), X);	\
 					translate(1.0, 0.0, 0.0);	\
 					addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), X);	\
@@ -91,7 +88,7 @@ void blockWithHole(float x, float y, float z){
 					addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), X);		\
 					translate(0.0, 0.0, 1.0);	\
 					addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), X);		\
-				popMatrix();	\
+				removeFromStack();	\
 			}	\
 			while(0)
 #define Bredcap		do	\
@@ -104,43 +101,43 @@ void blockWithHole(float x, float y, float z){
 				addRectangle(vertex(-0.5, 0.0, -0.5), vertex(-0.5, 0.0, 0.5), GREEN);	\
 			}	\
 			while(0)
-void blockColoured(float x, float y, float z){
-  if(Aactsasclippingwindow && (posB == 0 || posB == 1))
+void drawB(float x, float y, float z){
+  if(Aisclippingwindow && (posB == 0 || posB == 1))
   	return;
-  pushMatrix();
+  addToStack();
     translate(x, y, z);
-    if(Aactsasclippingwindow)
+    if(Aisclippingwindow)
     {
-	if(posB == 2)
-	{
-		translate(-0.5, -3.0, 0.0);
-		Bpart(RED);
-	}
-	else if(posB == 3)
-	{
-		translate(-0.5, 0.0, 0.0);
-		Bpart(BLUE);
-	}
-    	else if(posB == 4)
-	{
-		translate(-0.5, 3.0, 0.0);
-		Bpart(GREEN);
-	}
+      if(posB == 2)
+      {
+        translate(-0.5, -3.0, 0.0);
+        Bpart(RED);
+      }
+      else if(posB == 3)
+      {
+        translate(-0.5, 0.0, 0.0);
+        Bpart(BLUE);
+      }
+          else if(posB == 4)
+      {
+        translate(-0.5, 3.0, 0.0);
+        Bpart(GREEN);
+      }
     }
     else
     {
-	translate(-0.5, -3.0, 0.0);
-	Bpart(RED);
-	translate(0.0, 3.0, 0.0);
-	Bpart(BLUE);
-	translate(0.0, 3.0, 0.0);
-    	Bpart(GREEN);
-	translate(0.5, 1.5, 0.0);
-	Bgreencap;
-	translate(0.0, -9.0, 0.0);
-	Bredcap;
+      translate(-0.5, -3.0, 0.0);
+      Bpart(RED);
+      translate(0.0, 3.0, 0.0);
+      Bpart(BLUE);
+      translate(0.0, 3.0, 0.0);
+      Bpart(GREEN);
+      translate(0.5, 1.5, 0.0);
+      Bgreencap;
+      translate(0.0, -9.0, 0.0);
+      Bredcap;
     }
-  popMatrix();
+  removeFromStack();
 }
 
 void onDraw()
@@ -155,22 +152,9 @@ void onDraw()
   initScene();
   setMatrixMode(MODELVIEW); 
   initMatrix();
-  if(!Aactsasclippingwindow)
-	blockWithHole(Ax, Ay, Az);
-  blockColoured(Bx, By, Bz);
-
- 
-  /*calcData*/
-  /*
-    For each polygon,
-      Go to next triangle if current polygon doesn't face viewer O(1)
-      Calculate pixel values of vertices of the triangle O(1)
-      clip triangle  //unless you model your scene such that no part ever goes outside the viewport (commentception) O(1)
-      For each triangle, O(m*n)
-        Add x,y,z position of scan conversion pixels to temp per-polygon table (indexed on y position with min and max x values)
-        Also store a min and max x for y=0, y=MAX_Y-1. Add the x,y values for the points in between to the temp table
-        Copy temp table to data table with the points between min and max x values filled (in case of conlict, min z value only) O(m*n)
-  */
+  if(!Aisclippingwindow)
+	drawA(Ax, Ay, Az);
+  drawB(Bx, By, Bz);
 
   /*drawPixels*/
   renderScene();
@@ -210,7 +194,7 @@ void keyPressed(unsigned char x, int i, int j)
 {
   switch(x){
     case 'x': exit(0);
-    case 'z': Aactsasclippingwindow = !Aactsasclippingwindow;
+    case 'z': Aisclippingwindow = !Aisclippingwindow;
               break;
     case 'a': eyex-=0.5;
               break;

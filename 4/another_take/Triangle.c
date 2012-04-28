@@ -34,8 +34,6 @@ Triangle globalTriangle(Triangle a)
   t_a.normal = normalizeVertex(t_a.normal);
   light=dotProduct(normalizeVertex(t_a.v1), normalizeVertex(vertex(0, 0, 5)));
   t_a.colour=(a.colour*(int)((light*0.5)*127))/127 + (a.colour*63)/127;
-  //printf("Global: %f %f %f,  %f %f %f, %f %f %f\t", t_a.v1.x, t_a.v1.y, t_a.v1.z, t_a.v2.x, t_a.v2.y, t_a.v2.z, t_a.v3.x, t_a.v3.y, t_a.v3.z);
-  //printf("Normal: %f %f %f\n", t_a.normal.x, t_a.normal.y, t_a.normal.z);
   return t_a;
 }
 
@@ -44,8 +42,6 @@ Triangle eyeTriangle(Triangle a)
   Triangle t_a = triangle(eyeVertex(a.v1), eyeVertex(a.v2), eyeVertex(a.v3), a.colour);
   t_a.normal = crossProduct(subVertex(t_a.v2, t_a.v1), subVertex(t_a.v3, t_a.v2));
   t_a.normal = normalizeVertex(t_a.normal);
-  //printf("Eye: %f %f %f,  %f %f %f, %f %f %f\t", t_a.v1.x, t_a.v1.y, t_a.v1.z, t_a.v2.x, t_a.v2.y, t_a.v2.z, t_a.v3.x, t_a.v3.y, t_a.v3.z);
-  //printf("Normal: %f %f %f\n", t_a.normal.x, t_a.normal.y, t_a.normal.z);
   return t_a;
 }
 

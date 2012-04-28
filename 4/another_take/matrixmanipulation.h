@@ -32,10 +32,10 @@ MatrixStack *initMatrix ();
 
 /* Function to push a matrix onto the stack.Returns a pointer to the top of 
  * the stack, which is the same as the pushed matrix.*/
-MatrixStack *pushMatrix ();
+MatrixStack *addToStack ();
 
 /* Function to pop a matrix from the stack. */
-MatrixStack *popMatrix ();
+MatrixStack *removeFromStack ();
 
 /* Function to multiply a matrix with the top of the stack. */
 MatrixStack *multMatrix (float *matrix);
