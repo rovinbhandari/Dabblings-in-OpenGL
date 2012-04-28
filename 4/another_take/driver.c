@@ -104,7 +104,7 @@ void blockWithHole(float x, float y, float z){
 				addRectangle(vertex(-0.5, 0.0, -0.5), vertex(-0.5, 0.0, 0.5), GREEN);	\
 			}	\
 			while(0)
-void blockColoured(float x, float y, float z){
+void drawB(float x, float y, float z){
   if(Aisclippingwindow && (posB == 0 || posB == 1))
   	return;
   addToStack();
@@ -157,7 +157,7 @@ void onDraw()
   initMatrix();
   if(!Aisclippingwindow)
 	blockWithHole(Ax, Ay, Az);
-  blockColoured(Bx, By, Bz);
+  drawB(Bx, By, Bz);
 
  
   /*calcData*/

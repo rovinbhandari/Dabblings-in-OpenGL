@@ -2,6 +2,8 @@
 #include <string.h>
 #include <matrixmanipulation.h>
 
+#define DELTA .000001
+
 float *zBuffer;
 float (*pointsTable)[4];
 int y0min, y0max, y1min, y1max;
@@ -53,39 +55,51 @@ void addToPointsTable (int x, int y, float z)
   }
 }
 
+#define LEFT    1
+#define RIGHT   2
+#define BOTTOM  4
+#define TOP     8
+#define FRONT   16
+#define BACK    32
+
+#define OUTSIDE 0
+#define INSIDE  1
+#define CLIPPED 2
+
 int clip(Vertex *a, Vertex *b)
 {
   int reg_a = 0, reg_b = 0, min = -1, ret = 1;
-  float x_check, y_check, z_check, param=0, max_param=1;
+  float x_check, y_check, z_check, param=0, max_param = 0;
   
-  reg_a += (a->x > 1) ? 2 : (a->x < -1) ? 1 : 0;
-  reg_a += (a->y > 1) ? 8 : (a->y < -1) ? 4 : 0;
-  reg_a += (a->z > 1) ? 32: (a->z < -1) ? 16: 0;
+  // Generate bitmasks for reg_a and reg_b
+  reg_a |= (a->x > 1) ? RIGHT : (a->x < -1) ? LEFT   : 0;
+  reg_a |= (a->y > 1) ? TOP   : (a->y < -1) ? BOTTOM : 0;
+  reg_a |= (a->z > 1) ? BACK  : (a->z < -1) ? FRONT  : 0;
 
-  reg_b += (b->x > 1) ? 2 : (b->x < -1) ? 1 : 0;
-  reg_b += (b->y > 1) ? 8 : (b->y < -1) ? 4 : 0;
-  reg_b += (b->z > 1) ? 32: (b->z < 0 ) ? 16: 0;  // Verify.
+  reg_b |= (b->x > 1) ? RIGHT : (b->x < -1) ? LEFT   : 0;
+  reg_b |= (b->y > 1) ? TOP   : (b->y < -1) ? BOTTOM : 0;
+  reg_b |= (b->z > 1) ? BACK  : (b->z <  0) ? FRONT  : 0; 
   
-  if(reg_a == 0 && reg_b == 0)
+  if( reg_a == 0 && reg_b == 0)
   {
-    return 1;
+    return INSIDE;
   }
   
   if((a->x == b->x) && (a->y == b->y) && (a->z == b->z))
   { 
-    return 0; 
+    return OUTSIDE; 
   }
   
   if ( (reg_a ^ reg_b) != 0)
   {
-    return 0;
+    return OUTSIDE;
   }
   
   if (reg_a!=0)
   {
-    x_check = (reg_a & 3)  == 0 ? 0  : (reg_a & 3) * 2 - 3;
-    y_check = (reg_a & 12) == 0 ? 0  : (reg_a & 12) / 2 - 3;
-    z_check = (reg_a & 48) == 0 ? -1 : (reg_a & 48) / 16 - 1;
+    x_check = (reg_a & LEFT)   ? -1 : (reg_a & RIGHT) ? 1 : 0;
+    y_check = (reg_a & BOTTOM) ? -1 : (reg_a & TOP) ? 1   : 0; 
+    z_check = (reg_a & BACK)   ?  1 : (reg_a & FRONT) ? 0 : -1; 
     
     if (x_check) 
     { 
@@ -107,7 +121,7 @@ int clip(Vertex *a, Vertex *b)
       }
     }
     
-    if (z_check+1)
+    if (z_check + 1)
     { 
       param = (z_check - a->z) / (b->z - a->z);
       if (max_param < param)
@@ -121,12 +135,20 @@ int clip(Vertex *a, Vertex *b)
     { 
       if (a->x < x_check)
       { 
-        if(x_check == 1) a->x=1+.000001; a->x=-1; 
+        if(x_check == 1) 
+        {
+          a->x = 1 + DELTA;
+          a->x = -1; 
+        }
       } 
       
       if (a->x>x_check)
       { 
-        if(x_check==-1) a->x=-1-.000001; a->x=1; 
+        if(x_check==-1) 
+        {
+          a->x = -1 - DELTA; 
+          a->x = 1; 
+        }
       } 
     }
     else 
@@ -138,11 +160,19 @@ int clip(Vertex *a, Vertex *b)
     { 
       if (a->y < y_check)
       { 
-        if(y_check == 1) a->y=1+.000001; a->y=-1;
+        if(y_check == 1) 
+        {
+          a->y = 1 + DELTA;
+          a->y = -1;
+        }
       }
       if (a->y > y_check)
       { 
-        if(y_check==-1) a->y=-1-.000001; a->y=1; 
+        if(y_check==-1) 
+        {
+          a->y = -1 - DELTA; 
+          a->y = 1; 
+        }
       }
     }
     else 
@@ -154,11 +184,19 @@ int clip(Vertex *a, Vertex *b)
     { 
       if (a->z < z_check) 
       {
-        if(z_check == 1) a->z=1+.000001; a->z=0; 
+        if(z_check == 1)
+        {
+          a->z = 1 + DELTA; 
+          a->z = 0; 
+        }
       } 
       if (a->z > z_check)
       { 
-        if(z_check==0) a->z=0-.000001; a->z=1; 
+        if(z_check == 0) 
+        {
+          a->z = 0 - DELTA; 
+          a->z = 1; 
+        }
       } 
     }
     else 
@@ -167,9 +205,9 @@ int clip(Vertex *a, Vertex *b)
     }
     if(!testValid(*a))
     {
-      return 0;
+      return OUTSIDE;
     }
-    ret=2;
+    ret = CLIPPED;
   }
   
   param = 0;
@@ -178,9 +216,9 @@ int clip(Vertex *a, Vertex *b)
 
   if (reg_b != 0)
   {
-    x_check = (reg_b & 3) == 0  ?  0 : (reg_b & 3) * 2 - 3;
-    y_check = (reg_b & 12) == 0 ?  0 : (reg_b & 12) / 2 - 3;
-    z_check = (reg_b & 48) == 0 ? -1 : (reg_b & 48) / 16 - 1;
+    x_check = (reg_b & LEFT)   ? -1 : (reg_b & RIGHT) ? 1 : 0;
+    y_check = (reg_b & BOTTOM) ? -1 : (reg_b & TOP) ?   1 : 0; 
+    z_check = (reg_b & BACK)   ?  1 : (reg_b & FRONT) ? 0 : -1; 
 
     if (x_check)
     { 
@@ -215,11 +253,11 @@ int clip(Vertex *a, Vertex *b)
     { 
       if(b->x < x_check)
       {
-        if(x_check == 1) b->x=1+.000001; b->x=-1; 
+        if(x_check == 1) b->x=1+DELTA; b->x=-1; 
       }
       if  (b->x > x_check) 
       { 
-        if (x_check == -1) b->x=-1-.000001; b->x=1; 
+        if (x_check == -1) b->x=-1-DELTA; b->x=1; 
       }
     }
     else 
@@ -231,11 +269,19 @@ int clip(Vertex *a, Vertex *b)
     {
       if (b->y < y_check)
       { 
-        if (y_check == 1) b->y=1+.000001; b->y=-1; 
+        if (y_check == 1) 
+        {
+          b->y = 1 + DELTA;
+          b->y = -1; 
+        }
       }
       if (b->y > y_check)
       { 
-        if (y_check==-1) b->y=-1-.000001; b->y=1; 
+        if (y_check==-1) 
+        {
+          b->y = -1 - DELTA;
+          b->y = 1;
+        }
       }
     }
     else
@@ -246,11 +292,18 @@ int clip(Vertex *a, Vertex *b)
     {
       if (b->z < z_check)
       {
-        if (z_check == 1) b->z = 1 + .000001; b->z = 0; 
+        if (z_check == 1)
+        {
+          b->z = 1 + DELTA; b->z = 0; 
+        }
       } 
       if (b->z > z_check)
       {
-        if (z_check == 0) b->z = 0 - .000001; b->z = 1; 
+        if (z_check == 0)
+        {
+          b->z = 0 - DELTA;
+          b->z = 1; 
+        }
       }
     }
     else
@@ -259,9 +312,9 @@ int clip(Vertex *a, Vertex *b)
     }
     if(!testValid(*b)) 
     {
-      return 0;
+      return OUTSIDE;
     }
-    ret=2;
+    ret = CLIPPED;
   }
   return ret;
 }
