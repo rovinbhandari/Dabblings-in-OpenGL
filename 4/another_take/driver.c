@@ -21,69 +21,69 @@ float eyex=0, eyey=0, eyez=16, lookx=0, looky=0, lookz=0, upx=0, upy=1, upz=0;
 float Bx = 2, By = 0, Bz = 0;
 float Ax = -5, Ay = -3, Az = 0;
 unsigned int *data;
-Boolean Aactsasclippingwindow = FALSE;
+Boolean Aisclippingwindow = FALSE;
 
 void blockWithHole(float x, float y, float z){
-  pushMatrix();
+  addToStack();
     translate(x, y, z);
-    pushMatrix();
+    addToStack();
       translate(2.5, 0.0, 0.0);
       addRectangle(vertex(0.0, 1.5, 2.5), vertex(0.0, -1.5, 2.5), YELLOW);
       translate(-5.0, 0.0, 0.0);
       addRectangle(vertex(0.0, -1.5, 2.5), vertex(0.0, 1.5, 2.5), YELLOW);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(0.5, 0.0, 0.0);
       addRectangle(vertex(0.0, -1.5, 0.5), vertex(0.0, 1.5, 0.5), GREY);
       translate(-1.0, 0.0, 0.0);
       addRectangle(vertex(0.0, 1.5, 0.5), vertex(0.0, -1.5, 0.5), GREY);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(0.0, 0.0, 2.5);
       addRectangle(vertex(-2.5, 1.5, 0.0), vertex(-2.5, -1.5, 0.0), YELLOW);
       translate(0.0, 0.0, -5.0);
       addRectangle(vertex(-2.5, -1.5, 0.0), vertex(-2.5, 1.5, 0.0), YELLOW);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(0.0, 0.0, 0.5);
       addRectangle(vertex(-0.5, -1.5, 0.0), vertex(-0.5, 1.5, 0.0), GREY);
       translate(0.0, 0.0, -1.0);
       addRectangle(vertex(-0.5, 1.5, 0.0), vertex(-0.5, -1.5, 0.0), GREY);
-    popMatrix();
-    pushMatrix();
+    removeFromStack();
+    addToStack();
       translate(1.5, 1.5, 0.0);
       addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), YELLOW);
-      popMatrix();
+      removeFromStack();
       translate(-3.0, 0.0, 0.0);
       addRectangle(vertex(-1.0, 0.0, -0.5), vertex(-1.0, 0.0, 0.5), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-1.0, 0.0, 0.5), vertex(-1.0, 0.0, -0.5), YELLOW);
-      popMatrix();
-    popMatrix();
-    pushMatrix();
+      removeFromStack();
+    removeFromStack();
+    addToStack();
       translate(0.0, 1.5, 1.5);
       addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), YELLOW);
-      popMatrix();
+      removeFromStack();
       translate(0.0, 0.0, -3.0);
       addRectangle(vertex(-2.5, 0.0, -1.0), vertex(-2.5, 0.0, 1.0), YELLOW);
-      pushMatrix();
+      addToStack();
         translate(0.0, -3.0, 0.0);
         addRectangle(vertex(-2.5, 0.0, 1.0), vertex(-2.5, 0.0, -1.0), YELLOW);
-      popMatrix();
-    popMatrix();
-  popMatrix();
+      removeFromStack();
+    removeFromStack();
+  removeFromStack();
 } 
 
 #define Bpart(X)	do	\
 			{	\
-				pushMatrix();	\
+				addToStack();	\
 					addRectangle(vertex(0.0, 1.5, -0.5), vertex(0.0, -1.5, -0.5), X);	\
 					translate(1.0, 0.0, 0.0);	\
 					addRectangle(vertex(0.0, -1.5, -0.5), vertex(0.0, 1.5, -0.5), X);	\
@@ -91,7 +91,7 @@ void blockWithHole(float x, float y, float z){
 					addRectangle(vertex(0.5, 1.5, 0.0), vertex(0.5, -1.5, 0.0), X);		\
 					translate(0.0, 0.0, 1.0);	\
 					addRectangle(vertex(0.5, -1.5, 0.0), vertex(0.5, 1.5, 0.0), X);		\
-				popMatrix();	\
+				removeFromStack();	\
 			}	\
 			while(0)
 #define Bredcap		do	\
@@ -105,11 +105,11 @@ void blockWithHole(float x, float y, float z){
 			}	\
 			while(0)
 void blockColoured(float x, float y, float z){
-  if(Aactsasclippingwindow && (posB == 0 || posB == 1))
+  if(Aisclippingwindow && (posB == 0 || posB == 1))
   	return;
-  pushMatrix();
+  addToStack();
     translate(x, y, z);
-    if(Aactsasclippingwindow)
+    if(Aisclippingwindow)
     {
 	if(posB == 2)
 	{
@@ -140,7 +140,7 @@ void blockColoured(float x, float y, float z){
 	translate(0.0, -9.0, 0.0);
 	Bredcap;
     }
-  popMatrix();
+  removeFromStack();
 }
 
 void onDraw()
@@ -155,7 +155,7 @@ void onDraw()
   initScene();
   setMatrixMode(MODELVIEW); 
   initMatrix();
-  if(!Aactsasclippingwindow)
+  if(!Aisclippingwindow)
 	blockWithHole(Ax, Ay, Az);
   blockColoured(Bx, By, Bz);
 
@@ -210,7 +210,7 @@ void keyPressed(unsigned char x, int i, int j)
 {
   switch(x){
     case 'x': exit(0);
-    case 'z': Aactsasclippingwindow = !Aactsasclippingwindow;
+    case 'z': Aisclippingwindow = !Aisclippingwindow;
               break;
     case 'a': eyex-=0.5;
               break;
