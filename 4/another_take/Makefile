@@ -1,7 +1,7 @@
 SRC=. 
 OBJ=.
 BIN=.
-CFLAGS=-Wall -g -I./
+CFLAGS= -I./
 LFLAGS=-lm -lGL -lglut -lGLU -I/usr/X11R6/include -L/usr/X11R6/lib
 OBJECTS= $(OBJ)/renderingfunctions.o $(OBJ)/Triangle.o $(OBJ)/matrixmanipulation.o $(OBJ)/Vertex.o $(OBJ)/driver.o
 OUTPUT_FILE=demo.out
